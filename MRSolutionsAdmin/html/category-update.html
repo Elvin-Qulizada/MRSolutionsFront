@@ -286,11 +286,11 @@
                       <h5 class="mb-0">Kateqoriya Dəyişmək</h5>
                     </div>
                     <div class="card-body">
-                      <form action="https://localhost:7255/api/Category/" method="put">
+                      <form id="updateCategoryForm">
                         <div class="row mb-3">
                           <label class="col-sm-2 col-form-label" for="basic-default-name">Kateqoriya Adı</label>
                           <div class="col-sm-10">
-                            <input type="text" class="form-control" name="name" id="category_name" placeholder="Kateqoriya Adı" />
+                            <input type="text" class="form-control" name="name" id="name" placeholder="Kateqoriya Adı" />
                           </div>
                         </div>
                         <div class="row justify-content-center">
@@ -312,7 +312,7 @@
               <div class="mb-2 mb-md-0">
                 ©
                 <script>
-                    document.write(new Date().getFullYear());
+                  document.write(new Date().getFullYear());
                 </script>
                 , made with ❤️ by
                 <a href="https://elvin-qulizade.github.io/Elvin-Qulizade/" target="_blank"
@@ -334,15 +334,43 @@
     </div>
     <!-- / Layout wrapper -->
     <script>
-        const queryString = window.location.search;
-        const urlParams = new URLSearchParams(queryString);
-        const categoryId = urlParams.get('id');
-        document.querySelector("form").action+=categoryId;
-        fetch(`https://localhost:7255/api/Category/${categoryId}`)
-        .then(res=>res.json())
-        .then(data=>{
-            document.getElementById("category_name").value=data.name;
+      const queryString = window.location.search;
+      const urlParams = new URLSearchParams(queryString);
+      const categoryId = urlParams.get('id');
+      document.querySelector("form").action += categoryId;
+      fetch(`https://localhost:7255/api/Category/${categoryId}`)
+        .then(res => res.json())
+        .then(data => {
+          document.getElementById("name").value = data.name;
         });
+      document.getElementById("updateCategoryForm").addEventListener('submit', function (event) {
+        event.preventDefault(); // Prevent form submission
+
+        // Get the updated category data from the form
+        const id = categoryId;
+        const name = document.getElementById('name').value;
+        console.log(name);
+        const updatedCategory = { id, name };
+
+        // Send the update request to the API
+        fetch(`https://localhost:7255/api/Category/${categoryId}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(updatedCategory)
+        })
+          .then(response => response.json())
+          .then(data => {
+            // Handle the response data
+            console.log('Updated category:', data);
+            // Perform any necessary UI updates or other actions
+          })
+          .catch(error => {
+            console.error('Error:', error);
+            // Handle any errors that occurred during the update request
+          });
+      });
     </script>
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
