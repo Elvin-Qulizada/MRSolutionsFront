@@ -148,7 +148,7 @@
                 </a>
               </li>
               <li class="menu-item">
-                <a href="setting-index.html" class="menu-link">
+                <a href="category-index.html" class="menu-link">
                   <div data-i18n="Error">Categories</div>
                 </a>
               </li>
@@ -384,39 +384,53 @@
 
         // Get the updated setting data from the form
         const id = settingId;
-        const name = document.getElementById('name').value;
-        console.log(name);
-        const updatedSetting = { id, name };
+        const value = document.getElementById('value').value;
+        console.log(value);
+        const updatedSetting = { id, value };
 
         // Send the update request to the API
         fetch(`https://localhost:7255/api/Setting/${settingId}`, {
           method: 'PUT',
+          mode: "cors", // no-cors, *cors, same-origin
+          cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+          credentials: "same-origin", // include, *same-origin, omit
           headers: {
-            'Content-Type': 'application/json'
+            "Content-Type": "application/json",
+            // 'Content-Type': 'application/x-www-form-urlencoded',
           },
+          redirect: "follow", // manual, *follow, error
+          referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
           body: JSON.stringify(updatedSetting)
         })
           .then(response => {
             if (!response.ok) {
               $("#modalCenter").modal('show');
             }
+            else {
+              Swal.fire(
+                'Dəyişdirildi!',
+                'Tənzimləmə dəyişdirildi.',
+                'info'
+              ).then(function () {
+                window.location.href = "http://127.0.0.1:5500/MRSolutionsAdmin/html/setting-index.html";
+              })
+            }
             response.json()
           })
-          .then(data => {
-            Swal.fire(
-              'Dəyişdirildi!',
-              'Tənzimləmə dəyişdirildi.',
-              'info'
-            ).then(function () {
-              window.location.href = "http://127.0.0.1:5500/MRSolutionsAdmin/html/setting-index.html";
-            })
-            setTimeout(() => {
-              window.location.href = "http://127.0.0.1:5500/MRSolutionsAdmin/html/setting-index.html";
-            }, 10000);
-            // Handle the response data
-            console.log('Updated setting:', data);
-            // Perform any necessary UI updates or other actions
-          })
+          // .then(data => {
+          //   Swal.fire(
+          //     'Dəyişdirildi!',
+          //     'Tənzimləmə dəyişdirildi.',
+          //     'info'
+          //   ).then(function () {
+          //     window.location.href = "http://127.0.0.1:5500/MRSolutionsAdmin/html/setting-index.html";
+          //   })
+          //   // setTimeout(() => {
+          //   //   window.location.href = "http://127.0.0.1:5500/MRSolutionsAdmin/html/setting-index.html";
+          //   // }, 10000);
+          //   // Handle the response data
+          //   // Perform any necessary UI updates or other actions
+          // })
           .catch(error => {
             $("#modalCenter").modal('show');
             // console.error('Error:', error);
