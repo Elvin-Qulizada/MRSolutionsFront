@@ -287,7 +287,7 @@
                       <h5 class="mb-0">Xidmət Yaratmaq</h5>
                     </div>
                     <div class="card-body">
-                      <form enctype="multipart/form-data" id="createServiceForm" action="https://localhost:7255/api/Service" method="post">
+                      <form enctype="multipart/form-data" id="createServiceForm" action="https://localhost:7255/api/Service">
                         <div class="row mb-3">
                             <div class="col-md-4">
                                 <label class="col-form-label" for="name">Xidmət Adı</label>
@@ -316,7 +316,7 @@
                             <div class="col-md-12">
                                 <label class="col-form-label" for="description">Məlumat</label>
                                 <div class="">
-                                    <textarea class="form-control" id="description" placeholder="Məlumat" rows="3"></textarea>
+                                    <textarea class="form-control" id="description" name="description" placeholder="Məlumat" rows="3"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -371,7 +371,7 @@
               <div class="mb-2 mb-md-0">
                 ©
                 <script>
-                    document.write(new Date().getFullYear());
+                  document.write(new Date().getFullYear());
                 </script>
                 , made with ❤️ by
                 <a href="https://elvin-qulizade.github.io/Elvin-Qulizade/" target="_blank"
@@ -392,62 +392,86 @@
       <div class="layout-overlay layout-menu-toggle"></div>
     </div>
     <!-- / Layout wrapper -->
-    <script>
-        document.getElementById("createServiceForm").addEventListener('submit', function (event) {
-            event.preventDefault(); // Prevent form submission
-            const formData = new FormData();
-            const posterImage = document.getElementById("posterimage").files[0];
-            const image = document.getElementById("image").files[0];
-            formData.append('posterImage',posterImage)
-            formData.append('image',image)
-            formData.append('name',document.getElementById("name").value)
-            formData.append('headerText',document.getElementById("headertext").value)
-            formData.append('description',document.getElementById("description").value)
-            // Example POST method implementation:
-            async function postData(url = "", data = {}) {
-                // Default options are marked with *
-                const response = await fetch(url, {
-                    method: "POST", // *GET, POST, PUT, DELETE, etc.
-                    mode: "cors", // no-cors, *cors, same-origin
-                    cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-                    credentials: "same-origin", // include, *same-origin, omit
-                    headers: {
-                        "Content-Type": "multipart/form-data"
-                    },
-                    redirect: "follow", // manual, *follow, error
-                    referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-                    body: formData, // body data type must match "Content-Type" header
-                })
-                    .then(response => {
-                        if (!response.ok) {
-                            $("#modalCenter").modal('show');
-                        } else {
-                            Swal.fire(
-                                'Yaradıldı!',
-                                'Xidmət yaradıldı.',
-                                'info'
-                            ).then(function () {
-                                window.location.href = "http://127.0.0.1:5500/MRSolutionsAdmin/html/category-index.html";
-                            })
-                            setTimeout(() => {
-                                window.location.href = "http://127.0.0.1:5500/MRSolutionsAdmin/html/category-index.html";
-                            }, 10000);
-                        }
-                    })
-                    .catch((err) => {
-                      console.error(err);
-                        $("#modalCenter").modal('show');
-                    });
-
-                return response?.json(); // parses JSON response into native JavaScript objects
-            }
-
-            postData("https://localhost:7255/api/Service", {  }).then((data) => {
-                // console.log(data); // JSON data parsed by `data.json()` call
-            });
-        });
-    </script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.5/dist/sweetalert2.all.min.js"></script>
+    <script>
+      document.getElementById("createServiceForm").addEventListener('submit', function (event) {
+        event.preventDefault(); // Prevent form submission
+        const formData = new FormData();
+        const posterImage = document.getElementById("posterimage").files[0];
+        const image = document.getElementById("image").files[0];
+        formData.append('posterimage', posterImage)
+        formData.append('image', image)
+        formData.append('name', document.getElementById("name").value)
+        formData.append('headertext', document.getElementById("headertext").value)
+        formData.append('description', document.getElementById("description").value)
+        console.log(formData);
+        fetch("https://localhost:7255/api/Service", {
+          method: "POST",
+          body: formData
+        }).then(response => {
+          if (!response.ok) {
+            $("#modalCenter").modal('show');
+          } else {
+            Swal.fire(
+              'Yaradıldı!',
+              'Xidmət yaradıldı.',
+              'info'
+            ).then(function () {
+              window.location.href = "http://127.0.0.1:5500/MRSolutionsAdmin/html/service-index.html";
+            })
+            setTimeout(() => {
+              window.location.href = "http://127.0.0.1:5500/MRSolutionsAdmin/html/service-index.html";
+            }, 10000);
+          }
+          response.json();
+        }).catch(e => {
+          $("#modalCenter").modal('show');
+        })
+        // Example POST method implementation:
+        // async function postData(url = "", data = {}) {
+        //   // Default options are marked with *
+        //   const response = await fetch(url, {
+        //     method: "POST", // *GET, POST, PUT, DELETE, etc.
+        //     mode: "cors", // no-cors, *cors, same-origin
+        //     cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+        //     credentials: "same-origin", // include, *same-origin, omit
+        //     headers: {
+        //       "Content-Type": "multipart/form-data"
+        //     },
+        //     redirect: "follow", // manual, *follow, error
+        //     referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+        //     body: formData, // body data type must match "Content-Type" header
+        //   })
+        //     .then(response => {
+        //       if (!response.ok) {
+        //         console.log(response);
+        //         $("#modalCenter").modal('show');
+        //       } else {
+        //         Swal.fire(
+        //           'Yaradıldı!',
+        //           'Xidmət yaradıldı.',
+        //           'info'
+        //         ).then(function () {
+        //           window.location.href = "http://127.0.0.1:5500/MRSolutionsAdmin/html/category-index.html";
+        //         })
+        //         setTimeout(() => {
+        //           window.location.href = "http://127.0.0.1:5500/MRSolutionsAdmin/html/category-index.html";
+        //         }, 10000);
+        //       }
+        //     })
+        //     .catch((err) => {
+        //       console.error(err);
+        //       $("#modalCenter").modal('show');
+        //     });
+
+        //   return response?.json(); // parses JSON response into native JavaScript objects
+        // }
+
+        // postData("https://localhost:7255/api/Service", {}).then((data) => {
+        //   // console.log(data); // JSON data parsed by `data.json()` call
+        // });
+      });
+    </script>
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
     <script src="../assets/vendor/libs/jquery/jquery.js"></script>

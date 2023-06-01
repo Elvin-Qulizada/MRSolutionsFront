@@ -285,14 +285,14 @@
               <div class="card">
                 <h5 class="card-header d-flex justify-content-between align-items-center">Xidmətlər<a href="./service-create.html" class="text-white btn btn-success">Yeni +</a></h5>
                 <div class="card-body">
-                  <div style="overflow-y: hidden;" class="table-responsive text-nowrap">
-                    <table class="table table-bordered">
+                  <div style="overflow-y: hidden;" class="table-responsive">
+                    <table class="table table-bordered w-100">
                       <thead>
                         <tr class="text-center">
-                          <th>Şəkil</th>
-                          <th>Xidmət Adı</th>
-                          <th>Başlıq</th>
-                          <th>Təsvir</th>
+                          <th style="width:20%">Şəkil</th>
+                          <th style="width:15%">Xidmət Adı</th>
+                          <th style="width:20%">Başlıq</th>
+                          <th style="width:20%">Təsvir</th>
                           <th>Fəaliyyətlər</th>
                         </tr>
                       </thead>
@@ -352,10 +352,10 @@
                             <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>${element.name}</strong>
                           </td>
                           <td>
-                            <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>${element.headerText}</strong>
+                            <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>${element.headerText.substring(0,60)}...</strong>
                           </td>
                           <td>
-                            <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>${element.description}</strong>
+                            <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>${element.description.substring(0,60)}...</strong>
                           </td>
                           <td class="text-center">
                             <a href="./service-update.html?id=${element.id}" class="text-white btn btn-warning">Dəyişmək</a>
@@ -367,6 +367,7 @@
         function serviceDelete(e) {
             console.log("test")
             let url = `https://localhost:7255/api/Service/${e.dataset.id}`;
+            let id = e.dataset.id;
             Swal.fire({
                 title: 'Əminsinizmi?',
                 text: "Bu fəaliyyəti geri qaytarmaq mümkün olmayacaq!",
