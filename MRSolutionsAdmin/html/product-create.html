@@ -27,7 +27,7 @@
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
 
-    <title>Produkt yaratmaq</title>
+    <title>Məhsul yaratmaq</title>
 
     <meta name="description" content="" />
 
@@ -284,15 +284,15 @@
                 <div class="col-xxl">
                   <div class="card mb-4">
                     <div class="card-header d-flex align-items-center justify-content-between">
-                      <h5 class="mb-0">Produkt Yaratmaq</h5>
+                      <h5 class="mb-0">Məhsul Yaratmaq</h5>
                     </div>
                     <div class="card-body">
                       <form enctype="multipart/form-data" id="createProductForm" action="https://localhost:7255/api/Product">
                         <div class="row mb-3">
                             <div class="col-md-6">
-                                <label class="col-form-label" for="name">Produkt Adı</label>
+                                <label class="col-form-label" for="name">Məhsul Adı</label>
                                 <div class="">
-                                  <input type="text" class="form-control" name="name" id="name" placeholder="Produkt Adı" />
+                                  <input type="text" class="form-control" name="name" id="name" placeholder="Məhsul Adı" />
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -424,6 +424,11 @@
           // Default options are marked with *
           const response = await fetch("https://localhost:7255/api/Product", {
             method: "POST",
+            mode: "cors", // no-cors, *cors, same-origin
+            cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+            credentials: "same-origin", // include, *same-origin, omit
+            redirect: "follow", // manual, *follow, error
+            referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
             body: formData
           }).then(response => {
             if (!response.ok) {
@@ -431,7 +436,7 @@
             } else {
               Swal.fire(
                 'Yaradıldı!',
-                'Produkt yaradıldı.',
+                'Məhsul yaradıldı.',
                 'info'
               ).then(function () {
                 window.location.href = "http://127.0.0.1:5500/MRSolutionsAdmin/html/service-index.html";
@@ -470,7 +475,7 @@
         //       } else {
         //         Swal.fire(
         //           'Yaradıldı!',
-        //           'Produkt yaradıldı.',
+        //           'Məhsul yaradıldı.',
         //           'info'
         //         ).then(function () {
         //           window.location.href = "http://127.0.0.1:5500/MRSolutionsAdmin/html/category-index.html";

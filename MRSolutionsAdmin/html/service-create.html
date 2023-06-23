@@ -478,7 +478,36 @@
       //   //   // console.log(data); // JSON data parsed by `data.json()` call
       //   // });
       // });
-      document.getElementById("createServiceForm").addEventListener('submit', function (event) {
+      async function postData(url = "", data = {}) {
+        try {
+          const response = await fetch(url, {
+            method: "POST",
+            body: data
+          });
+
+          if (!response.ok) {
+            $("#modalCenter").modal('show');
+          } else {
+            Swal.fire(
+              'Yaradıldı!',
+              'Xidmət yaradıldı.',
+              'info'
+            ).then(function () {
+              window.location.href = "http://127.0.0.1:5500/MRSolutionsAdmin/html/service-index.html";
+            });
+
+            setTimeout(() => {
+              window.location.href = "http://127.0.0.1:5500/MRSolutionsAdmin/html/service-index.html";
+            }, 10000);
+          }
+
+          return response.json(); // Return the parsed JSON data
+        } catch (error) {
+          $("#modalCenter").modal('show');
+          throw error;
+        }
+      }
+      document.getElementById("createServiceForm").addEventListener('submit', async function (event) {
         event.preventDefault(); // Prevent form submission
         const formData = new FormData();
         const posterImage = document.getElementById("posterimage").files[0];
@@ -489,34 +518,13 @@
         formData.append('headertext', document.getElementById("headertext").value)
         formData.append('description', document.getElementById("description").value)
         // Example POST method implementation:
-        async function postData(url = "", data = {}) {
-          // Default options are marked with *
-          const response = await fetch("https://localhost:7255/api/Service", {
-            method: "POST",
-            body: formData
-          }).then(response => {
-            if (!response.ok) {
-              $("#modalCenter").modal('show');
-            } else {
-              Swal.fire(
-                'Yaradıldı!',
-                'Xidmət yaradıldı.',
-                'info'
-              ).then(function () {
-                window.location.href = "http://127.0.0.1:5500/MRSolutionsAdmin/html/service-index.html";
-              })
-              setTimeout(() => {
-                window.location.href = "http://127.0.0.1:5500/MRSolutionsAdmin/html/service-index.html";
-              }, 10000);
-            }
-            response.json();
-          }).catch(e => {
-            $("#modalCenter").modal('show');
-          }) // parses JSON response into native JavaScript objects
-        }
 
-        postData("https://localhost:7255/api/Service", { name: document.getElementById('name').value, image: document.getElementById('image').files[0] }).then((data) => {
-          // console.log(data); // JSON data parsed by `data.json()` call
+
+        await postData("https://localhost:7255/api/Service", formData).then((data) => {
+          console.log(data); // JSON data parsed by `response.json()` call
+        }).catch((error) => {
+          // Handle any errors that occurred during the fetch request
+          console.error(error);
         });
 
         // Get the updated brand data from the form
