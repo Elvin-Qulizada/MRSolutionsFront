@@ -312,7 +312,7 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="col-md-12">
-                                    <img id="imageShow" src="../" alt="">
+                                    <img id="imageShow" src="./../assets/img/uploads/product/" class="w-100" alt="">
                                 </div>
                                 <div class="col-md-12">
                                     <label class="col-form-label" for="image">Başlıq Şəkli</label>
@@ -323,9 +323,10 @@
                             </div>
                                 <div class="col-md-4">
                                     <div class="col-md-12">
-                                        <video autoplay="" muted="" loop="">
+                                        <video muted="">
                                             <source
-                                                src=""
+                                                id="videoShow"
+                                                src="./../assets/videos/uploads/product/"
                                                 type="video/mp4">
                                         </video>
                                     </div>
@@ -420,6 +421,7 @@
       const queryString = window.location.search;
       const urlParams = new URLSearchParams(queryString);
       const productId = urlParams.get('id');
+      let categoryId;
       document.querySelector("form").action += productId;
       fetch(`https://localhost:7255/api/Product/${productId}`)
         .then(res => res.json())
@@ -427,18 +429,22 @@
           document.getElementById("name").value = data.name;
           document.getElementById("headertext").value = data.headerText;
           document.getElementById("description").value = data.description;
-          document.getElementById("imageShow").src += data.imageUrl;
+          document.getElementById("imageShow").src += data.name + "/" + data.imageUrl;
+          document.getElementById("videoShow").src += data.name + "/" + data.videoUrl;
+          categoryId = data.categoryId;
+        }).then(() => {
+          fetch("https://localhost:7255/api/Category")
+            .then(response => response.json())
+            .then(data => data.forEach(element => {
+              if (element.id == categoryId) {
+                document.getElementById("category-selectlist").innerHTML += `<option selected value=${element.id}>${element.name}</option>`
+              }
+              else {
+                document.getElementById("category-selectlist").innerHTML += `<option value=${element.id}>${element.name}</option>`
+              }
+            }))
         });
-      fetch("https://localhost:7255/api/Category")
-        .then(response => response.json())
-        .then(data => data.forEach(element => {
-          if(element.id==productId){
-            document.getElementById("category-selectlist").innerHTML += `<option selected value=${element.id}>${element.name}</option>`
-          }
-          else{
-            document.getElementById("category-selectlist").innerHTML += `<option value=${element.id}>${element.name}</option>`
-          }
-        }))
+
       document.getElementById("updateProductForm").addEventListener('submit', function (event) {
         // event.preventDefault(); // Prevent form submission
 
@@ -457,9 +463,11 @@
         console.log(document.getElementById("image").files[0]);
         formData.append('id', productId)
         formData.append('image', image)
+        formData.append('video', image)
         formData.append('name', document.getElementById("name").value)
         formData.append('headertext', document.getElementById("headertext").value)
         formData.append('description', document.getElementById("description").value)
+        formData.append('categoryid', document.getElementById("category-selectlist").value)
         console.log(formData);
         fetch(`https://localhost:7255/api/Product/${productId}`, {
           method: "PUT",

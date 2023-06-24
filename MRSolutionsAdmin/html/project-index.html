@@ -4,7 +4,7 @@
 * Sneat - Bootstrap 5 HTML Admin Template - Pro | v1.0.0
 ==============================================================
 
-* Product Page: https://themeselection.com/projects/sneat-bootstrap-html-admin-template/
+* Project Page: https://themeselection.com/projects/sneat-bootstrap-html-admin-template/
 * Created by: ThemeSelection
 * License: You must have a valid license purchased in order to legally use the theme for your project.
 * Copyright ThemeSelection (https://themeselection.com)
@@ -283,7 +283,7 @@
                 <!-- Basic Layout -->
                 <!-- Bordered Table -->
               <div class="card">
-                <h5 class="card-header d-flex justify-content-between align-items-center">Produktlar<a href="./project-create.html" class="text-white btn btn-success">Yeni +</a></h5>
+                <h5 class="card-header d-flex justify-content-between align-items-center">Layihələr<a href="./project-create.html" class="text-white btn btn-success">Yeni +</a></h5>
                 <div class="card-body">
                   <div style="overflow-y: hidden;" class="table-responsive">
                     <table class="table table-bordered w-100">
@@ -338,7 +338,7 @@
     <!-- / Layout wrapper -->
     <script>
         let table = document.querySelector("#project-index");
-        fetch("https://localhost:7255/api/Product")
+        fetch("https://localhost:7255/api/Project")
             .then(res => res.json())
             .then(data => data.forEach(element => {
                 table.innerHTML +=
@@ -362,7 +362,7 @@
           `
             }))
         function projectDelete(e) {
-            let url = `https://localhost:7255/api/Product/${e.dataset.id}`;
+            let url = `https://localhost:7255/api/Project/${e.dataset.id}`;
             let id = e.dataset.id;
             Swal.fire({
                 title: 'Əminsinizmi?',
