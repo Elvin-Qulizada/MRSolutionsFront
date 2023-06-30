@@ -27,7 +27,7 @@
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
 
-    <title>Kateqoriya Dəyişmək</title>
+    <title>Slayder yaratmaq</title>
 
     <meta name="description" content="" />
 
@@ -52,7 +52,8 @@
 
     <!-- Vendors CSS -->
     <link rel="stylesheet" href="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
-
+    <!--Sweet Alert-->
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.5/dist/sweetalert2.min.css" rel="stylesheet">
     <!-- Page CSS -->
 
     <!-- Helpers -->
@@ -61,8 +62,6 @@
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="../assets/js/config.js"></script>
-    <!--Sweet Alert-->
-    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.5/dist/sweetalert2.min.css" rel="stylesheet">
   </head>
 
   <body>
@@ -118,7 +117,7 @@
                 </g>
               </svg>
             </span>
-            <span class="app-brand-text demo menu-text fw-bolder ms-2">Sneat</span>
+            <span class="app-brand-text demo menu-text fw-bolder ms-2">MRSolutions</span>
           </a>
 
           <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
@@ -285,19 +284,46 @@
                 <div class="col-xxl">
                   <div class="card mb-4">
                     <div class="card-header d-flex align-items-center justify-content-between">
-                      <h5 class="mb-0">Kateqoriya Dəyişmək</h5>
+                      <h5 class="mb-0">Slayder Yaratmaq</h5>
                     </div>
                     <div class="card-body">
-                      <form id="updateCategoryForm">
+                      <form id="createSliderForm">
                         <div class="row mb-3">
-                          <label class="col-sm-2 col-form-label" for="basic-default-name">Kateqoriya Adı</label>
-                          <div class="col-sm-10">
-                            <input type="text" class="form-control" name="name" id="name" placeholder="Kateqoriya Adı" />
-                          </div>
+                            <div class="col-md-12">
+                                <label class="col-form-label" for="name">Slayder Adı</label>
+                                <div class="">
+                                  <input type="text" class="form-control" name="title" id="title" placeholder="Slayder Adı" />
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="col-form-label" for="headertext">Düymə Mətni</label>
+                                <div class="">
+                                  <input type="text" class="form-control" name="buttontext" id="buttontext" placeholder="Düymə Mətni" />
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="col-form-label" for="headertext">Yönləndirmə Linki</label>
+                                <div class="">
+                                  <input type="text" class="form-control" name="redirecturl" id="redirecturl" placeholder="Yönləndirmə Linki" />
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="col-form-label" for="posterimage">Şəkil</label>
+                                <div class="">
+                                  <input type="file" class="form-control" name="image" id="image" placeholder="Şəkil" />
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <label class="col-form-label" for="description">Məlumat</label>
+                                <div class="">
+                                    <textarea class="form-control" id="description" name="description" placeholder="Məlumat" rows="3"></textarea>
+                                </div>
+                            </div>
                         </div>
                         <div class="row justify-content-center">
-                          <div class="col-2">
-                            <button type="submit" class="btn btn-primary">Dəyiş</button>
+                          <div class="col-2 d-flex justify-content-center gap-2">
+                            <button type="submit" class="btn btn-success">Yarat</button>
+                            <a class="btn btn-danger text-white" href="./slider-index.html">Geri</a>
                           </div>
                         </div>
                       </form>
@@ -305,11 +331,8 @@
                   </div>
                 </div>
               </div>
-            </div>
-            <!-- / Content -->
-            <!-- Vertically Centered Modal -->
+              <!-- Vertically Centered Modal -->
             <div class="col-lg-4 col-md-6">
-              <small class="text-light fw-semibold">Vertically centered</small>
               <div class="mt-3">
                 <!-- Modal -->
                 <div class="modal fade" id="modalCenter" tabindex="-1" aria-hidden="true">
@@ -340,6 +363,9 @@
                 </div>
               </div>
             </div>
+            </div>
+            <!-- / Content -->
+
             <!-- Footer -->
           <footer class="content-footer footer bg-footer-theme">
             <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
@@ -369,59 +395,55 @@
     <!-- / Layout wrapper -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.5/dist/sweetalert2.all.min.js"></script>
     <script>
-      const queryString = window.location.search;
-      const urlParams = new URLSearchParams(queryString);
-      const categoryId = urlParams.get('id');
-      document.querySelector("form").action += categoryId;
-      fetch(`https://localhost:7255/api/Category/${categoryId}`)
-        .then(res => res.json())
-        .then(data => {
-          document.getElementById("name").value = data.name;
-        });
-      document.getElementById("updateCategoryForm").addEventListener('submit', function (event) {
-        event.preventDefault(); // Prevent form submission
+      async function postData(url = "", data = {}) {
+        try {
+          const response = await fetch(url, {
+            method: "POST",
+            body: data
+          });
 
-        // Get the updated category data from the form
-        const id = categoryId;
-        const name = document.getElementById('name').value;
-        console.log(name);
-        const updatedCategory = { id, name };
-
-        // Send the update request to the API
-        fetch(`https://localhost:7255/api/Category/${categoryId}`, {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(updatedCategory)
-        })
-          .then(response => {
-            if (!response.ok) {
-              $("#modalCenter").modal('show');
-            }
-            response.json()
-          })
-          .then(data => {
+          if (!response.ok) {
+            $("#modalCenter").modal('show');
+          } else {
             Swal.fire(
-              'Dəyişdirildi!',
-              'Kateqoriya dəyişdirildi.',
+              'Yaradıldı!',
+              'Slayder yaradıldı.',
               'info'
             ).then(function () {
-              window.location.href = "./category-index.html";
-            })
+              window.location.href = "./slider-index.html";
+            });
+
             setTimeout(() => {
-              window.location.href = "./category-index.html";
+              window.location.href = "./slider-index.html";
             }, 10000);
-            // Handle the response data
-            console.log('Updated category:', data);
-            // Perform any necessary UI updates or other actions
-          })
-          .catch(error => {
-            $("#modalCenter").modal('show');
-            // console.error('Error:', error);
-            // Handle any errors that occurred during the update request
-          });
+          }
+
+          return response.json(); // Return the parsed JSON data
+        } catch (error) {
+          $("#modalCenter").modal('show');
+          throw error;
+        }
+      }
+      document.getElementById("createSliderForm").addEventListener('submit', async function (event) {
+        event.preventDefault(); // Prevent form submission
+        const formData = new FormData();
+        const image = document.getElementById("image").files[0];
+        formData.append('image', image)
+        formData.append('title', document.getElementById("title").value)
+        formData.append('description', document.getElementById("description").value)
+        formData.append('buttontext', document.getElementById("buttontext").value)
+        formData.append('redirecturl', document.getElementById("redirecturl").value)
+        // Example POST method implementation:
+
+
+        postData("https://localhost:7255/api/Slider", formData).then((data) => {
+          console.log(data); // JSON data parsed by `response.json()` call
+        }).catch((error) => {
+          // Handle any errors that occurred during the fetch request
+          console.error(error);
+        });
       });
+
     </script>
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->

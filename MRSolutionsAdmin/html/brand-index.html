@@ -357,8 +357,9 @@
           `
         }))
       function brandDelete(e) {
-        console.log("test")
-        let url =`https://localhost:7255/api/Brand/${e.dataset.id}`;
+        console.log(e.dataset.id)
+        let url =`https://localhost:7255/api/Brand/${e.dataset.id}`,
+        id=e.dataset.id;
         Swal.fire({
           title: 'Əminsinizmi?',
           text: "Bu fəaliyyəti geri qaytarmaq mümkün olmayacaq!",

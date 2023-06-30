@@ -287,7 +287,7 @@
                       <h5 class="mb-0">Brend Dəyişmək</h5>
                     </div>
                     <div class="card-body">
-                      <form id="createBrandForm" action="https://localhost:7255/api/Brand" method="post">
+                      <form id="updateBrandForm" action="https://localhost:7255/api/Brand" method="post">
                         <div class="row mb-3">
                             <div class="col-6">
                                 <div class="col-12">
@@ -386,9 +386,10 @@
                 document.getElementById("name").value = data.name;
                 document.getElementById("imageShow").src += data.imageurl;
             });
-        document.getElementById("createBrandForm").addEventListener('submit', function (event) {
+        document.getElementById("updateBrandForm").addEventListener('submit', function (event) {
             event.preventDefault(); // Prevent form submission
             formData = new FormData();
+            formData.append('id', brandId);
             formData.append('name', document.getElementById('name').value);
             formData.append('image', document.getElementById('image').files[0]);
             // Example POST method implementation:
@@ -406,10 +407,10 @@
                             'Brend dəyişdirildi.',
                             'info'
                         ).then(function () {
-                            window.location.href = "http://127.0.0.1:5500/MRSolutionsAdmin/html/brand-index.html";
+                            window.location.href = "./brand-index.html";
                         })
                         setTimeout(() => {
-                            window.location.href = "http://127.0.0.1:5500/MRSolutionsAdmin/html/brand-index.html";
+                            window.location.href = "./brand-index.html";
                         }, 10000);
                     }
                     response.json();
@@ -450,10 +451,10 @@
             //       'Brend dəyişdirildi.',
             //       'info'
             //     ).then(function () {
-            //       window.location.href = "http://127.0.0.1:5500/MRSolutionsAdmin/html/brand-index.html";
+            //       window.location.href = "./brand-index.html";
             //     })
             //     // setTimeout(() => {
-            //     //   window.location.href="http://127.0.0.1:5500/MRSolutionsAdmin/html/brand-index.html";
+            //     //   window.location.href="./brand-index.html";
             //     // }, 10000);
             //   })
             //   .catch(error => {

@@ -311,8 +311,8 @@
                                 </div>
                             </div>
                             <div class="col-md-4">
-                                <div class="col-md-12">
-                                    <img id="imageShow" src="./../assets/img/uploads/product/" class="w-100" alt="">
+                                <div class="col-md-12 d-flex justify-content-center">
+                                    <img id="imageShow" src="./../../MRSolutions/uploads/products/" style="width: 200px;" alt="">
                                 </div>
                                 <div class="col-md-12">
                                     <label class="col-form-label" for="image">Başlıq Şəkli</label>
@@ -322,13 +322,13 @@
                                 </div>
                             </div>
                                 <div class="col-md-4">
-                                    <div class="col-md-12">
-                                        <video muted="">
+                                    <div id="videoShow" class="col-md-12">
+                                        <!-- <video muted="">
                                             <source
                                                 id="videoShow"
-                                                src="./../assets/videos/uploads/product/"
+                                                src="./../../MRSolutions/uploads/products/"
                                                 type="video/mp4">
-                                        </video>
+                                        </video> -->
                                     </div>
                                     <div class="col-md-12">
                                         <label class="col-form-label" for="video">Video</label>
@@ -430,7 +430,13 @@
           document.getElementById("headertext").value = data.headerText;
           document.getElementById("description").value = data.description;
           document.getElementById("imageShow").src += data.name + "/" + data.imageUrl;
-          document.getElementById("videoShow").src += data.name + "/" + data.videoUrl;
+          document.getElementById("videoShow").innerHTML +=
+          `
+          <video autoplay muted width="250">
+            <source  src="./../../MRSolutions/uploads/products/${data.name}/${data.videoUrl}" type="video/mp4">
+          </video>
+          `
+          data.name + "/" + data.videoUrl;
           categoryId = data.categoryId;
         }).then(() => {
           fetch("https://localhost:7255/api/Category")
@@ -482,10 +488,10 @@
       //           'Məhsul dəyişdirildi.',
       //           'info'
       //         ).then(function () {
-      //           window.location.href = "http://127.0.0.1:5500/MRSolutionsAdmin/html/product-index.html";
+      //           window.location.href = "./product-index.html";
       //         })
       //         setTimeout(() => {
-      //           window.location.href = "http://127.0.0.1:5500/MRSolutionsAdmin/html/product-index.html";
+      //           window.location.href = "./product-index.html";
       //         }, 10000);
       //       }
       //     }).catch(e => {
@@ -500,15 +506,32 @@
         console.log(document.getElementById("image").files[0]);
         formData.append('id', productId)
         formData.append('image', image)
-        formData.append('video', image)
+        formData.append('video', video)
         formData.append('name', document.getElementById("name").value)
         formData.append('headertext', document.getElementById("headertext").value)
         formData.append('description', document.getElementById("description").value)
         formData.append('categoryid', document.getElementById("category-selectlist").value)
-        // const axios = require('axios')
-        axios.put(`https://localhost:7255/api/Product/${productId}`, {
-          formData
-        }).then(res => console.log(res));
+        fetch(`https://localhost:7255/api/Product/${productId}`, {
+          method: "PUT",
+          body: formData
+        }).then(response => {
+          if (!response.ok) {
+            $("#modalCenter").modal('show');
+          } else {
+            Swal.fire(
+              'Dəyişdirildi!',
+              'Məhsul dəyişdirildi.',
+              'info'
+            ).then(function () {
+              window.location.href = "./product-index.html";
+            })
+            setTimeout(() => {
+              window.location.href = "./product-index.html";
+            }, 10000);
+          }
+        }).catch(e => {
+          $("#modalCenter").modal('show');
+        })
       })
     </script>
     <!-- Core JS -->
