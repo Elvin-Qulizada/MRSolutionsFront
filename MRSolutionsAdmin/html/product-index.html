@@ -352,10 +352,10 @@
                             <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>${element.name}</strong>
                           </td>
                           <td>
-                            <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>${element.headerText.substring(0, 60)}...</strong>
+                            <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>${element.headerText.length>60 ? element.headerText.substring(0, 60)+"..." : element.headerText}</strong>
                           </td>
                           <td>
-                            <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>${element.description.substring(0, 60)}...</strong>
+                            <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>${element.description.length>60? element.description.substring(0, 60)+"...":element.description}</strong>
                           </td>
                           <td class="text-center d-flex flex-column align-items-center gap-3">
                             <a href="./product-detail.html?id=${element.id}" class="text-white btn btn-primary w-50">Detallı</a>

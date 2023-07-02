@@ -301,18 +301,18 @@
                                   <input type="text" class="form-control" name="headertext" id="headertext" placeholder="Başlıq" />
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <img id="posterImageShow" width="100%" alt="" src="../assets/img/">
+                            <div class="col-md-6 mt-3">
+                                <img id="posterImageShow" class="w-100" style="height: 200px;" alt="" src="./../../MRSolutions/uploads/services/">
                                 <label class="col-form-label" for="posterimage">Başlıq Şəkli</label>
                                 <div class="">
-                                  <input type="file" class="form-control" name="posterimage" id="posterimage" placeholder="Başlıq" />
+                                  <input type="file" accept="image/png, image/jpeg" class="form-control" name="posterimage" id="posterimage" placeholder="Başlıq" />
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <img id="imageShow" width="100%" alt="" src="../assets/img/">
+                            <div class="col-md-6 mt-3">
+                                <img id="imageShow" class="w-100" style="height: 200px;" alt="" src="./../../MRSolutions/uploads/services/">
                                 <label class="col-form-label" for="image">Məlumat Şəkli</label>
                                 <div class="">
-                                  <input type="file" class="form-control" name="image" id="image" placeholder="Məlumat Şəkli" />
+                                  <input type="file" accept="image/png, image/jpeg" class="form-control" name="image" id="image" placeholder="Məlumat Şəkli" />
                                 </div>
                             </div>
                             <div class="col-md-12">
@@ -323,8 +323,9 @@
                             </div>
                         </div>
                         <div class="row justify-content-center">
-                          <div class="col-2">
+                          <div class="col-2 d-flex justify-content-center gap-2">
                             <button type="submit" class="btn btn-primary">Dəyiş</button>
+                            <a class="btn btn-danger text-white" href="./service-index.html">Geri</a>
                           </div>
                         </div>
                       </form>
@@ -406,21 +407,10 @@
           document.getElementById("name").value = data.name;
           document.getElementById("headertext").value = data.headerText;
           document.getElementById("description").value = data.description;
-          document.getElementById("posterImageShow").src += data.posterImageUrl;
-          document.getElementById("imageShow").src += data.imageUrl;
+          document.getElementById("posterImageShow").src += data.name + "/" + data.posterImageUrl;
+          document.getElementById("imageShow").src += data.name + "/" + data.imageUrl;
         });
       document.getElementById("updateServiceForm").addEventListener('submit', function (event) {
-        // event.preventDefault(); // Prevent form submission
-
-        // Get the updated service data from the form
-        // const id = serviceId;
-        // const name = document.getElementById('name').value,
-        //   headerText = document.getElementById('headertext').value,
-        //   description = document.getElementById('description').value
-          // posterImage = document.getElementById('posterimage')?.files[0],
-          // image = document.getElementById('image')?.files[0];
-        // console.log(name);
-        // const updatedService = { id, name, headerText, description, posterImage, image };
         event.preventDefault(); // Prevent form submission
         const formData = new FormData();
         const posterImage = document.getElementById("posterimage").files[0];

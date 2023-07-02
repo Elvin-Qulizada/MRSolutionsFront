@@ -27,7 +27,7 @@
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
 
-    <title>Brendlər</title>
+    <title>Tərəfdaşlar</title>
 
     <meta name="description" content="" />
 
@@ -283,13 +283,13 @@
                 <!-- Basic Layout -->
                 <!-- Bordered Table -->
               <div class="card">
-                <h5 class="card-header d-flex justify-content-between align-items-center">Brendlər<a href="./brand-create.html" class="text-white btn btn-success">Yeni +</a></h5>
+                <h5 class="card-header d-flex justify-content-between align-items-center">Tərəfdaşlar<a href="./brand-create.html" class="text-white btn btn-success">Yeni +</a></h5>
                 <div class="card-body">
                   <div style="overflow-y: hidden;" class="table-responsive text-nowrap">
                     <table class="table table-bordered">
                       <thead>
                         <tr class="text-center">
-                          <th>Brend Adı</th>
+                          <th>Tərəfdaş Adı</th>
                           <th>Şəkil</th>
                           <th>Fəaliyyətlər</th>
                         </tr>
@@ -344,10 +344,10 @@
             `
                         <tr>
                           <td>
-                            <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>${element.name}</strong>
+                            <strong>${element.name}</strong>
                           </td>
-                          <td>
-                            <i class="fab fa-angular fa-lg text-danger me-3"></i> <img src="${element.name}"">
+                          <td class="d-flex justify-content-center">
+                            <img style="width:200px; height:200px" src="./../../MRSolutions/uploads/brands/${element.name}/${element.imageUrl}">
                           </td>
                           <td class="text-center">
                             <a href="./brand-update.html?id=${element.id}" class="text-white btn btn-warning">Dəyişmək</a>
@@ -377,7 +377,7 @@
                 if (response.status == 200) {
                   Swal.fire(
                     'Silindi!',
-                    'Brend silindi.',
+                    'Tərəfdaş silindi.',
                     'info'
                   ).then(function(){
                     window.location.reload();
