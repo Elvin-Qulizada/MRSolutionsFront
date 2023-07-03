@@ -313,7 +313,7 @@
               <div class="mb-2 mb-md-0">
                 ©
                 <script>
-                    document.write(new Date().getFullYear());
+                  document.write(new Date().getFullYear());
                 </script>
                 , made with ❤️ by
                 <a href="https://elvin-qulizade.github.io/Elvin-Qulizade/" target="_blank"
@@ -337,12 +337,12 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.5/dist/sweetalert2.all.min.js"></script>
     <!-- / Layout wrapper -->
     <script>
-        let table = document.querySelector("#slider-index");
-        fetch("https://localhost:7255/api/Slider")
-            .then(res => res.json())
-            .then(data => data.forEach(element => {
-                table.innerHTML +=
-                    `
+      let table = document.querySelector("#slider-index");
+      fetch("https://localhost:7255/api/Slider")
+        .then(res => res.json())
+        .then(data => data.forEach(element => {
+          table.innerHTML +=
+            `
                         <tr>
                           <td>
                             <i class="fab fa-angular fa-lg text-danger me-3"></i> <img style="width:200px" src="./../../MRSolutions/uploads/sliders/${element.title}/${element.imageUrl}">
@@ -351,57 +351,57 @@
                             <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>${element.title}</strong>
                           </td>
                           <td>
-                            <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>${element.description.length>60 ? element.description.substring(0,60)+"...":element.description}</strong>
+                            <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>${element.description.length > 60 ? element.description.substring(0, 60) + "..." : element.description}</strong>
                           </td>
                           <td class="text-center">
                             <a href="./slider-detail.html?id=${element.id}" class="text-white btn btn-info">Detallı</a>
                             <a href="./slider-update.html?id=${element.id}" class="text-white btn btn-warning">Dəyişmək</a>
-                            <a onClick="sliderDelete(this)" data-id="${element.id}"class="text-white btn btn-danger">Silmək</a>
+                            <a onClick="entityDelete(this)" data-entity="slider" data-id="${element.id}"class="text-white btn btn-danger">Silmək</a>
                           </td>
                         </tr>
           `
-            }))
-        function sliderDelete(e) {
-            console.log("test")
-            let url = `https://localhost:7255/api/Slider/${e.dataset.id}`;
-            let id = e.dataset.id;
-            Swal.fire({
-                title: 'Əminsinizmi?',
-                text: "Bu fəaliyyəti geri qaytarmaq mümkün olmayacaq!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Bəli'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    fetch(url, {
-                        method: "DELETE"
-                    })
-                        .then(response => {
-                            if (response.status == 200) {
-                                Swal.fire(
-                                    'Silindi!',
-                                    'Slayder silindi.',
-                                    'info'
-                                ).then(function () {
-                                    window.location.reload();
-                                })
-                                setTimeout(() => {
-                                    window.location.reload();
-                                }, 10000);
-                            } else {
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: 'Xəta',
-                                    text: `Bu id-li slayder tapılmadı:${id}`
-                                })
-                            }
+        }))
+      // function sliderDelete(e) {
+      //   console.log("test")
+      //   let url = `https://localhost:7255/api/Slider/${e.dataset.id}`;
+      //   let id = e.dataset.id;
+      //   Swal.fire({
+      //     title: 'Əminsinizmi?',
+      //     text: "Bu fəaliyyəti geri qaytarmaq mümkün olmayacaq!",
+      //     icon: 'warning',
+      //     showCancelButton: true,
+      //     confirmButtonColor: '#3085d6',
+      //     cancelButtonColor: '#d33',
+      //     confirmButtonText: 'Bəli'
+      //   }).then((result) => {
+      //     if (result.isConfirmed) {
+      //       fetch(url, {
+      //         method: "DELETE"
+      //       })
+      //         .then(response => {
+      //           if (response.status == 200) {
+      //             Swal.fire(
+      //               'Silindi!',
+      //               'Slayder silindi.',
+      //               'info'
+      //             ).then(function () {
+      //               window.location.reload();
+      //             })
+      //             setTimeout(() => {
+      //               window.location.reload();
+      //             }, 10000);
+      //           } else {
+      //             Swal.fire({
+      //               icon: 'error',
+      //               title: 'Xəta',
+      //               text: `Bu id-li slayder tapılmadı:${id}`
+      //             })
+      //           }
 
-                        })
-                }
-            })
-        }
+      //         })
+      //     }
+      //   })
+      // }
     </script>
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->

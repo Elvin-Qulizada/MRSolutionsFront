@@ -445,54 +445,6 @@
               }
             }))
         });
-
-      //   document.getElementById("updateProductForm").addEventListener('submit', function (event) {
-      //     // event.preventDefault(); // Prevent form submission
-
-      //     // Get the updated product data from the form
-      //     // const id = productId;
-      //     // const name = document.getElementById('name').value,
-      //     //   headerText = document.getElementById('headertext').value,
-      //     //   description = document.getElementById('description').value
-      //     // posterImage = document.getElementById('posterimage')?.files[0],
-      //     // image = document.getElementById('image')?.files[0];
-      //     // console.log(name);
-      //     // const updatedProduct = { id, name, headerText, description, posterImage, image };
-      //     event.preventDefault(); // Prevent form submission
-      //     const formData = new FormData();
-      //     const image = document.getElementById("image").files[0];
-      //     const video = document.getElementById("video").files[0];
-      //     console.log(document.getElementById("image").files[0]);
-      //     formData.append('id', productId)
-      //     formData.append('image', image)
-      //     formData.append('video', image)
-      //     formData.append('name', document.getElementById("name").value)
-      //     formData.append('headertext', document.getElementById("headertext").value)
-      //     formData.append('description', document.getElementById("description").value)
-      //     formData.append('categoryid', document.getElementById("category-selectlist").value)
-      //     console.log(formData);
-      //     fetch(`https://localhost:7255/api/Product/${productId}`, {
-      //       method: "PUT",
-      //       body: formData
-      //     }).then(response => {
-      //       if (!response.ok) {
-      //         $("#modalCenter").modal('show');
-      //       } else {
-      //         Swal.fire(
-      //           'Dəyişdirildi!',
-      //           'Məhsul dəyişdirildi.',
-      //           'info'
-      //         ).then(function () {
-      //           window.location.href = "./product-index.html";
-      //         })
-      //         setTimeout(() => {
-      //           window.location.href = "./product-index.html";
-      //         }, 10000);
-      //       }
-      //     }).catch(e => {
-      //       $("#modalCenter").modal('show');
-      //     })
-      //   });
       document.getElementById("updateProductForm").addEventListener('submit', function (event) {
         event.preventDefault(); // Prevent form submission
         const formData = new FormData();

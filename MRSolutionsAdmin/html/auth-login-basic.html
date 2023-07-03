@@ -89,7 +89,7 @@
                     type="text"
                     class="form-control"
                     id="email"
-                    name="email-username"
+                    name="email"
                     placeholder="Emailinizi daxil edin"
                     autofocus
                   />
@@ -124,7 +124,64 @@
 
     <!-- / Content -->
 
+    <script>
+      const form = document.getElementById('formAuthentication');
 
+form.addEventListener('submit', (e) => {
+  e.preventDefault(); // Prevent the default form submission
+
+  const email = document.getElementById('email').value;
+  const password = document.getElementById('password').value;
+
+  const data = {
+    email: email,
+    password: password
+  };
+
+  fetch('https://localhost:7255/api/Auth/Login', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  })
+    .then(response => {
+      if (response.ok) {
+        return response.json(); // Parse the response body as JSON
+      } else {
+        throw new Error('Login failed.');
+      }
+    })
+    .then(data => {
+      const jwtToken = data.jwtToken; // Extract the JWT token from the response body
+
+      // Store the JWT token in an HTTP-only cookie
+      document.cookie = `jwtToken=${jwtToken}; HttpOnly; Secure`; // Set the cookie
+
+      // Handle successful login or redirect to another page
+    })
+    .catch(error => {
+      // Handle login failure or any other errors
+    });
+});
+
+
+    </script>
+    <!-- <script>
+      document.getElementById("formAuthentication").addEventListener('submit', async function (event) {
+        event.preventDefault(); // Prevent form submission
+        const formData = new FormData();
+        formData.append('email', document.getElementById("email").value)
+        formData.append('password', document.getElementById("password").value)
+        fetch("https://localhost:7255/api/Auth/Login",{
+          method:"POST",
+          body:formData
+        }).then(res=>res.json()).then(data=>{
+          console.log(data);
+        })
+      });
+
+    </script> -->
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
     <script src="../assets/vendor/libs/jquery/jquery.js"></script>

@@ -351,52 +351,52 @@
                           </td>
                           <td class="text-center">
                             <a href="./brand-update.html?id=${element.id}" class="text-white btn btn-warning">Dəyişmək</a>
-                            <a onClick="brandDelete(this)" data-id="${element.id}"class="text-white btn btn-danger">Silmək</a>
+                            <a onClick="entityDelete(this)" data-entity="brand" data-id="${element.id}"class="text-white btn btn-danger">Silmək</a>
                           </td>
                         </tr>
           `
         }))
-      function brandDelete(e) {
-        console.log(e.dataset.id)
-        let url =`https://localhost:7255/api/Brand/${e.dataset.id}`,
-        id=e.dataset.id;
-        Swal.fire({
-          title: 'Əminsinizmi?',
-          text: "Bu fəaliyyəti geri qaytarmaq mümkün olmayacaq!",
-          icon: 'warning',
-          showCancelButton: true,
-          confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33',
-          confirmButtonText: 'Bəli'
-        }).then((result) => {
-          if (result.isConfirmed) {
-            fetch(url,{
-              method:"DELETE"
-            })
-              .then(response => {
-                if (response.status == 200) {
-                  Swal.fire(
-                    'Silindi!',
-                    'Tərəfdaş silindi.',
-                    'info'
-                  ).then(function(){
-                    window.location.reload();
-                  })
-                  setTimeout(() => {
-                    window.location.reload();
-                  }, 10000);
-                } else {
-                  Swal.fire({
-                    icon: 'error',
-                    title: 'Xəta',
-                    text: `Bu id-li brend tapılmadı:${id}`
-                  })
-                }
+      // function brandDelete(e) {
+      //   console.log(e.dataset.id)
+      //   let url =`https://localhost:7255/api/Brand/${e.dataset.id}`,
+      //   id=e.dataset.id;
+      //   Swal.fire({
+      //     title: 'Əminsinizmi?',
+      //     text: "Bu fəaliyyəti geri qaytarmaq mümkün olmayacaq!",
+      //     icon: 'warning',
+      //     showCancelButton: true,
+      //     confirmButtonColor: '#3085d6',
+      //     cancelButtonColor: '#d33',
+      //     confirmButtonText: 'Bəli'
+      //   }).then((result) => {
+      //     if (result.isConfirmed) {
+      //       fetch(url,{
+      //         method:"DELETE"
+      //       })
+      //         .then(response => {
+      //           if (response.status == 200) {
+      //             Swal.fire(
+      //               'Silindi!',
+      //               'Tərəfdaş silindi.',
+      //               'info'
+      //             ).then(function(){
+      //               window.location.reload();
+      //             })
+      //             setTimeout(() => {
+      //               window.location.reload();
+      //             }, 10000);
+      //           } else {
+      //             Swal.fire({
+      //               icon: 'error',
+      //               title: 'Xəta',
+      //               text: `Bu id-li brend tapılmadı:${id}`
+      //             })
+      //           }
 
-              })
-          }
-        })
-      }
+      //         })
+      //     }
+      //   })
+      // }
     </script>
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->

@@ -360,7 +360,7 @@
                           <td class="text-center d-flex flex-column align-items-center gap-3">
                             <a href="./product-detail.html?id=${element.id}" class="text-white btn btn-primary w-50">Detallı</a>
                             <a href="./product-update.html?id=${element.id}" class="text-white btn btn-warning w-50">Dəyişmək</a>
-                            <a onClick="productDelete(this)" data-id="${element.id}"class="text-white btn btn-danger w-50">Silmək</a>
+                            <a onClick="entityDelete(this)" data-entity="product" data-id="${element.id}"class="text-white btn btn-danger w-50">Silmək</a>
                           </td>
                         </tr>
           `

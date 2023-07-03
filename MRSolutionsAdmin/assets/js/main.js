@@ -4,6 +4,59 @@
 
 'use strict';
 
+let entityNames={
+  brand:"Tərəfdaş",
+  category:"Kateqoriya",
+  product:"Məhsul",
+  project:"Layihə",
+  service:"Xidmət",
+  setting:"Tənzimləmə",
+  slider:"Slayder"
+}
+function entityDelete(e) {
+  let url = `https://localhost:7255/api/${e.dataset.entity}/${e.dataset.id}`;
+  let id = e.dataset.id;
+  Swal.fire({
+      title: 'Əminsinizmi?',
+      text: "Bu fəaliyyəti geri qaytarmaq mümkün olmayacaq!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Bəli'
+  }).then((result) => {
+      if (result.isConfirmed) {
+          fetch(url, {
+              method: "DELETE"
+          })
+              .then(response => {
+                  if (response.status == 200) {
+                      Swal.fire(
+                          'Silindi!',
+                          'Layihə silindi.',
+                          'info'
+                      ).then(function () {
+                          window.location.reload();
+                      })
+                      setTimeout(() => {
+                          window.location.reload();
+                      }, 10000);
+                  } else {
+                      Swal.fire({
+                          icon: 'error',
+                          title: 'Xəta',
+                          text: `Bu id-li layihə tapılmadı:${id}`
+                      })
+                  }
+
+              })
+      }
+  })
+}
+
+
+
+
 let menu, animate;
 
 (function () {

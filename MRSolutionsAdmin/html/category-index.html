@@ -347,51 +347,51 @@
                           </td>
                           <td class="text-center">
                             <a href="./category-update.html?id=${element.id}" class="text-white btn btn-warning">Dəyişmək</a>
-                            <a onClick="categoryDelete(this)" data-id="${element.id}"class="text-white btn btn-danger">Silmək</a>
+                            <a onClick="entityDelete(this)" data-entity="category" data-id="${element.id}"class="text-white btn btn-danger">Silmək</a>
                           </td>
                         </tr>
           `
         }))
-      function categoryDelete(e) {
-        console.log("test")
-        let url =`https://localhost:7255/api/Category/${e.dataset.id}`;
-        Swal.fire({
-          title: 'Əminsinizmi?',
-          text: "Bu fəaliyyəti geri qaytarmaq mümkün olmayacaq!",
-          icon: 'warning',
-          showCancelButton: true,
-          confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33',
-          confirmButtonText: 'Bəli'
-        }).then((result) => {
-          if (result.isConfirmed) {
-            fetch(url,{
-              method:"DELETE"
-            })
-              .then(response => {
-                if (response.status == 200) {
-                  Swal.fire(
-                    'Silindi!',
-                    'Kateqoriya silindi.',
-                    'info'
-                  ).then(function(){
-                    window.location.reload();
-                  })
-                  setTimeout(() => {
-                    window.location.reload();
-                  }, 10000);
-                } else {
-                  Swal.fire({
-                    icon: 'error',
-                    title: 'Xəta',
-                    text: `Bu id-li kateqoriya tapılmadı:${id}`
-                  })
-                }
+      // function categoryDelete(e) {
+      //   console.log("test")
+      //   let url =`https://localhost:7255/api/Category/${e.dataset.id}`;
+      //   Swal.fire({
+      //     title: 'Əminsinizmi?',
+      //     text: "Bu fəaliyyəti geri qaytarmaq mümkün olmayacaq!",
+      //     icon: 'warning',
+      //     showCancelButton: true,
+      //     confirmButtonColor: '#3085d6',
+      //     cancelButtonColor: '#d33',
+      //     confirmButtonText: 'Bəli'
+      //   }).then((result) => {
+      //     if (result.isConfirmed) {
+      //       fetch(url,{
+      //         method:"DELETE"
+      //       })
+      //         .then(response => {
+      //           if (response.status == 200) {
+      //             Swal.fire(
+      //               'Silindi!',
+      //               'Kateqoriya silindi.',
+      //               'info'
+      //             ).then(function(){
+      //               window.location.reload();
+      //             })
+      //             setTimeout(() => {
+      //               window.location.reload();
+      //             }, 10000);
+      //           } else {
+      //             Swal.fire({
+      //               icon: 'error',
+      //               title: 'Xəta',
+      //               text: `Bu id-li kateqoriya tapılmadı:${id}`
+      //             })
+      //           }
 
-              })
-          }
-        })
-      }
+      //         })
+      //     }
+      //   })
+      // }
     </script>
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
