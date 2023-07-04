@@ -4,59 +4,549 @@
 
 'use strict';
 
-let entityNames={
-  brand:"Tərəfdaş",
-  category:"Kateqoriya",
-  product:"Məhsul",
-  project:"Layihə",
-  service:"Xidmət",
-  setting:"Tənzimləmə",
-  slider:"Slayder"
+let entityNames = {
+  brand: "Tərəfdaş",
+  category: "Kateqoriya",
+  product: "Məhsul",
+  project: "Layihə",
+  service: "Xidmət",
+  setting: "Tənzimləmə",
+  slider: "Slayder"
 }
+const queryStr = window.location.search;
+const params = new URLSearchParams(queryStr);
+const id = params.get('id');
+function findFromEntityNames(entity) {
+  const foundKey = Object.keys(entityNames).find(key => key.toString() === entity.toString());
+
+  if (foundKey) {
+    return entityNames[foundKey];
+  }
+
+  return undefined;
+}
+
 function entityDelete(e) {
   let url = `https://localhost:7255/api/${e.dataset.entity}/${e.dataset.id}`;
   let id = e.dataset.id;
+  var entity = e.dataset.entity;
   Swal.fire({
-      title: 'Əminsinizmi?',
-      text: "Bu fəaliyyəti geri qaytarmaq mümkün olmayacaq!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Bəli'
+    title: 'Əminsinizmi?',
+    text: "Bu fəaliyyəti geri qaytarmaq mümkün olmayacaq!",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Bəli'
   }).then((result) => {
-      if (result.isConfirmed) {
-          fetch(url, {
-              method: "DELETE"
-          })
-              .then(response => {
-                  if (response.status == 200) {
-                      Swal.fire(
-                          'Silindi!',
-                          'Layihə silindi.',
-                          'info'
-                      ).then(function () {
-                          window.location.reload();
-                      })
-                      setTimeout(() => {
-                          window.location.reload();
-                      }, 10000);
-                  } else {
-                      Swal.fire({
-                          icon: 'error',
-                          title: 'Xəta',
-                          text: `Bu id-li layihə tapılmadı:${id}`
-                      })
-                  }
+    if (result.isConfirmed) {
+      fetch(url, {
+        method: "DELETE"
+      })
+        .then(response => {
+          if (response.status == 200) {
+            Swal.fire(
+              'Silindi!',
+              `${findFromEntityNames(entity)} silindi.`,
+              'info'
+            ).then(function () {
+              window.location.reload();
+            })
+            setTimeout(() => {
+              window.location.reload();
+            }, 10000);
+          } else {
+            Swal.fire({
+              icon: 'error',
+              title: 'Xəta',
+              text: `Bu id-li layihə tapılmadı:${id}`
+            })
+          }
 
-              })
-      }
+        })
+    }
   })
 }
+async function postData(url = "", data = {}) {
+  const urlpath = new URL(url);
+  const path = urlpath.pathname; // "/api/Service"
+  const parts = path.split("/"); // ["", "api", "Service"]
+  const entity = parts[parts.length - 1].toLowerCase(); // "service"
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      body: data
+    });
+
+    if (!response.ok) {
+      $("#modalCenter").modal('show');
+    } else {
+      Swal.fire(
+        'Yaradıldı!',
+        `${findFromEntityNames(entity)} yaradıldı.`,
+        'info'
+      ).then(function () {
+        window.location.href = `./${entity}-index.html`;
+      });
+
+      setTimeout(() => {
+        window.location.href = `./${entity}-index.html`;
+      }, 10000);
+    }
+
+    return response.json(); // Return the parsed JSON data
+  } catch (error) {
+    $("#modalCenter").modal('show');
+    throw error;
+  }
+}
+async function putData(url = "", data = {}) {
+  const urlpath = new URL(url);
+  const path = urlpath.pathname; // "/api/Service"
+  const parts = path.split("/"); // ["", "api", "Service"]
+  const entity = parts[parts.length - 2].toLowerCase(); // "service"
+  try {
+    const response = await fetch(url, {
+      method: "PUT",
+      body: data
+    });
+
+    if (!response.ok) {
+      $("#modalCenter").modal('show');
+    } else {
+      Swal.fire(
+        'Dəyişdirildi!',
+        `${findFromEntityNames(entity)} dəyişdirildi.`,
+        'info'
+      ).then(function () {
+        window.location.href = `./${entity}-index.html`;
+      });
+
+      setTimeout(() => {
+        window.location.href = `./${entity}-index.html`;
+      }, 10000);
+    }
+
+    return response.json(); // Return the parsed JSON data
+  } catch (error) {
+    $("#modalCenter").modal('show');
+    throw error;
+  }
+}
+//Service
+document.getElementById("createServiceForm")?.addEventListener('submit', async function (event) {
+  event.preventDefault(); // Prevent form submission
+  const formData = new FormData();
+  const posterImage = document.getElementById("posterimage").files[0];
+  const image = document.getElementById("image").files[0];
+  formData.append('posterimage', posterImage)
+  formData.append('image', image)
+  formData.append('name', document.getElementById("name").value)
+  formData.append('headertext', document.getElementById("headertext").value)
+  formData.append('description', document.getElementById("description").value)
+  // Example POST method implementation:
 
 
+  postData("https://localhost:7255/api/Service", formData)
+});
+document.getElementById("updateServiceForm")?.addEventListener('submit', function (event) {
+  event.preventDefault(); // Prevent form submission
+  const formData = new FormData();
+  formData.append('id', id)
+  formData.append('posterimage', document.getElementById("posterimage").files[0])
+  formData.append('image', document.getElementById("image").files[0])
+  formData.append('name', document.getElementById("name").value)
+  formData.append('headertext', document.getElementById("headertext").value)
+  formData.append('description', document.getElementById("description").value)
+  putData(`https://localhost:7255/api/Service/${id}`, formData)
+});
+if (document.getElementById("updateServiceForm")) {
+  fetch(`https://localhost:7255/api/Service/${id}`)
+    .then(res => res.json())
+    .then(data => {
+      document.getElementById("name").value = data.name;
+      document.getElementById("headertext").value = data.headerText;
+      document.getElementById("description").value = data.description;
+      document.getElementById("posterImageShow").src += data.name + "/" + data.posterImageUrl;
+      document.getElementById("imageShow").src += data.name + "/" + data.imageUrl;
+    });
+}
+if (document.getElementById("service-index")) {
+  fetch("https://localhost:7255/api/Service")
+    .then(res => res.json())
+    .then(data => data.forEach(element => {
+      document.getElementById("service-index").innerHTML +=
+        `
+                        <tr>
+                          <td>
+                            <i class="fab fa-angular fa-lg text-danger me-3"></i> <img style="width:200px" src="./../../MRSolutions/uploads/services/${element.name}/${element.posterImageUrl}">
+                          </td>  
+                          <td>
+                            <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>${element.name}</strong>
+                          </td>
+                          <td>
+                            <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>${element.headerText.length > 60 ? element.headerText.substring(0, 60) + "..." : element.headerText}</strong>
+                          </td>
+                          <td class="text-center">
+                            <a href="./service-detail.html?id=${element.id}" class="text-white btn btn-info">Detallı</a>
+                            <a href="./service-update.html?id=${element.id}" class="text-white btn btn-warning">Dəyişmək</a>
+                            <a onClick="entityDelete(this)" data-entity="service" data-id="${element.id}"class="text-white btn btn-danger">Silmək</a>
+                          </td>
+                        </tr>
+          `
+    }))
+}
 
+//Brand
+document.getElementById("createBrandForm")?.addEventListener('submit', function (event) {
+  event.preventDefault(); // Prevent form submission
+  const formData = new FormData();
+  formData.append('name', document.getElementById('name').value);
+  formData.append('image', document.getElementById('image').files[0]);
+  postData("https://localhost:7255/api/Brand", formData)
+})
+document.getElementById("updateBrandForm")?.addEventListener('submit', function (event) {
+  event.preventDefault(); // Prevent form submission
+  const formData = new FormData();
+  formData.append('id', id);
+  formData.append('name', document.getElementById('name').value);
+  formData.append('image', document.getElementById('image').files[0]);
+  putData(`https://localhost:7255/api/Brand/${id}`, formData)
+})
+if (document.getElementById("updateBrandForm")) {
+  fetch(`https://localhost:7255/api/Brand/${id}`)
+    .then(res => res.json())
+    .then(data => {
+      document.getElementById("name").value = data.name;
+      document.getElementById("imageShow").src += data.name + "/" + data.imageUrl;
+    });
+}
+if (document.getElementById("brand-index")) {
+  fetch("https://localhost:7255/api/Brand")
+    .then(res => res.json())
+    .then(data => data.forEach(element => {
+      document.getElementById("brand-index").innerHTML +=
+        `
+                        <tr>
+                          <td>
+                            <strong>${element.name}</strong>
+                          </td>
+                          <td class="d-flex justify-content-center">
+                            <img style="width:200px; height:200px" src="./../../MRSolutions/uploads/brands/${element.name}/${element.imageUrl}">
+                          </td>
+                          <td class="text-center">
+                            <a href="./brand-update.html?id=${element.id}" class="text-white btn btn-warning">Dəyişmək</a>
+                            <a onClick="entityDelete(this)" data-entity="brand" data-id="${element.id}"class="text-white btn btn-danger">Silmək</a>
+                          </td>
+                        </tr>
+          `
+    }))
+}
 
+//Category
+document.getElementById("createCategoryForm")?.addEventListener('submit', function (event) {
+  event.preventDefault(); // Prevent form submission
+  postData("https://localhost:7255/api/Category", { name: document.getElementById('name').value })
+})
+document.getElementById("updateCategoryForm")?.addEventListener('submit', function (event) {
+  event.preventDefault(); // Prevent form submission
+  const name = document.getElementById('name').value;
+  const updatedCategory = { id, name };
+  putData(`https://localhost:7255/api/Category/${id}`, updatedCategory);
+})
+if (document.getElementById("updateCategoryForm")) {
+  fetch(`https://localhost:7255/api/Category/${id}`)
+    .then(res => res.json())
+    .then(data => {
+      document.getElementById("name").value = data.name;
+    });
+}
+if (document.getElementById("category-index")) {
+  fetch("https://localhost:7255/api/Category")
+    .then(res => res.json())
+    .then(data => data.forEach(element => {
+      document.getElementById("category-index").innerHTML +=
+        `
+                        <tr>
+                          <td>
+                            <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>${element.name}</strong>
+                          </td>
+                          <td class="text-center">
+                            <a href="./category-update.html?id=${element.id}" class="text-white btn btn-warning">Dəyişmək</a>
+                            <a onClick="entityDelete(this)" data-entity="category" data-id="${element.id}"class="text-white btn btn-danger">Silmək</a>
+                          </td>
+                        </tr>
+          `
+    }))
+}
+
+//Product
+document.getElementById("createProductForm")?.addEventListener('submit', function (event) {
+  event.preventDefault(); // Prevent form submission
+  const formData = new FormData();
+  const image = document.getElementById("image").files[0];
+  const video = document.getElementById("video").files[0];
+  formData.append('image', image)
+  formData.append('video', video)
+  formData.append('name', document.getElementById("name").value)
+  formData.append('headertext', document.getElementById("headertext").value)
+  formData.append('description', document.getElementById("description").value)
+  formData.append('categoryid', document.getElementById("category-selectlist").value)
+  postData("https://localhost:7255/api/Product", formData);
+})
+document.getElementById("updateProductForm")?.addEventListener('submit', function (event) {
+  event.preventDefault(); // Prevent form submission
+  const formData = new FormData();
+  formData.append('id', id)
+  formData.append('image', document.getElementById("image").files[0])
+  formData.append('video', document.getElementById("video").files[0])
+  formData.append('name', document.getElementById("name").value)
+  formData.append('headertext', document.getElementById("headertext").value)
+  formData.append('description', document.getElementById("description").value)
+  formData.append('categoryid', document.getElementById("category-selectlist").value)
+  putData(`https://localhost:7255/api/Product/${id}`, formData)
+})
+if (document.getElementById("createProductForm")) {
+  fetch("https://localhost:7255/api/Category")
+    .then(response => response.json())
+    .then(data => data.forEach(element => {
+      document.getElementById("category-selectlist").innerHTML += `<option value=${element.id}>${element.name}</option>`
+    }))
+}
+if (document.getElementById("updateProductForm")) {
+  let categoryId;
+  fetch(`https://localhost:7255/api/Product/${id}`)
+    .then(res => res.json())
+    .then(data => {
+      document.getElementById("name").value = data.name;
+      document.getElementById("headertext").value = data.headerText;
+      document.getElementById("description").value = data.description;
+      document.getElementById("imageShow").src += data.name + "/" + data.imageUrl;
+      document.getElementById("videoShow").innerHTML +=
+        `
+          <video autoplay controls class="w-100" style="height:150px;object-fit:fill">
+              <source  src="./../../MRSolutions/uploads/products/${data.name}/${data.videoUrl}" type="video/mp4">
+          </video>
+          `
+      categoryId = data.categoryId;
+    }).then(() => {
+      fetch("https://localhost:7255/api/Category")
+        .then(response => response.json())
+        .then(data => data.forEach(element => {
+          if (element.id == categoryId) {
+            document.getElementById("category-selectlist").innerHTML += `<option selected value=${element.id}>${element.name}</option>`
+          }
+          else {
+            document.getElementById("category-selectlist").innerHTML += `<option value=${element.id}>${element.name}</option>`
+          }
+        }))
+    });
+}
+if (document.getElementById("product-index")) {
+  fetch("https://localhost:7255/api/Product")
+    .then(res => res.json())
+    .then(data => data.forEach(element => {
+      document.getElementById("product-index").innerHTML +=
+        `
+                        <tr>
+                          <td>
+                            <i class="fab fa-angular fa-lg text-danger me-3"></i> <img style="width:200px" src="./../../MRSolutions/uploads/products/${element.name}/${element.imageUrl}">
+                          </td>  
+                          <td>
+                            <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>${element.name}</strong>
+                          </td>
+                          <td>
+                            <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>${element.headerText.length > 60 ? element.headerText.substring(0, 60) + "..." : element.headerText}</strong>
+                          </td>
+                          <td>
+                            <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>${element.description.length > 60 ? element.description.substring(0, 60) + "..." : element.description}</strong>
+                          </td>
+                          <td class="text-center d-flex flex-column align-items-center gap-3">
+                            <a href="./product-detail.html?id=${element.id}" class="text-white btn btn-primary w-50">Detallı</a>
+                            <a href="./product-update.html?id=${element.id}" class="text-white btn btn-warning w-50">Dəyişmək</a>
+                            <a onClick="entityDelete(this)" data-entity="product" data-id="${element.id}"class="text-white btn btn-danger w-50">Silmək</a>
+                          </td>
+                        </tr>
+          `
+    }))
+}
+
+//Project
+document.getElementById("createProjectForm")?.addEventListener('submit', function (event) {
+  event.preventDefault(); // Prevent form submission
+  const formData = new FormData();
+  formData.append('posterimage', document.getElementById("posterImage").files[0])
+  formData.append('image', document.getElementById("image").files[0])
+  formData.append('videothumbnail', document.getElementById("videoThumbnail").files[0])
+  formData.append('video', document.getElementById("video").files[0])
+  formData.append('name', document.getElementById("name").value)
+  formData.append('date', document.getElementById("date").value)
+  formData.append('location', document.getElementById("location").value)
+  formData.append('area', document.getElementById("area").value)
+  formData.append('description', document.getElementById("description").value)
+  postData("https://localhost:7255/api/Project", formData)
+})
+document.getElementById("updateProjectForm")?.addEventListener('submit', function (event) {
+  event.preventDefault(); // Prevent form submission
+  const formData = new FormData();
+  formData.append('id', projectId)
+  formData.append('posterimage', document.getElementById("posterImage").files[0])
+  formData.append('image', document.getElementById("image").files[0])
+  formData.append('videothumbnail', document.getElementById("videoThumbnail").files[0])
+  formData.append('video', document.getElementById("video").files[0])
+  formData.append('name', document.getElementById("name").value)
+  formData.append('date', document.getElementById("date").value)
+  formData.append('location', document.getElementById("location").value)
+  formData.append('area', document.getElementById("area").value)
+  formData.append('description', document.getElementById("description").value)
+  putData(`https://localhost:7255/api/Project/${id}`, formData);
+})
+if (document.getElementById("updateProjectForm")) {
+  fetch(`https://localhost:7255/api/Project/${id}`)
+    .then(res => res.json())
+    .then(data => {
+      document.getElementById("name").value = data.name;
+      document.getElementById("description").value = data.description;
+      document.getElementById("location").value = data.location;
+      document.getElementById("area").value = data.area;
+      document.getElementById("date").value = data.date.substring(0, 10);
+      data.projectImages.forEach(pi => {
+        if (pi.isPoster) {
+          document.getElementById("posterImageShow").src += data.name + "/" + pi.imageUrl
+        }
+        else if (pi.isPoster == false) {
+          document.getElementById("imageShow").src += data.name + "/" + pi.imageUrl
+        }
+        else {
+          document.getElementById("videoImageShow").src += data.name + "/" + pi.imageUrl
+        }
+      });
+      document.getElementById("videoShow").innerHTML +=
+        `
+                        <video autoplay controls class="w-100" style="height:150px;object-fit:fill">
+                            <source  src="./../../MRSolutions/uploads/projects/${data.name}/${data.videoUrl}" type="video/mp4">
+                        </video>
+                    `
+    });
+}
+if (document.getElementById("project-index")) {
+  fetch("https://localhost:7255/api/Project")
+    .then(res => res.json())
+    .then(data => data.forEach(element => {
+      document.getElementById("project-index").innerHTML +=
+        `
+                        <tr>
+                          <td>
+                            <i class="fab fa-angular fa-lg text-danger me-3"></i> <img style="width:200px" src="./../../MRSolutions/uploads/projects/${element.name}/${element.projectImages[0].imageUrl}">
+                          </td>  
+                          <td>
+                            <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>${element.name}</strong>
+                          </td>
+                          <td class="text-center">
+                            <a href="./project-detail.html?id=${element.id}" class="text-white btn btn-info">Detallı</a>
+                            <a href="./project-update.html?id=${element.id}" class="text-white btn btn-warning">Dəyişmək</a>
+                            <a onClick="entityDelete(this)" data-entity="project" data-id="${element.id}"class="text-white btn btn-danger">Silmək</a>
+                          </td>
+                        </tr>
+          `
+    }))
+}
+
+//Setting
+
+document.getElementById("updateSettingForm")?.addEventListener('submit', function (event) {
+  event.preventDefault(); // Prevent form submission
+  const value = document.getElementById('value').value;
+  const updatedSetting = { id, value };
+  putData(`https://localhost:7255/api/Setting/${id}`, updatedSetting)
+})
+if (document.getElementById("updateSettingForm")) {
+  etch(`https://localhost:7255/api/Setting/${id}`)
+    .then(res => res.json())
+    .then(data => {
+      document.getElementById("value").value = data.value;
+      document.getElementById("key").innerHTML = data.key;
+    });
+}
+if (document.getElementById("setting-index")) {
+  fetch("https://localhost:7255/api/Setting")
+    .then(res => res.json())
+    .then(data => data.forEach(element => {
+      document.getElementById("setting-index").innerHTML +=
+        `
+                        <tr>
+                          <td>
+                            <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>${element.key}</strong>
+                          </td>
+                          <td>
+                            <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>${element.value}</strong>
+                          </td>
+                          <td class="text-center">
+                            <a href="./setting-update.html?id=${element.id}" class="text-white btn btn-warning">Dəyişmək</a>
+                          </td>
+                        </tr>
+          `
+    }))
+}
+
+//Slider
+document.getElementById("createSliderForm")?.addEventListener('submit', async function (event) {
+  event.preventDefault(); // Prevent form submission
+  const formData = new FormData();
+  formData.append('image', document.getElementById("image").files[0])
+  formData.append('title', document.getElementById("title").value)
+  formData.append('description', document.getElementById("description").value)
+  formData.append('buttontext', document.getElementById("buttontext").value)
+  formData.append('redirecturl', document.getElementById("redirecturl").value)
+  postData("https://localhost:7255/api/Slider", formData)
+});
+document.getElementById("updateSliderForm")?.addEventListener('submit', function (event) {
+  event.preventDefault(); // Prevent form submission
+  const formData = new FormData();
+  formData.append('id', id)
+  formData.append('image', document.getElementById("image").files[0])
+  formData.append('title', document.getElementById("title").value)
+  formData.append('description', document.getElementById("description").value)
+  formData.append('buttontext', document.getElementById("buttontext").value)
+  formData.append('redirecturl', document.getElementById("redirecturl").value)
+  putData(`https://localhost:7255/api/Slider/${id}`, formData)
+});
+if (document.getElementById("updateSliderForm")) {
+  fetch(`https://localhost:7255/api/Slider/${id}`)
+    .then(res => res.json())
+    .then(data => {
+      document.getElementById("title").value = data.title;
+      document.getElementById("description").value = data.description;
+      document.getElementById("buttontext").value = data.buttonText;
+      document.getElementById("imageShow").src += data.title + "/" + data.imageUrl;
+      document.getElementById("redirecturl").value = data.redirectUrl;
+    });
+}
+if (document.getElementById("slider-index")) {
+  fetch("https://localhost:7255/api/Slider")
+    .then(res => res.json())
+    .then(data => data.forEach(element => {
+      document.getElementById("slider-index").innerHTML +=
+        `
+                        <tr>
+                          <td>
+                            <i class="fab fa-angular fa-lg text-danger me-3"></i> <img style="width:200px" src="./../../MRSolutions/uploads/sliders/${element.title}/${element.imageUrl}">
+                          </td>  
+                          <td>
+                            <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>${element.title}</strong>
+                          </td>
+                          <td>
+                            <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>${element.description.length > 60 ? element.description.substring(0, 60) + "..." : element.description}</strong>
+                          </td>
+                          <td class="text-center">
+                            <a href="./slider-detail.html?id=${element.id}" class="text-white btn btn-info">Detallı</a>
+                            <a href="./slider-update.html?id=${element.id}" class="text-white btn btn-warning">Dəyişmək</a>
+                            <a onClick="entityDelete(this)" data-entity="slider" data-id="${element.id}"class="text-white btn btn-danger">Silmək</a>
+                          </td>
+                        </tr>
+          `
+    }))
+}
 let menu, animate;
 
 (function () {

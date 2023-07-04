@@ -337,25 +337,7 @@
     <!-- / Layout wrapper -->
     <script>
       let table = document.querySelector("#brand-index");
-      fetch("https://localhost:7255/api/Brand")
-        .then(res => res.json())
-        .then(data => data.forEach(element => {
-          table.innerHTML +=
-            `
-                        <tr>
-                          <td>
-                            <strong>${element.name}</strong>
-                          </td>
-                          <td class="d-flex justify-content-center">
-                            <img style="width:200px; height:200px" src="./../../MRSolutions/uploads/brands/${element.name}/${element.imageUrl}">
-                          </td>
-                          <td class="text-center">
-                            <a href="./brand-update.html?id=${element.id}" class="text-white btn btn-warning">Dəyişmək</a>
-                            <a onClick="entityDelete(this)" data-entity="brand" data-id="${element.id}"class="text-white btn btn-danger">Silmək</a>
-                          </td>
-                        </tr>
-          `
-        }))
+      
       // function brandDelete(e) {
       //   console.log(e.dataset.id)
       //   let url =`https://localhost:7255/api/Brand/${e.dataset.id}`,
