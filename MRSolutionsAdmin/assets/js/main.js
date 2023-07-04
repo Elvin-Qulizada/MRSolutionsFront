@@ -13,6 +13,12 @@ let entityNames = {
   setting: "Tənzimləmə",
   slider: "Slayder"
 }
+//JWT
+// const token = document.cookie // Retrieve the token from the cookie
+//   .split('; ')
+//   .find(row => row.startsWith('jwtToken='))
+//   .split('=')[1];
+
 const queryStr = window.location.search;
 const params = new URLSearchParams(queryStr);
 const id = params.get('id');
@@ -75,6 +81,9 @@ async function postData(url = "", data = {}) {
   try {
     const response = await fetch(url, {
       method: "POST",
+      headers:{
+        'Authorization': `Bearer ${token}`
+      },
       body: data
     });
 
@@ -108,6 +117,9 @@ async function putData(url = "", data = {}) {
   try {
     const response = await fetch(url, {
       method: "PUT",
+      headers:{
+        'Authorization': `Bearer ${token}`
+      },
       body: data
     });
 
@@ -246,13 +258,74 @@ if (document.getElementById("brand-index")) {
 //Category
 document.getElementById("createCategoryForm")?.addEventListener('submit', function (event) {
   event.preventDefault(); // Prevent form submission
-  postData("https://localhost:7255/api/Category", { name: document.getElementById('name').value })
+  // postData("https://localhost:7255/api/Category", { name: document.getElementById('name').value })
+  fetch("https://localhost:7255/api/Category", {
+    method: "POST", // *GET, POST, PUT, DELETE, etc.
+    mode: "cors", // no-cors, *cors, same-origin
+    cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+    credentials: "same-origin", // include, *same-origin, omit
+    headers: {
+      'Authorization': `Bearer ${token}`,
+      "Content-Type": "application/json",
+      // 'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    redirect: "follow", // manual, *follow, error
+    referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+    body: JSON.stringify({ name: document.getElementById('name').value }), // body data type must match "Content-Type" header
+  })
+    .then(response => {
+      if (!response.ok) {
+        $("#modalCenter").modal('show');
+      } else {
+        Swal.fire(
+          'Yaradıldı!',
+          'Kateqoriya yaradıldı.',
+          'info'
+        ).then(function () {
+          window.location.href = "./category-index.html";
+        })
+        setTimeout(() => {
+          window.location.href="./category-index.html";
+        }, 10000);
+      }
+    })
+    .catch(() => {
+      $("#modalCenter").modal('show');
+    });
 })
 document.getElementById("updateCategoryForm")?.addEventListener('submit', function (event) {
   event.preventDefault(); // Prevent form submission
   const name = document.getElementById('name').value;
   const updatedCategory = { id, name };
-  putData(`https://localhost:7255/api/Category/${id}`, updatedCategory);
+  fetch(`https://localhost:7255/api/Category/${id}`, {
+          method: 'PUT',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(updatedCategory)
+        })
+          .then(response => {
+            if (!response.ok) {
+              $("#modalCenter").modal('show');
+            }
+            response.json()
+          })
+          .then(data => {
+            Swal.fire(
+              'Dəyişdirildi!',
+              'Kateqoriya dəyişdirildi.',
+              'info'
+            ).then(function () {
+              window.location.href = "./category-index.html";
+            })
+            setTimeout(() => {
+              window.location.href = "./category-index.html";
+            }, 10000);
+          })
+          .catch(error => {
+            $("#modalCenter").modal('show');
+          });
 })
 if (document.getElementById("updateCategoryForm")) {
   fetch(`https://localhost:7255/api/Category/${id}`)
