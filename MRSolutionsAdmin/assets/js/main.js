@@ -153,7 +153,21 @@ async function putData(url = "", data = {}) {
 if(document.getElementById("dashboard-index")){
   fetch("https://localhost:7255/api/Dashboard")
     .then(res => res.json())
-    .then(data => console.log(data) 
+    .then(data => {
+      let keys = Object.keys(data);
+      let values = Object.values(data);
+      for (let i = 0; i < keys.length; i++) {
+        document.getElementById("dashboard-index").innerHTML +=
+        `
+          <tr class="text-center">
+            <td>${i+1}</td>
+            <td>${findFromEntityNames(keys[i])}</td>
+            <td>${values[i]}</td>
+            <td><a href="./${keys[i]}-index.html" class="text-white btn btn-success">Ətraflı</a></td>
+          </tr>
+        `
+      }
+    } 
     //   data.forEach(element => {
     //   console.log(element)
     //   // document.getElementById("dashboard-index").innerHTML +=
