@@ -18,7 +18,7 @@ let entityNames = {
 //   .split('; ')
 //   .find(row => row.startsWith('jwtToken='))
 //   .split('=')[1];
-
+const token = Cookies.get("jwtToken");
 const queryStr = window.location.search;
 const params = new URLSearchParams(queryStr);
 const id = params.get('id');
@@ -43,11 +43,15 @@ function entityDelete(e) {
     showCancelButton: true,
     confirmButtonColor: '#3085d6',
     cancelButtonColor: '#d33',
-    confirmButtonText: 'Bəli'
+    confirmButtonText: 'Bəli',
+    cancelButtonText: 'Ləğv et'
   }).then((result) => {
     if (result.isConfirmed) {
       fetch(url, {
-        method: "DELETE"
+        method: "DELETE",
+        headers:{
+          'Authorization': `Bearer ${token}`
+        }
       })
         .then(response => {
           if (response.status == 200) {
@@ -534,7 +538,7 @@ document.getElementById("updateSettingForm")?.addEventListener('submit', functio
   putData(`https://localhost:7255/api/Setting/${id}`, updatedSetting)
 })
 if (document.getElementById("updateSettingForm")) {
-  etch(`https://localhost:7255/api/Setting/${id}`)
+  fetch(`https://localhost:7255/api/Setting/${id}`)
     .then(res => res.json())
     .then(data => {
       document.getElementById("value").value = data.value;
