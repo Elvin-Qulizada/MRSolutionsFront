@@ -149,6 +149,35 @@ async function putData(url = "", data = {}) {
     throw error;
   }
 }
+//Dashboard
+if(document.getElementById("dashboard-index")){
+  fetch("https://localhost:7255/api/Dashboard")
+    .then(res => res.json())
+    .then(data => console.log(data) 
+    //   data.forEach(element => {
+    //   console.log(element)
+    //   // document.getElementById("dashboard-index").innerHTML +=
+    //   //   `
+    //   //                   <tr>
+    //   //                     <td>
+    //   //                       <i class="fab fa-angular fa-lg text-danger me-3"></i> <img style="width:200px" src="./../../MRSolutions/uploads/services/${element.name}/${element.posterImageUrl}">
+    //   //                     </td>  
+    //   //                     <td>
+    //   //                       <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>${element.name}</strong>
+    //   //                     </td>
+    //   //                     <td>
+    //   //                       <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>${element.headerText.length > 60 ? element.headerText.substring(0, 60) + "..." : element.headerText}</strong>
+    //   //                     </td>
+    //   //                     <td class="text-center">
+    //   //                       <a href="./service-detail.html?id=${element.id}" class="text-white btn btn-info">Detallı</a>
+    //   //                       <a href="./service-update.html?id=${element.id}" class="text-white btn btn-warning">Dəyişmək</a>
+    //   //                       <a onClick="entityDelete(this)" data-entity="service" data-id="${element.id}"class="text-white btn btn-danger">Silmək</a>
+    //   //                     </td>
+    //   //                   </tr>
+    //   //     `
+    // })
+    )
+}
 //Service
 document.getElementById("createServiceForm")?.addEventListener('submit', async function (event) {
   event.preventDefault(); // Prevent form submission
