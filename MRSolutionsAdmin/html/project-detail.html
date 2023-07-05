@@ -27,7 +27,7 @@
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
 
-    <title>Xidmətlər</title>
+    <title>Layihə detalları</title>
 
     <meta name="description" content="" />
 
@@ -49,13 +49,14 @@
     <link rel="stylesheet" href="../assets/vendor/css/core.css" class="template-customizer-core-css" />
     <link rel="stylesheet" href="../assets/vendor/css/theme-default.css" class="template-customizer-theme-css" />
     <link rel="stylesheet" href="../assets/css/demo.css" />
-    <!--Sweet Alert-->
-    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.5/dist/sweetalert2.min.css" rel="stylesheet">
+
     <!-- Vendors CSS -->
     <link rel="stylesheet" href="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
-
+    <!--Sweet Alert-->
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.5/dist/sweetalert2.min.css" rel="stylesheet">
     <!-- Page CSS -->
-
+    <!-- Swiper -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
     <!-- Helpers -->
     <script src="../assets/vendor/js/helpers.js"></script>
 
@@ -112,12 +113,12 @@
                     <div data-i18n="Error">Məhsullar</div>
                   </a>
                 </li>
-                <li class="menu-item active">
+                <li class="menu-item">
                   <a href="service-index.html" class="menu-link">
                     <div data-i18n="Error">Xidmətlər</div>
                   </a>
                 </li>
-                <li class="menu-item">
+                <li class="menu-item active">
                   <a href="project-index.html" class="menu-link">
                     <div data-i18n="Error">Layihələr</div>
                   </a>
@@ -257,28 +258,88 @@
               <!-- Basic Layout & Basic with Icons -->
               <div class="row">
                 <!-- Basic Layout -->
-                <!-- Bordered Table -->
-              <div class="card">
-                <h5 class="card-header d-flex justify-content-between align-items-center">Xidmətlər<a href="./service-create.html" class="text-white btn btn-success">Yeni +</a></h5>
-                <div class="card-body">
-                  <div style="overflow-y: hidden;" class="table-responsive">
-                    <table class="table table-bordered w-100">
-                      <thead>
-                        <tr class="text-center">
-                          <th style="width:20%">Şəkil</th>
-                          <th style="width:15%">Xidmət Adı</th>
-                          <th style="width:20%">Başlıq</th>
-                          <th>Fəaliyyətlər</th>
-                        </tr>
-                      </thead>
-                      <tbody id="service-index">
-                        
-                      </tbody>
-                    </table>
+                <div class="col-xxl">
+                    <div class="card mb-4">
+                      <div class="card-header d-flex align-items-center justify-content-between">
+                        <h5 class="mb-0">Layihə Detalları</h5>
+                      </div>
+                      <div class="card-body">
+                          <div class="row mb-3" id="projectDetail">
+                              <div class="col-md-5 d-flex align-items-center">
+                                  <table class="table table-bordered" style="table-layout: fixed;">
+                                      <thead>
+                                        <tr>
+                                          <th scope="col" style="width: 40%;">Xüsusiyyət</th>
+                                          <th scope="col" style="width: 60%;">Dəyər</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+                                        <tr>
+                                          <td scope="row">Ad</td>
+                                          <td id="name"></td>
+                                        </tr>
+                                        <tr>
+                                          <td scope="row">Tarix</td>
+                                          <td id="date"></td>
+                                        </tr>
+                                        <tr>
+                                            <td scope="row">Məkan</td>
+                                            <td id="location"></td>
+                                        </tr>
+                                        <tr>
+                                            <td scope="row">Sahə</td>
+                                            <td id="area"></td>
+                                        </tr>
+                                        <tr>
+                                          <td scope="row">Məlumat</td>
+                                          <td id="description" style="word-wrap: break-word;"></td>
+                                        </tr>
+                                      </tbody>
+                                    </table>
+                              </div>
+                              <div class="col-md-7">
+                                  <div class="swiper mySwiper">
+                                      <div class="swiper-wrapper">
+                                        <div class="swiper-slide d-flex justify-content-center">
+                                          <div class="d-flex flex-column align-items-center justify-content-center w-75">
+                                              <p>Başlıq Şəkli</p>
+                                              <img src="./../../MRSolutions/uploads/projects/" class="w-100" alt="" id="posterImageShow">
+                                          </div>
+                                        </div>
+                                        <div class="swiper-slide d-flex justify-content-center">
+                                          <div class="d-flex flex-column align-items-center justify-content-center w-75">
+                                              <p>Məlumat Şəkli</p>
+                                              <img src="./../../MRSolutions/uploads/projects/" class="w-100" alt="" id="imageShow">    
+                                          </div>
+                                        </div>
+                                        <div class="swiper-slide d-flex justify-content-center">
+                                            <div class="d-flex flex-column align-items-center justify-content-center w-75">
+                                                <p>Video Şəkli</p>
+                                                <img src="./../../MRSolutions/uploads/projects/" class="w-100" alt="" id="videoImage">
+                                            </div>
+                                        </div>
+                                        <div class="swiper-slide d-flex justify-content-center">
+                                            <div class="d-flex flex-column align-items-center justify-content-center w-75">
+                                                <p>Video</p>
+                                                <div class="w-100" id="video">
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                      </div>
+                                      <div class="swiper-button-next"></div>
+                                      <div class="swiper-button-prev"></div>
+                                    </div>
+                              </div>
+                              <div class="row justify-content-center mt-3">
+                                  <div class="col-2 d-flex justify-content-center">
+                                    <a class="btn btn-danger text-white" href="./project-index.html">Geri</a>
+                                  </div>
+                                </div>
+                          </div> 
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
-              <!--/ Bordered Table -->
               </div>
             </div>
             <!-- / Content -->
@@ -289,7 +350,7 @@
               <div class="mb-2 mb-md-0">
                 ©
                 <script>
-                  document.write(new Date().getFullYear());
+                    document.write(new Date().getFullYear());
                 </script>
                 , made with ❤️ by
                 <a href="https://elvin-qulizade.github.io/Elvin-Qulizade/" target="_blank"
@@ -309,54 +370,20 @@
       <!-- Overlay -->
       <div class="layout-overlay layout-menu-toggle"></div>
     </div>
-    
+    <!-- / Layout wrapper -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.5/dist/sweetalert2.all.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
-  <!-- / Layout wrapper -->
-    <script>
-      let table = document.querySelector("#service-index");
-      
-      // function serviceDelete(e) {
-      //   console.log("test")
-      //   let url = `https://localhost:7255/api/Service/${e.dataset.id}`;
-      //   let id = e.dataset.id;
-      //   Swal.fire({
-      //     title: 'Əminsinizmi?',
-      //     text: "Bu fəaliyyəti geri qaytarmaq mümkün olmayacaq!",
-      //     icon: 'warning',
-      //     showCancelButton: true,
-      //     confirmButtonColor: '#3085d6',
-      //     cancelButtonColor: '#d33',
-      //     confirmButtonText: 'Bəli'
-      //   }).then((result) => {
-      //     if (result.isConfirmed) {
-      //       fetch(url, {
-      //         method: "DELETE"
-      //       })
-      //         .then(response => {
-      //           if (response.status == 200) {
-      //             Swal.fire(
-      //               'Silindi!',
-      //               'Xidmət silindi.',
-      //               'info'
-      //             ).then(function () {
-      //               window.location.reload();
-      //             })
-      //             setTimeout(() => {
-      //               window.location.reload();
-      //             }, 10000);
-      //           } else {
-      //             Swal.fire({
-      //               icon: 'error',
-      //               title: 'Xəta',
-      //               text: `Bu id-li xidmət tapılmadı:${id}`
-      //             })
-      //           }
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
 
-      //         })
-      //     }
-      //   })
-      // }
+    <!-- Initialize Swiper -->
+    <script>
+        var swiper = new Swiper(".mySwiper", {
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
+        });
     </script>
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->

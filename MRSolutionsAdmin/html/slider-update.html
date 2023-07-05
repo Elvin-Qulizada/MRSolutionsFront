@@ -91,7 +91,7 @@
                 <div data-i18n="Analytics">Əsas səhifə</div>
               </a>
             </li>
-            <li class="menu-item active">
+            <li class="menu-item active open">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-cube-alt"></i>
                 <div data-i18n="Misc">Elementlər</div>
@@ -265,33 +265,38 @@
                     <div class="card-body">
                       <form enctype="multipart/form-data" id="updateSliderForm" action="https://localhost:7255/api/Slider" method="put">
                         <div class="row mb-3">
-                            <div class="col-md-12">
-                                <img id="imageShow" src="./../../MRSolutions/uploads/sliders/" alt="" class="w-100">
-                            </div>
-                            <div class="col-md-12">
-                                <label class="col-form-label" for="name">Slayder Adı</label>
-                                <div class="">
-                                  <input type="text" class="form-control" name="title" id="title" placeholder="Slayder Adı" />
+                          <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label class="col-form-label" for="name">Slayder Başlığı</label>
+                                    <div class="">
+                                      <textarea class="form-control" name="title" id="title" placeholder="Başlıq" rows="3"></textarea>
+                                  </div>
                                 </div>
-                            </div>
-                            <div class="col-md-4">
-                                <label class="col-form-label" for="headertext">Düymə Mətni</label>
-                                <div class="">
-                                  <input type="text" class="form-control" name="buttontext" id="buttontext" placeholder="Düymə Mətni" />
+                                <div class="col-md-12">
+                                    <label class="col-form-label" for="headertext">Düymə Mətni</label>
+                                    <div class="">
+                                      <input type="text" class="form-control" name="buttontext" id="buttontext" placeholder="Düymə Mətni" />
+                                    </div>
+                                  </div>
+                                <div class="col-md-12">
+                                    <label class="col-form-label" for="headertext">Yönləndirmə Linki</label>
+                                    <div class="">
+                                      <input type="text" class="form-control" name="redirecturl" id="redirecturl" placeholder="Yönləndirmə Linki" />
+                                    </div>
+                                  </div>
+                                <div class="col-md-12">
+                                    <label class="col-form-label" for="image">Şəkil</label>
+                                    <div class="">
+                                      <input type="file" class="form-control" name="image" id="image" placeholder="Şəkil" />
+                                    </div>
+                                  </div>
+
                                 </div>
-                            </div>
-                            <div class="col-md-4">
-                                <label class="col-form-label" for="headertext">Yönləndirmə Linki</label>
-                                <div class="">
-                                  <input type="text" class="form-control" name="redirecturl" id="redirecturl" placeholder="Yönləndirmə Linki" />
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <label class="col-form-label" for="posterimage">Şəkil</label>
-                                <div class="">
-                                  <input type="file" class="form-control" name="image" id="image" placeholder="Şəkil" />
-                                </div>
-                            </div>
+                              </div>
+                              <div class="col-md-6">
+                                  <img id="imageShow" src="./../../MRSolutions/uploads/sliders/" alt="" class="w-100">
+                              </div>
                             <div class="col-md-12">
                                 <label class="col-form-label" for="description">Məlumat</label>
                                 <div class="">
@@ -351,7 +356,7 @@
               <div class="mb-2 mb-md-0">
                 ©
                 <script>
-                    document.write(new Date().getFullYear());
+                  document.write(new Date().getFullYear());
                 </script>
                 , made with ❤️ by
                 <a href="https://elvin-qulizade.github.io/Elvin-Qulizade/" target="_blank"
@@ -374,70 +379,6 @@
     <!-- / Layout wrapper -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.5/dist/sweetalert2.all.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
-  <!-- <script>
-        const queryString = window.location.search;
-        const urlParams = new URLSearchParams(queryString);
-        const sliderId = urlParams.get('id');
-        document.querySelector("form").action += sliderId;
-        fetch(`https://localhost:7255/api/Slider/${sliderId}`)
-            .then(res => res.json())
-            .then(data => {
-                document.getElementById("title").value = data.title;
-                document.getElementById("description").value = data.description;
-                document.getElementById("buttontext").value = data.buttonText;
-                document.getElementById("imageShow").src += data.title + "/" + data.imageUrl;
-                document.getElementById("redirecturl").value = data.redirectUrl;
-            });
-        async function putData(url = "", data = {}) {
-            try {
-                const response = await fetch(url, {
-                    method: "PUT",
-                    body: data
-                });
-
-                if (!response.ok) {
-                    $("#modalCenter").modal('show');
-                } else {
-                    Swal.fire(
-                        'Dəyişdirildi!',
-                        'Slayder dəyişdirildi.',
-                        'info'
-                    ).then(function () {
-                        window.location.href = "./slider-index.html";
-                    });
-
-                    setTimeout(() => {
-                        window.location.href = "./slider-index.html";
-                    }, 10000);
-                }
-
-                return response.json(); // Return the parsed JSON data
-            } catch (error) {
-                $("#modalCenter").modal('show');
-                throw error;
-            }
-        }
-        document.getElementById("updateSliderForm").addEventListener('submit', async function (event) {
-            event.preventDefault(); // Prevent form submission
-            const formData = new FormData();
-            const image = document.getElementById("image").files[0];
-            formData.append('id', sliderId)
-            formData.append('image', image)
-            formData.append('title', document.getElementById("title").value)
-            formData.append('description', document.getElementById("description").value)
-            formData.append('buttontext', document.getElementById("buttontext").value)
-            formData.append('redirecturl', document.getElementById("redirecturl").value)
-            // Example POST method implementation:
-
-
-            putData(`https://localhost:7255/api/Slider/${sliderId}`, formData).then((data) => {
-                console.log(data); // JSON data parsed by `response.json()` call
-            }).catch((error) => {
-                // Handle any errors that occurred during the fetch request
-                console.error(error);
-            });
-        });
-    </script> -->
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
     <script src="../assets/vendor/libs/jquery/jquery.js"></script>

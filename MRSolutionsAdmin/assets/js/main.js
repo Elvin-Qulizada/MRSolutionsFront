@@ -49,7 +49,7 @@ function entityDelete(e) {
     if (result.isConfirmed) {
       fetch(url, {
         method: "DELETE",
-        headers:{
+        headers: {
           'Authorization': `Bearer ${token}`
         }
       })
@@ -85,7 +85,7 @@ async function postData(url = "", data = {}) {
   try {
     const response = await fetch(url, {
       method: "POST",
-      headers:{
+      headers: {
         'Authorization': `Bearer ${token}`
       },
       body: data
@@ -121,7 +121,7 @@ async function putData(url = "", data = {}) {
   try {
     const response = await fetch(url, {
       method: "PUT",
-      headers:{
+      headers: {
         'Authorization': `Bearer ${token}`
       },
       body: data
@@ -212,6 +212,17 @@ if (document.getElementById("service-index")) {
           `
     }))
 }
+if (document.getElementById("serviceDetail")) {
+  fetch(`https://localhost:7255/api/Service/${id}`)
+    .then(res => res.json())
+    .then(data => {
+      document.getElementById("name").innerText = data.name;
+      document.getElementById("headerText").innerText = data.headerText;
+      document.getElementById("description").innerText = data.description;
+      document.getElementById("posterImageShow").src += data.name + "/" + data.posterImageUrl;
+      document.getElementById("imageShow").src += data.name + "/" + data.imageUrl;
+    });
+}
 
 //Brand
 document.getElementById("createBrandForm")?.addEventListener('submit', function (event) {
@@ -289,7 +300,7 @@ document.getElementById("createCategoryForm")?.addEventListener('submit', functi
           window.location.href = "./category-index.html";
         })
         setTimeout(() => {
-          window.location.href="./category-index.html";
+          window.location.href = "./category-index.html";
         }, 10000);
       }
     })
@@ -302,34 +313,34 @@ document.getElementById("updateCategoryForm")?.addEventListener('submit', functi
   const name = document.getElementById('name').value;
   const updatedCategory = { id, name };
   fetch(`https://localhost:7255/api/Category/${id}`, {
-          method: 'PUT',
-          headers: {
-            'Authorization': `Bearer ${token}`,
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(updatedCategory)
-        })
-          .then(response => {
-            if (!response.ok) {
-              $("#modalCenter").modal('show');
-            }
-            response.json()
-          })
-          .then(data => {
-            Swal.fire(
-              'Dəyişdirildi!',
-              'Kateqoriya dəyişdirildi.',
-              'info'
-            ).then(function () {
-              window.location.href = "./category-index.html";
-            })
-            setTimeout(() => {
-              window.location.href = "./category-index.html";
-            }, 10000);
-          })
-          .catch(error => {
-            $("#modalCenter").modal('show');
-          });
+    method: 'PUT',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(updatedCategory)
+  })
+    .then(response => {
+      if (!response.ok) {
+        $("#modalCenter").modal('show');
+      }
+      response.json()
+    })
+    .then(data => {
+      Swal.fire(
+        'Dəyişdirildi!',
+        'Kateqoriya dəyişdirildi.',
+        'info'
+      ).then(function () {
+        window.location.href = "./category-index.html";
+      })
+      setTimeout(() => {
+        window.location.href = "./category-index.html";
+      }, 10000);
+    })
+    .catch(error => {
+      $("#modalCenter").modal('show');
+    });
 })
 if (document.getElementById("updateCategoryForm")) {
   fetch(`https://localhost:7255/api/Category/${id}`)
@@ -439,13 +450,40 @@ if (document.getElementById("product-index")) {
                             <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>${element.description.length > 60 ? element.description.substring(0, 60) + "..." : element.description}</strong>
                           </td>
                           <td class="text-center d-flex flex-column align-items-center gap-3">
-                            <a href="./product-detail.html?id=${element.id}" class="text-white btn btn-primary w-50">Detallı</a>
+                            <a href="./product-detail.html?id=${element.id}" class="text-white btn btn-info w-50">Detallı</a>
                             <a href="./product-update.html?id=${element.id}" class="text-white btn btn-warning w-50">Dəyişmək</a>
                             <a onClick="entityDelete(this)" data-entity="product" data-id="${element.id}"class="text-white btn btn-danger w-50">Silmək</a>
                           </td>
                         </tr>
           `
     }))
+}
+if (document.getElementById("productDetail")) {
+  let categoryId;
+  fetch(`https://localhost:7255/api/Product/${id}`)
+    .then(res => res.json())
+    .then(data => {
+      console.log(data);
+      document.getElementById("name").innerText = data.name;
+      document.getElementById("headerText").innerText = data.headerText;
+      document.getElementById("description").innerText = data.description;
+      document.getElementById("imageShow").src += data.name + "/" + data.imageUrl;
+      document.getElementById("videoShow").innerHTML +=
+        `
+          <video autoplay controls class="w-100" style="height:150px;object-fit:fill">
+              <source  src="./../../MRSolutions/uploads/products/${data.name}/${data.videoUrl}" type="video/mp4">
+          </video>
+          `
+      categoryId = data.categoryId;
+    }).then(() => {
+      fetch("https://localhost:7255/api/Category")
+        .then(response => response.json())
+        .then(data => data.forEach(element => {
+          if (element.id == categoryId) {
+            document.getElementById("category").innerText += element.name
+          }
+        }))
+    });
 }
 
 //Project
@@ -527,6 +565,34 @@ if (document.getElementById("project-index")) {
                         </tr>
           `
     }))
+}
+if (document.getElementById("projectDetail")) {
+  fetch(`https://localhost:7255/api/Project/${id}`)
+    .then(res => res.json())
+    .then(data => {
+      document.getElementById("name").innerText = data.name;
+      document.getElementById("description").innerText = data.description;
+      document.getElementById("location").innerText = data.location;
+      document.getElementById("area").innerText = data.area;
+      document.getElementById("date").innerText = data.date.substring(0, 10);
+      data.projectImages.forEach(pi => {
+        if (pi.isPoster) {
+          document.getElementById("posterImageShow").src += data.name + "/" + pi.imageUrl
+        }
+        else if (pi.isPoster == false) {
+          document.getElementById("imageShow").src += data.name + "/" + pi.imageUrl
+        }
+        else {
+          document.getElementById("videoImage").src += data.name + "/" + pi.imageUrl
+        }
+      });
+      document.getElementById("video").innerHTML +=
+        `
+                        <video autoplay controls class="w-100" style="height:250px;object-fit:fill">
+                            <source  src="./../../MRSolutions/uploads/projects/${data.name}/${data.videoUrl}" type="video/mp4">
+                        </video>
+                    `
+    });
 }
 
 //Setting
@@ -624,7 +690,19 @@ if (document.getElementById("slider-index")) {
           `
     }))
 }
-let menu, animate;
+if (document.getElementById("sliderDetail")){
+  fetch(`https://localhost:7255/api/Slider/${id}`)
+    .then(res => res.json())
+    .then(data => {
+      document.getElementById("title").innerText = data.title;
+      document.getElementById("description").innerText = data.description;
+      document.getElementById("buttonText").innerText = data.buttonText;
+      document.getElementById("image").src += data.title + "/" + data.imageUrl;
+      document.getElementById("redirectUrl").innerText = data.redirectUrl;
+    });
+}
+
+  let menu, animate;
 
 (function () {
   // Initialize menu
