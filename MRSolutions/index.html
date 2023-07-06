@@ -94,8 +94,8 @@
                                                 <span class="icon-maps-and-location"></span>
                                             </div>
                                             <div class="text">
-                                                <h3>Bakı, Azərbaycan</h3>
-                                                <p>26/13 Cəfər Xəndan Küçəsi</p>
+                                                <h3 id="city">Bakı, Azərbaycan</h3>
+                                                <p id="address">Sh.Mehdiyev 93, Azeragrartikinti</p>
                                             </div>
                                         </div>
                                     </li>
@@ -105,7 +105,7 @@
                                                 <span class="icon-phone"></span>
                                             </div>
                                             <div class="text">
-                                                <a style="font-size: 18px;
+                                                <a id="phoneNumber" style="font-size: 18px;
                                                 font-weight: 500;
                                                 text-transform: capitalize;
                                                 font-family: 'Rubik', sans-serif;
@@ -119,24 +119,28 @@
                                                 <span class="icon-mail"></span>
                                             </div>
                                             <div class="text">
-                                                <a style="font-size: 18px;
+                                                <a id="email" style="font-size: 18px;
                                                 font-weight: 500;
                                                 font-family: 'Rubik', sans-serif;
-                                                color:#27282c" href="mailto:support@mrsolutions.az">support@mrsolutions.az</a>
-                                                
+                                                color:#27282c"
+                                                    href="mailto:support@mrsolutions.az">support@mrsolutions.az</a>
+
                                             </div>
                                         </div>
                                     </li>
                                 </ul>
                                 <ul class="header-social-links-style1 float-right">
                                     <li class="wow slideInUp" data-wow-delay="0ms" data-wow-duration="1200ms">
-                                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                                        <a id="facebookUrl" href="#" target="_blank"><i class="fa fa-facebook"
+                                                aria-hidden="true"></i></a>
                                     </li>
                                     <li class="wow slideInUp" data-wow-delay="300ms" data-wow-duration="1500ms">
-                                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                                        <a id="instagramUrl" href="#" target="_blank"><i class="fa fa-instagram"
+                                                aria-hidden="true"></i></a>
                                     </li>
                                     <li class="wow slideInUp" data-wow-delay="400ms" data-wow-duration="1500ms">
-                                        <a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+                                        <a id="linkedinUrl" href="#" target="_blank"><i class="fa fa-linkedin"
+                                                aria-hidden="true"></i></a>
                                     </li>
                                 </ul>
                             </div>
@@ -191,8 +195,10 @@
                         {"delay":"wait","speed":1000,"to":"auto:auto;","mask":"x:0;y:0;s:inherit;e:inherit;","ease":"Power3.easeInOut"}]'
                                 style="z-index: 7; white-space: nowrap;">
                                 <div class="slide-content left-slide">
-                                    <div class="text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Delectus, inventore!
-                                        <br>Lorem ipsum dolor sit amet consectetur.</div>
+                                    <div class="text">Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                                        Delectus, inventore!
+                                        <br>Lorem ipsum dolor sit amet consectetur.
+                                    </div>
                                 </div>
                             </div>
                             <div class="tp-caption" data-paddingbottom="[0,0,0,0]" data-paddingleft="[0,0,0,0]"
@@ -255,7 +261,8 @@
                                 style="z-index: 7; white-space: nowrap;">
                                 <div class="slide-content left-slide">
                                     <div class="text">Our power of choice is untrammelled and when nothing prevents
-                                        <br>our being able to do what we like best.</div>
+                                        <br>our being able to do what we like best.
+                                    </div>
                                 </div>
                             </div>
                             <div class="tp-caption" data-paddingbottom="[0,0,0,0]" data-paddingleft="[0,0,0,0]"
@@ -315,7 +322,8 @@
                                 style="z-index: 7; white-space: nowrap;">
                                 <div class="slide-content left-slide">
                                     <div class="text">Our power of choice is untrammelled and when nothing prevents
-                                        <br>our being able to do what we like best.</div>
+                                        <br>our being able to do what we like best.
+                                    </div>
                                 </div>
                             </div>
                             <div class="tp-caption" data-paddingbottom="[0,0,0,0]" data-paddingleft="[0,0,0,0]"
@@ -350,17 +358,14 @@
                     <div class="title">Tərəfdaşlarımız</div>
                 </div>
                 <div class="row">
-                    <div class="col-xl-12">
+                    <div id="brands-slider" class="col-xl-12">
                         <ul class="brand-items-carousel owl-carousel owl-theme">
-                            <!--Start Single Brand Item-->
                             <li class="single-brand-item wow fadeInUp" data-wow-delay="0ms" data-wow-duration="1500ms">
                                 <a href="#"><img src="images/brand/1.png" alt="Awesome Brand Image"></a>
                                 <div class="overlay-content">
                                     <p>Baku Electronics</p>
                                 </div>
                             </li>
-                            <!--End Single Brand Item-->
-                            <!--Start Single Brand Item-->
                             <li class="single-brand-item wow fadeInUp" data-wow-delay="200ms"
                                 data-wow-duration="1500ms">
                                 <a href="#"><img src="images/brand/2.png" alt="Awesome Brand Image"></a>
@@ -368,8 +373,6 @@
                                     <p>Bakı Dövlət Universiteti</p>
                                 </div>
                             </li>
-                            <!--End Single Brand Item-->
-                            <!--Start Single Brand Item-->
                             <li class="single-brand-item wow fadeInUp" data-wow-delay="400ms"
                                 data-wow-duration="1500ms">
                                 <a href="#"><img src="images/brand/3.png" alt="Awesome Brand Image"></a>
@@ -377,8 +380,6 @@
                                     <p>Dövlət Təhlükəsizlik Xidməti</p>
                                 </div>
                             </li>
-                            <!--End Single Brand Item-->
-                            <!--Start Single Brand Item-->
                             <li class="single-brand-item wow fadeInUp" data-wow-delay="600ms"
                                 data-wow-duration="1500ms">
                                 <a href="#"><img src="images/brand/4.png" alt="Awesome Brand Image"></a>
@@ -386,8 +387,6 @@
                                     <p>Paşa Bank</p>
                                 </div>
                             </li>
-                            <!--End Single Brand Item-->
-                            <!--Start Single Brand Item-->
                             <li class="single-brand-item wow fadeInUp" data-wow-delay="800ms"
                                 data-wow-duration="1500ms">
                                 <a href="#"><img src="images/brand/5.png" alt="Awesome Brand Image"></a>
@@ -395,7 +394,6 @@
                                     <p>Rabitə Bank</p>
                                 </div>
                             </li>
-                            <!--End Single Brand Item-->
                         </ul>
                     </div>
                 </div>
@@ -420,18 +418,18 @@
                                 <ul>
                                     <li>
                                         <h6>Address</h6>
-                                        <p>Bakı, Azərbaycan<br> 23 Zahid Xəlilov Küçəsi</p>
+                                        <p id="city">Bakı, Azərbaycan<br><span id="address">Sh.Mehdiyev 93, Azeragrartikinti</span></p>
                                     </li>
                                     <li>
                                         <h6>Telefon</h6>
-                                        <p><a href="tel:+9940518979898" style="color: #7c7e84;">+994 051 897 98
+                                        <p><a id="phoneNumber" href="tel:+9940518979898" style="color: #7c7e84;">+994
+                                                051 897 98
                                                 98</a></p>
                                     </li>
                                     <li>
                                         <h6>Email</h6>
-                                        <p><a href="mailto:abc@shell.az" style="color: #7c7e84;">abc@mrsolutions.az</a><br> <a
-                                                href="mailto:support@shell.az"
-                                                style="color: #7c7e84;">support@mrsolutions.az</a></p>
+                                        <p> <a id="email" href="mailto:@shell.az"
+                                                style="color: #7c7e84;">@mrsolutions.az</a></p>
                                     </li>
                                 </ul>
                             </div>
@@ -640,6 +638,7 @@
 
     <!-- thm custom script -->
     <script src="js/custom.js"></script>
+    <script src="js/main.js"></script>
 
 
 

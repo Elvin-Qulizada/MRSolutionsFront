@@ -19,6 +19,7 @@ let entityNames = {
 //   .find(row => row.startsWith('jwtToken='))
 //   .split('=')[1];
 const token = Cookies.get("jwtToken");
+
 const queryStr = window.location.search;
 const params = new URLSearchParams(queryStr);
 const id = params.get('id');
@@ -150,47 +151,68 @@ async function putData(url = "", data = {}) {
   }
 }
 //Dashboard
-if(document.getElementById("dashboard-index")){
-  fetch("https://localhost:7255/api/Dashboard")
-    .then(res => res.json())
-    .then(data => {
-      let keys = Object.keys(data);
-      let values = Object.values(data);
-      for (let i = 0; i < keys.length; i++) {
-        document.getElementById("dashboard-index").innerHTML +=
-        `
-          <tr class="text-center">
-            <td>${i+1}</td>
-            <td>${findFromEntityNames(keys[i])}</td>
-            <td>${values[i]}</td>
-            <td><a href="./${keys[i]}-index.html" class="text-white btn btn-success">Ətraflı</a></td>
-          </tr>
-        `
-      }
-    } 
-    //   data.forEach(element => {
-    //   console.log(element)
-    //   // document.getElementById("dashboard-index").innerHTML +=
-    //   //   `
-    //   //                   <tr>
-    //   //                     <td>
-    //   //                       <i class="fab fa-angular fa-lg text-danger me-3"></i> <img style="width:200px" src="./../../MRSolutions/uploads/services/${element.name}/${element.posterImageUrl}">
-    //   //                     </td>  
-    //   //                     <td>
-    //   //                       <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>${element.name}</strong>
-    //   //                     </td>
-    //   //                     <td>
-    //   //                       <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>${element.headerText.length > 60 ? element.headerText.substring(0, 60) + "..." : element.headerText}</strong>
-    //   //                     </td>
-    //   //                     <td class="text-center">
-    //   //                       <a href="./service-detail.html?id=${element.id}" class="text-white btn btn-info">Detallı</a>
-    //   //                       <a href="./service-update.html?id=${element.id}" class="text-white btn btn-warning">Dəyişmək</a>
-    //   //                       <a onClick="entityDelete(this)" data-entity="service" data-id="${element.id}"class="text-white btn btn-danger">Silmək</a>
-    //   //                     </td>
-    //   //                   </tr>
-    //   //     `
-    // })
-    )
+{
+  const urlpath = new URL(window.location.href);
+  const path = urlpath.pathname;
+  const parts = path.split("/");
+  const admin = parts[parts.length - 3].toLowerCase();
+  console.log(admin);
+  if (admin == "mrsolutionsadmin") {
+    if (parts[parts.length - 1].toLowerCase() != "auth-login-basic.html") {
+      fetch("https://localhost:7255/api/Dashboard", {
+        method: "GET",
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      })
+        .then(res => {
+          if (!res.ok) {
+            window.location.href = "./auth-login-basic.html"
+          } else {
+            return res.json();
+          }
+        })
+        .then(data => {
+          let keys = Object.keys(data);
+          let values = Object.values(data);
+          for (let i = 0; i < keys.length; i++) {
+            document.getElementById("dashboard-index").innerHTML +=
+              `
+            <tr class="text-center">
+              <td>${i + 1}</td>
+              <td>${findFromEntityNames(keys[i])}</td>
+              <td>${values[i]}</td>
+              <td><a href="./${keys[i]}-index.html" class="text-white btn btn-success">Ətraflı</a></td>
+            </tr>
+          `
+          }
+        }
+          //   data.forEach(element => {
+          //   console.log(element)
+          //   // document.getElementById("dashboard-index").innerHTML +=
+          //   //   `
+          //   //                   <tr>
+          //   //                     <td>
+          //   //                       <i class="fab fa-angular fa-lg text-danger me-3"></i> <img style="width:200px" src="./../../MRSolutions/uploads/services/${element.name}/${element.posterImageUrl}">
+          //   //                     </td>  
+          //   //                     <td>
+          //   //                       <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>${element.name}</strong>
+          //   //                     </td>
+          //   //                     <td>
+          //   //                       <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>${element.headerText.length > 60 ? element.headerText.substring(0, 60) + "..." : element.headerText}</strong>
+          //   //                     </td>
+          //   //                     <td class="text-center">
+          //   //                       <a href="./service-detail.html?id=${element.id}" class="text-white btn btn-info">Detallı</a>
+          //   //                       <a href="./service-update.html?id=${element.id}" class="text-white btn btn-warning">Dəyişmək</a>
+          //   //                       <a onClick="entityDelete(this)" data-entity="service" data-id="${element.id}"class="text-white btn btn-danger">Silmək</a>
+          //   //                     </td>
+          //   //                   </tr>
+          //   //     `
+          // })
+        )
+    }
+  }
+
 }
 //Service
 document.getElementById("createServiceForm")?.addEventListener('submit', async function (event) {
@@ -733,7 +755,7 @@ if (document.getElementById("slider-index")) {
           `
     }))
 }
-if (document.getElementById("sliderDetail")){
+if (document.getElementById("sliderDetail")) {
   fetch(`https://localhost:7255/api/Slider/${id}`)
     .then(res => res.json())
     .then(data => {
@@ -745,7 +767,7 @@ if (document.getElementById("sliderDetail")){
     });
 }
 
-  let menu, animate;
+let menu, animate;
 
 (function () {
   // Initialize menu
