@@ -1,3 +1,7 @@
+const queryStr = window.location.search;
+const params = new URLSearchParams(queryStr);
+const id = params.get('id');
+const page = params.get('page') != null ? params.get('page') : 1;
 fetch("https://localhost:7255/api/Setting")
     .then(res => res.json())
     .then(data => data.forEach(element => {
@@ -22,7 +26,7 @@ fetch("https://localhost:7255/api/Setting")
             }
         }
     }))
-if(document.getElementById("brands-slider")){
+if (document.getElementById("brands-slider")) {
     fetch("https://localhost:7255/api/Brand")
         .then(res => res.json())
         .then(data => {
@@ -47,10 +51,10 @@ if(document.getElementById("brands-slider")){
 }
 
 if (document.getElementById("shop-section")) {
-    fetch("https://localhost:7255/api/Product")
+    fetch(`https://localhost:7255/api/Product/${page}`)
         .then(res => res.json())
         .then(data => {
-            data.forEach(element => {
+            data.products.forEach(element => {
                 document.getElementById("shop-section").innerHTML +=
                     `
             <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12">
@@ -62,7 +66,7 @@ if (document.getElementById("shop-section")) {
                         </div>
                         <div class="title-holder text-center">
                             <div class="static-content">
-                                        <h3 class="title text-center"><a href="shop-single.html?id="${element.id}"">${element.name}</a></h3>
+                                        <h3 class="title text-center"><a href="shop-single.html?id=${element.id}">${element.name}</a></h3>
                             </div>
                         </div>
                     </div>
@@ -70,12 +74,20 @@ if (document.getElementById("shop-section")) {
             </div>
             `
             });
+            if (data.productCount > 8) {
+                let pagination = document.getElementById("pagination");
+                for (let i = 1; i <= Math.ceil(data.productCount / 8); i++) {
+                    if (page == i) {
+                        pagination.innerHTML += `<li class="active"><a href="./shop.html?page=${i}">${i}</a></li>`
+                    } else {
+                        pagination.innerHTML += `<li><a href="./shop.html?page=${i}">${i}</a></li>`
+                    }
+                }
+            }
         })
 }
-if (document.getElementById("shop-area")) {
-    const queryStr = window.location.search;
-    const params = new URLSearchParams(queryStr);
-    const id = params.get('id');
+if (document.querySelector(".single-shop-area")) {
+
     let categoryId;
     fetch(`https://localhost:7255/api/Product/${id}`)
         .then(res => res.json())
@@ -85,8 +97,8 @@ if (document.getElementById("shop-area")) {
             document.getElementById("headerText").innerText = data.headerText
             document.getElementById("description").innerText = data.description
             document.getElementById("image").src += data.name + "/" + data.imageUrl
-            document.getElementById("video").innerHTML += 
-            `
+            document.getElementById("video").innerHTML +=
+                `
                 <video autoplay="" muted="" loop="">
                     <source
                         src="./uploads/products/${data.name}/${data.videoUrl}"
@@ -94,5 +106,27 @@ if (document.getElementById("shop-area")) {
                 </video>
             `
             categoryId = data.categoryId;
+        })
+    fetch(`https://localhost:7255/api/Product/${id}/related`)
+        .then(res => res.json())
+        .then(data => {
+            console.log(data);
+            data.forEach(element => {
+                document.getElementById("related-products").innerHTML+=
+                `
+                <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12">
+                    <div class="single-product-item text-center">
+                        <div class="img-holder">
+                            <img src="./uploads/products/${element.name}/${element.imageUrl}" alt="Awesome Product Image">
+                        </div>
+                        <div class="title-holder text-center">
+                            <div class="static-content">
+                                <h3 class="title text-center"><a href="shop-single.html?id=${element.id}">${element.name}</a></h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                `
+            });
         })
 }

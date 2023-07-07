@@ -159,25 +159,26 @@ async function putData(url = "", data = {}) {
   console.log(admin);
   if (admin == "mrsolutionsadmin") {
     if (parts[parts.length - 1].toLowerCase() != "auth-login-basic.html") {
-      fetch("https://localhost:7255/api/Dashboard", {
-        method: "GET",
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      })
-        .then(res => {
-          if (!res.ok) {
-            window.location.href = "./auth-login-basic.html"
-          } else {
-            return res.json();
+      if (parts[parts.length - 1].toLowerCase() != "auth-forgot-password-basic.html") {
+        fetch("https://localhost:7255/api/Dashboard", {
+          method: "GET",
+          headers: {
+            'Authorization': `Bearer ${token}`
           }
         })
-        .then(data => {
-          let keys = Object.keys(data);
-          let values = Object.values(data);
-          for (let i = 0; i < keys.length; i++) {
-            document.getElementById("dashboard-index").innerHTML +=
-              `
+          .then(res => {
+            if (!res.ok) {
+              window.location.href = "./auth-login-basic.html"
+            } else {
+              return res.json();
+            }
+          })
+          .then(data => {
+            let keys = Object.keys(data);
+            let values = Object.values(data);
+            for (let i = 0; i < keys.length; i++) {
+              document.getElementById("dashboard-index").innerHTML +=
+                `
             <tr class="text-center">
               <td>${i + 1}</td>
               <td>${findFromEntityNames(keys[i])}</td>
@@ -185,34 +186,59 @@ async function putData(url = "", data = {}) {
               <td><a href="./${keys[i]}-index.html" class="text-white btn btn-success">Ətraflı</a></td>
             </tr>
           `
+            }
           }
-        }
-          //   data.forEach(element => {
-          //   console.log(element)
-          //   // document.getElementById("dashboard-index").innerHTML +=
-          //   //   `
-          //   //                   <tr>
-          //   //                     <td>
-          //   //                       <i class="fab fa-angular fa-lg text-danger me-3"></i> <img style="width:200px" src="./../../MRSolutions/uploads/services/${element.name}/${element.posterImageUrl}">
-          //   //                     </td>  
-          //   //                     <td>
-          //   //                       <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>${element.name}</strong>
-          //   //                     </td>
-          //   //                     <td>
-          //   //                       <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>${element.headerText.length > 60 ? element.headerText.substring(0, 60) + "..." : element.headerText}</strong>
-          //   //                     </td>
-          //   //                     <td class="text-center">
-          //   //                       <a href="./service-detail.html?id=${element.id}" class="text-white btn btn-info">Detallı</a>
-          //   //                       <a href="./service-update.html?id=${element.id}" class="text-white btn btn-warning">Dəyişmək</a>
-          //   //                       <a onClick="entityDelete(this)" data-entity="service" data-id="${element.id}"class="text-white btn btn-danger">Silmək</a>
-          //   //                     </td>
-          //   //                   </tr>
-          //   //     `
-          // })
-        )
+            //   data.forEach(element => {
+            //   console.log(element)
+            //   // document.getElementById("dashboard-index").innerHTML +=
+            //   //   `
+            //   //                   <tr>
+            //   //                     <td>
+            //   //                       <i class="fab fa-angular fa-lg text-danger me-3"></i> <img style="width:200px" src="./../../MRSolutions/uploads/services/${element.name}/${element.posterImageUrl}">
+            //   //                     </td>  
+            //   //                     <td>
+            //   //                       <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>${element.name}</strong>
+            //   //                     </td>
+            //   //                     <td>
+            //   //                       <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>${element.headerText.length > 60 ? element.headerText.substring(0, 60) + "..." : element.headerText}</strong>
+            //   //                     </td>
+            //   //                     <td class="text-center">
+            //   //                       <a href="./service-detail.html?id=${element.id}" class="text-white btn btn-info">Detallı</a>
+            //   //                       <a href="./service-update.html?id=${element.id}" class="text-white btn btn-warning">Dəyişmək</a>
+            //   //                       <a onClick="entityDelete(this)" data-entity="service" data-id="${element.id}"class="text-white btn btn-danger">Silmək</a>
+            //   //                     </td>
+            //   //                   </tr>
+            //   //     `
+            // })
+          )
+      }
     }
   }
 
+  document.getElementById("formAuthentication")?.addEventListener("submit", function () {
+    let obj = {
+      email: document.getElementById("email").value
+    }
+    fetch("https://localhost:7255/api/ForgotPassword/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(obj)
+    }).then(res => {
+      if (!res.ok) {
+        $("#modalCenter").modal('show');
+      } else {
+        Swal.fire(
+          'Göndərildi!',
+          'Şifrə dəyişdirilməsi ilə bağlı təsdiq poçtu göndərildi',
+          'info'
+        ).then(function () {
+          window.location.href = './auth-login-basic.html';
+        });
+      }
+    })
+  })
 }
 //Service
 document.getElementById("createServiceForm")?.addEventListener('submit', async function (event) {
