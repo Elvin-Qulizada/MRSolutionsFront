@@ -23,6 +23,7 @@ const token = Cookies.get("jwtToken");
 const queryStr = window.location.search;
 const params = new URLSearchParams(queryStr);
 const id = params.get('id');
+const page = params.get('page') != null ? params.get('page') : 1;
 function findFromEntityNames(entity) {
   const foundKey = Object.keys(entityNames).find(key => key.toString() === entity.toString());
 
@@ -156,29 +157,29 @@ async function putData(url = "", data = {}) {
   const path = urlpath.pathname;
   const parts = path.split("/");
   const admin = parts[parts.length - 3].toLowerCase();
-  console.log(admin);
   if (admin == "mrsolutionsadmin") {
     if (parts[parts.length - 1].toLowerCase() != "auth-login-basic.html") {
       if (parts[parts.length - 1].toLowerCase() != "auth-forgot-password-basic.html") {
-        fetch("https://localhost:7255/api/Dashboard", {
-          method: "GET",
-          headers: {
-            'Authorization': `Bearer ${token}`
-          }
-        })
-          .then(res => {
-            if (!res.ok) {
-              window.location.href = "./auth-login-basic.html"
-            } else {
-              return res.json();
+        if (parts[parts.length - 1].toLowerCase() != "auth-reset-password.html") {
+          fetch("https://localhost:7255/api/Dashboard", {
+            method: "GET",
+            headers: {
+              'Authorization': `Bearer ${token}`
             }
           })
-          .then(data => {
-            let keys = Object.keys(data);
-            let values = Object.values(data);
-            for (let i = 0; i < keys.length; i++) {
-              document.getElementById("dashboard-index").innerHTML +=
-                `
+            .then(res => {
+              if (!res.ok) {
+                window.location.href = "./auth-login-basic.html"
+              } else {
+                return res.json();
+              }
+            })
+            .then(data => {
+              let keys = Object.keys(data);
+              let values = Object.values(data);
+              for (let i = 0; i < keys.length; i++) {
+                if(document.getElementById("dashboard-index"))document.getElementById("dashboard-index").innerHTML +=
+                  `
             <tr class="text-center">
               <td>${i + 1}</td>
               <td>${findFromEntityNames(keys[i])}</td>
@@ -186,40 +187,60 @@ async function putData(url = "", data = {}) {
               <td><a href="./${keys[i]}-index.html" class="text-white btn btn-success">Ətraflı</a></td>
             </tr>
           `
+              }
             }
-          }
-            //   data.forEach(element => {
-            //   console.log(element)
-            //   // document.getElementById("dashboard-index").innerHTML +=
-            //   //   `
-            //   //                   <tr>
-            //   //                     <td>
-            //   //                       <i class="fab fa-angular fa-lg text-danger me-3"></i> <img style="width:200px" src="./../../MRSolutions/uploads/services/${element.name}/${element.posterImageUrl}">
-            //   //                     </td>  
-            //   //                     <td>
-            //   //                       <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>${element.name}</strong>
-            //   //                     </td>
-            //   //                     <td>
-            //   //                       <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>${element.headerText.length > 60 ? element.headerText.substring(0, 60) + "..." : element.headerText}</strong>
-            //   //                     </td>
-            //   //                     <td class="text-center">
-            //   //                       <a href="./service-detail.html?id=${element.id}" class="text-white btn btn-info">Detallı</a>
-            //   //                       <a href="./service-update.html?id=${element.id}" class="text-white btn btn-warning">Dəyişmək</a>
-            //   //                       <a onClick="entityDelete(this)" data-entity="service" data-id="${element.id}"class="text-white btn btn-danger">Silmək</a>
-            //   //                     </td>
-            //   //                   </tr>
-            //   //     `
-            // })
-          )
+            )
+        }
       }
     }
   }
 
-  document.getElementById("formAuthentication")?.addEventListener("submit", function () {
+  document.getElementById('formAuthentication')?.addEventListener('submit', (e) => {
+    e.preventDefault(); // Prevent the default form submission
+
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+
+    const data = {
+      email: email,
+      password: password
+    };
+    fetch('https://localhost:7255/api/Auth/Login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+      .then(response => {
+        if (response.ok) {
+          return response.json(); // Parse the response body as JSON
+        } else if (response.status == 400) {
+          throw new Error()
+        }
+      })
+      .then(data => {
+        const jwtToken = data.jwtToken; // Extract the JWT token from the response body
+
+        // Store the JWT token in an HTTP-only cookie
+        // document.cookie = `jwtToken=${jwtToken}; HttpOnly; Secure`; // Set the cookie
+        Cookies.set('jwtToken', `${jwtToken}`)
+        // const value = ('; ' + document.cookie).split(`; jwtToken=`).pop().split(';')[0];
+        console.log(Cookies.get('jwtToken'));
+        // Handle successful login or redirect to another page
+        window.location.href = "./index.html";
+      })
+      .catch(error => {
+        $("#modalCenter").modal('show');
+      });
+  });
+
+  document.getElementById("forgotPasswordForm")?.addEventListener("submit", function (e) {
+    e.preventDefault();
     let obj = {
       email: document.getElementById("email").value
     }
-    fetch("https://localhost:7255/api/ForgotPassword/", {
+    fetch("https://localhost:7255/api/Auth/ForgotPassword/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -238,6 +259,37 @@ async function putData(url = "", data = {}) {
         });
       }
     })
+  })
+
+  document.getElementById("resetPasswordForm")?.addEventListener("submit", function (e) {
+    e.preventDefault();
+    console.log(params.get('token'), params.get('email'))
+    const resetPasswordDto = {
+      password: document.getElementById("password").value,
+      cofirmPassword: document.getElementById("confirmPassword").value,
+      email: params.get('email'),
+      token: params.get('token')
+    }
+    fetch("https://localhost:7255/api/Auth/ResetPassword/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(resetPasswordDto)
+    }).then(res => {
+      if (!res.ok) {
+        $("#modalCenter").modal('show');
+      } else {
+        Swal.fire(
+          'Dəyişdirildi!',
+          'Şifrə uğurla dəyişdirildi',
+          'info'
+        ).then(function () {
+          window.location.href = './auth-login-basic.html';
+        });
+      }
+    })
+
   })
 }
 //Service
@@ -522,11 +574,12 @@ if (document.getElementById("updateProductForm")) {
     });
 }
 if (document.getElementById("product-index")) {
-  fetch("https://localhost:7255/api/Product")
+  fetch(`https://localhost:7255/api/Product/${page}`)
     .then(res => res.json())
-    .then(data => data.forEach(element => {
-      document.getElementById("product-index").innerHTML +=
-        `
+    .then(data => {
+      data.products.forEach(element => {
+        document.getElementById("product-index").innerHTML +=
+          `
                         <tr>
                           <td>
                             <i class="fab fa-angular fa-lg text-danger me-3"></i> <img style="width:200px" src="./../../MRSolutions/uploads/products/${element.name}/${element.imageUrl}">
@@ -537,9 +590,6 @@ if (document.getElementById("product-index")) {
                           <td>
                             <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>${element.headerText.length > 60 ? element.headerText.substring(0, 60) + "..." : element.headerText}</strong>
                           </td>
-                          <td>
-                            <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>${element.description.length > 60 ? element.description.substring(0, 60) + "..." : element.description}</strong>
-                          </td>
                           <td class="text-center d-flex flex-column align-items-center gap-3">
                             <a href="./product-detail.html?id=${element.id}" class="text-white btn btn-info w-50">Detallı</a>
                             <a href="./product-update.html?id=${element.id}" class="text-white btn btn-warning w-50">Dəyişmək</a>
@@ -547,7 +597,24 @@ if (document.getElementById("product-index")) {
                           </td>
                         </tr>
           `
-    }))
+      })
+      if (data.productCount > 8) {
+        let pagination = document.getElementById("pagination");
+        for (let i = 1; i <= Math.ceil(data.productCount / 8); i++) {
+            if (page == i) {
+                pagination.innerHTML += 
+                `<li class="page-item active">
+                  <a class="page-link" href="./product-index.html?page=${i}">${i}</a>
+                </li>`
+            } else {
+                pagination.innerHTML += 
+                `<li class="page-item">
+                  <a class="page-link" href="./product-index.html?page=${i}">${i}</a>
+                </li>`
+            }
+        }
+    }
+    })
 }
 if (document.getElementById("productDetail")) {
   let categoryId;

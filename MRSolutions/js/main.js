@@ -51,6 +51,16 @@ if (document.getElementById("brands-slider")) {
 }
 
 if (document.getElementById("shop-section")) {
+    fetch(`https://localhost:7255/api/Category`)
+        .then(res => res.json())
+        .then(data => {
+            data.forEach(element => {
+                document.getElementById("category-filter").innerHTML +=
+                    `
+                <option value="${element.id}">${element.name}</option>
+                `
+            })
+        })
     fetch(`https://localhost:7255/api/Product/${page}`)
         .then(res => res.json())
         .then(data => {
@@ -86,6 +96,46 @@ if (document.getElementById("shop-section")) {
             }
         })
 }
+function filterByCategory(par) {
+    fetch(`https://localhost:7255/api/Product/${page}`)
+        .then(res => res.json())
+        .then(data => {
+            let arr = par == "" ? data.products : data.products.filter(p => p.categoryId == par)
+            document.getElementById("shop-section").innerHTML = ``;
+            arr.forEach(element => {
+                document.getElementById("shop-section").innerHTML +=
+                    `
+            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12">
+                <a class="d-block" href="shop-single.html?id=${element.id}">
+                    <div class="single-product-item text-center">
+                        <div class="img-holder">
+                            <img src="./uploads/products/${element.name}/${element.imageUrl}"
+                                alt="Awesome Product Image">
+                        </div>
+                        <div class="title-holder text-center">
+                            <div class="static-content">
+                                        <h3 class="title text-center"><a href="shop-single.html?id=${element.id}">${element.name}</a></h3>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            `
+            });
+            if (arr.length > 8) {
+                let pagination = document.getElementById("pagination");
+                for (let i = 1; i <= Math.ceil(data.productCount / 8); i++) {
+                    if (page == i) {
+                        pagination.innerHTML += `<li class="active"><a href="./shop.html?page=${i}">${i}</a></li>`
+                    } else {
+                        pagination.innerHTML += `<li><a href="./shop.html?page=${i}">${i}</a></li>`
+                    }
+                }
+            } else {
+                document.getElementById("pagination").innerHTML = ``
+            }
+        })
+}
 if (document.querySelector(".single-shop-area")) {
 
     let categoryId;
@@ -112,8 +162,8 @@ if (document.querySelector(".single-shop-area")) {
         .then(data => {
             console.log(data);
             data.forEach(element => {
-                document.getElementById("related-products").innerHTML+=
-                `
+                document.getElementById("related-products").innerHTML +=
+                    `
                 <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12">
                     <div class="single-product-item text-center">
                         <div class="img-holder">
