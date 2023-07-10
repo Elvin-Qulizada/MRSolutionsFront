@@ -2,49 +2,68 @@ const queryStr = window.location.search;
 const params = new URLSearchParams(queryStr);
 const id = params.get('id');
 const page = params.get('page') != null ? params.get('page') : 1;
-fetch("https://localhost:7255/api/Setting")
-    .then(res => res.json())
-    .then(data => {
-        if (document.getElementById("headerCity")) document.getElementById("headerCity").innerHTML = data.find(d => d.key == "city").value
-        document.getElementById("footerCity").innerHTML = data.find(d => d.key == "city").value
+// fetch("https://localhost:7255/api/Setting")
+//     .then(res => res.json())
+//     .then(data => {
+//         if (document.getElementById("headerCity")) document.getElementById("headerCity").innerHTML = data.find(d => d.key == "city").value
+//         document.getElementById("footerCity").innerHTML = data.find(d => d.key == "city").value
 
-        if (document.getElementById("headerAddress")) document.getElementById("headerAddress").innerHTML = data.find(d => d.key == "address").value
-        document.getElementById("footerAddress").innerHTML = data.find(d => d.key == "address").value
+//         if (document.getElementById("headerAddress")) document.getElementById("headerAddress").innerHTML = data.find(d => d.key == "address").value
+//         document.getElementById("footerAddress").innerHTML = data.find(d => d.key == "address").value
 
-        if (document.getElementById("headerPhoneNumber")) document.getElementById("headerPhoneNumber").innerHTML = data.find(d => d.key == "phoneNumber").value
-        if (document.getElementById("headerPhoneNumber")) document.getElementById("headerPhoneNumber").href = "tel:" + data.find(d => d.key == "phoneNumber").value
-        document.getElementById("footerPhoneNumber").innerHTML = data.find(d => d.key == "phoneNumber").value
-        document.getElementById("footerPhoneNumber").href = "tel:" + data.find(d => d.key == "phoneNumber").value
+//         if (document.getElementById("headerPhoneNumber")) document.getElementById("headerPhoneNumber").innerHTML = data.find(d => d.key == "phoneNumber").value
+//         if (document.getElementById("headerPhoneNumber")) document.getElementById("headerPhoneNumber").href = "tel:" + data.find(d => d.key == "phoneNumber").value
+//         document.getElementById("footerPhoneNumber").innerHTML = data.find(d => d.key == "phoneNumber").value
+//         document.getElementById("footerPhoneNumber").href = "tel:" + data.find(d => d.key == "phoneNumber").value
 
-        if (document.getElementById("headerEmail")) document.getElementById("headerEmail").innerHTML = data.find(d => d.key == "email").value
-        if (document.getElementById("headerEmail")) document.getElementById("headerEmail").href = "mailto:" + data.find(d => d.key == "email").value
-        document.getElementById("footerEmail").innerHTML = data.find(d => d.key == "email").value
-        document.getElementById("footerEmail").href = "mailto:" + data.find(d => d.key == "email").value
+//         if (document.getElementById("headerEmail")) document.getElementById("headerEmail").innerHTML = data.find(d => d.key == "email").value
+//         if (document.getElementById("headerEmail")) document.getElementById("headerEmail").href = "mailto:" + data.find(d => d.key == "email").value
+//         document.getElementById("footerEmail").innerHTML = data.find(d => d.key == "email").value
+//         document.getElementById("footerEmail").href = "mailto:" + data.find(d => d.key == "email").value
 
-        if (document.getElementById("facebookUrl")) document.getElementById("facebookUrl").href = data.find(d => d.key == "facebookUrl").value
-        if (document.getElementById("instagramUrl")) document.getElementById("instagramUrl").href = data.find(d => d.key == "instagramUrl").value
-        if (document.getElementById("linkedinUrl")) document.getElementById("linkedinUrl").href = data.find(d => d.key == "linkedinUrl").value
-        // if (document.getElementById(`${element.key}`)) {
-        //     if (element.key.substring(element.key.length - 3, element.key.length) == "Url") {
-        //         document.getElementById(`${element.key}`).href = element.value;
-        //     } else if (element.key == "phoneNumber") {
-        //         document.querySelector(`.text #${element.key}`).href = "tel:" + element.value;
-        //         document.querySelector(`.text #${element.key}`).innerHTML = element.value;
+//         if (document.getElementById("facebookUrl")) document.getElementById("facebookUrl").href = data.find(d => d.key == "facebookUrl").value
+//         if (document.getElementById("instagramUrl")) document.getElementById("instagramUrl").href = data.find(d => d.key == "instagramUrl").value
+//         if (document.getElementById("linkedinUrl")) document.getElementById("linkedinUrl").href = data.find(d => d.key == "linkedinUrl").value
+//         // if (document.getElementById(`${element.key}`)) {
+//         //     if (element.key.substring(element.key.length - 3, element.key.length) == "Url") {
+//         //         document.getElementById(`${element.key}`).href = element.value;
+//         //     } else if (element.key == "phoneNumber") {
+//         //         document.querySelector(`.text #${element.key}`).href = "tel:" + element.value;
+//         //         document.querySelector(`.text #${element.key}`).innerHTML = element.value;
 
-        //         document.querySelector(`li p #${element.key}`).href = "tel:" + element.value;
-        //         document.querySelector(`li p #${element.key}`).innerHTML = element.value;
-        //     } else if (element.key == "email") {
-        //         document.querySelector(`.text #${element.key}`).href = "mailto:" + element.value;
-        //         document.querySelector(`.text #${element.key}`).innerHTML = element.value;
+//         //         document.querySelector(`li p #${element.key}`).href = "tel:" + element.value;
+//         //         document.querySelector(`li p #${element.key}`).innerHTML = element.value;
+//         //     } else if (element.key == "email") {
+//         //         document.querySelector(`.text #${element.key}`).href = "mailto:" + element.value;
+//         //         document.querySelector(`.text #${element.key}`).innerHTML = element.value;
 
-        //         document.querySelector(`li p #${element.key}`).href = "mailto:" + element.value;
-        //         document.querySelector(`li p #${element.key}`).innerHTML = element.value;
-        //     }
-        //     else {
-        //         document.getElementById(`${element.key}`).innerHTML = element.value;
-        //     }
-        // }
-    })
+//         //         document.querySelector(`li p #${element.key}`).href = "mailto:" + element.value;
+//         //         document.querySelector(`li p #${element.key}`).innerHTML = element.value;
+//         //     }
+//         //     else {
+//         //         document.getElementById(`${element.key}`).innerHTML = element.value;
+//         //     }
+//         // }
+//     })
+if (document.querySelector(".main-slider")) {
+    fetch("https://localhost:7255/api/Slider")
+        .then(res => res.json())
+        .then(data => {
+            data.forEach(element => {
+                document.querySelector(".main-slider").innerHTML +=
+                    `
+                <div style="cursor:grab;;height: 90vh; background-image: url(./uploads/sliders/${element.title}/${element.imageUrl});background-position: center;background-attachment: fixed;background-repeat: no-repeat;"
+                    class="swiper-slide slide-content d-flex flex-column justify-content-center align-items-center gap-5">
+                    <div class="big-title">${element.title}</div>
+                    <div class="text">${element.description}</div>
+                    <div class="btn-box">
+                        <a class="btn-one" href="${element.redirectUrl}">${element.buttonText}<span class="flaticon-next"></span></a>
+                    </div>
+                </div>
+              `
+            });
+        })
+}
 // if (document.querySelector(".main-slider")) {
 //     //Fetch data from the server (example data)
 //     const sliderData = [
@@ -261,8 +280,8 @@ if (document.getElementById("services")) {
         .then(res => res.json())
         .then(data => {
             data.forEach(element => {
-                document.getElementById("services").innerHTML+=
-                `
+                document.getElementById("services").innerHTML +=
+                    `
                 <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
                         <div class="single-service-style2 wow fadeInUp" data-wow-delay="200ms"
                             data-wow-duration="1200ms">
@@ -289,10 +308,56 @@ if (document.getElementById("services")) {
                         </div>
                     </div>
                 `
-             })
+            })
         })
 }
-
+if (document.querySelector(".single-service-area")) {
+    fetch("https://localhost:7255/api/Service/")
+        .then(res => res.json())
+        .then(data => {
+            data.forEach(element => {
+                if (element.id == id) {
+                    document.querySelector(".service-pages").innerHTML +=
+                        `
+                    <li class="active">
+                        <a href="#">
+                            <div class="title">
+                                <h3 class="static">${element.name}</h3>
+                                <div class="overlay-title">
+                                    <h3>${element.name}</h3>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    `
+                } else {
+                    document.querySelector(".service-pages").innerHTML +=
+                        `
+                    <li>
+                        <a href="#">
+                            <div class="title">
+                                <h3 class="static">${element.name}</h3>
+                                <div class="overlay-title">
+                                    <h3>${element.name}</h3>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    `
+                }
+            });
+        })
+    fetch(`https://localhost:7255/api/Service/${id}`)
+        .then(res => res.json())
+        .then(data => {
+            document.title = data.name;
+            document.getElementById("headerName").innerHTML = data.name;
+            document.getElementById("headerCrumb").innerHTML = data.name;
+            document.getElementById("name").innerHTML = data.name;
+            document.getElementById("description").innerHTML = data.description;
+            document.getElementById("image").src += data.name + "/" + data.imageUrl;
+        })
+}
 
 if (document.getElementById("shop-section")) {
     fetch(`https://localhost:7255/api/Category`)
@@ -422,5 +487,42 @@ if (document.querySelector(".single-shop-area")) {
                 </div>
                 `
             });
+        })
+}
+
+if (document.getElementById("projects")) {
+    fetch(`https://localhost:7255/api/Project`)
+        .then(res => res.json())
+        .then(data => {
+            data.forEach(element => {
+                document.getElementById("projects").innerHTML +=
+                    `
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 pd0 filter-item contem ret">
+                    <div class="single-project-style8">
+                        <div class="img-holder">
+                            <img src="./uploads/projects/${element.name}/${element.projectImages[0].imageUrl}" alt="Awesome Image">
+                            <div class="overlay-content">
+                                <div class="inner-content">
+                                    <div class="title-box">
+                                    <h3><a href="project-single.html?id=${element.id}">${element.name}</a></h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                `
+            });
+        })
+}
+if (document.getElementById("single-project")) {
+    fetch(`https://localhost:7255/api/Project/${id}`)
+        .then(res => res.json())
+        .then(data => {
+            document.getElementById("title").innerHTML = data.name
+            document.getElementById("description").innerHTML = data.description
+            document.getElementById("location").innerHTML = data.location
+            document.getElementById("area").innerHTML = `${data.area}m<sup>2</sup>`
+            document.getElementById("date").innerHTML = data.date.substring(0,4)
         })
 }
