@@ -22,13 +22,35 @@
     <!-- <link rel="icon" type="image/png" href="images/favicon/favicon-32x32.png" sizes="32x32"> -->
     <!-- <link rel="icon" type="image/png" href="images/favicon/favicon-16x16.png" sizes="16x16"> -->
     <link rel="icon" type="image/png" href="images/favicon/01.png" sizes="16x16">
-
+    <!-- Link Swiper's CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
     <!-- Fixing Internet Explorer-->
     <!--[if lt IE 9]>
         <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
         <script src="js/html5shiv.js"></script>
     <![endif]-->
+    <style>
+        .swiper {
+            width: 100%;
+            height: 100%;
+        }
 
+        .swiper-slide {
+            text-align: center;
+            font-size: 18px;
+            background: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .swiper-slide img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    </style>
 </head>
 
 <body>
@@ -94,8 +116,8 @@
                                                 <span class="icon-maps-and-location"></span>
                                             </div>
                                             <div class="text">
-                                                <h3 id="city">Bakı, Azərbaycan</h3>
-                                                <p id="address">Sh.Mehdiyev 93, Azeragrartikinti</p>
+                                                <h3 id="headerCity">Bakı, Azərbaycan</h3>
+                                                <p id="headerAddress">Sh.Mehdiyev 93, Azeragrartikinti</p>
                                             </div>
                                         </div>
                                     </li>
@@ -105,7 +127,7 @@
                                                 <span class="icon-phone"></span>
                                             </div>
                                             <div class="text">
-                                                <a id="phoneNumber" style="font-size: 18px;
+                                                <a id="headerPhoneNumber" style="font-size: 18px;
                                                 font-weight: 500;
                                                 text-transform: capitalize;
                                                 font-family: 'Rubik', sans-serif;
@@ -119,7 +141,7 @@
                                                 <span class="icon-mail"></span>
                                             </div>
                                             <div class="text">
-                                                <a id="email" style="font-size: 18px;
+                                                <a id="headerEmail" style="font-size: 18px;
                                                 font-weight: 500;
                                                 font-family: 'Rubik', sans-serif;
                                                 color:#27282c"
@@ -150,7 +172,32 @@
             </div>
         </header>
         <!--End Main Header-->
-
+        <!-- <section class="main-slider">
+            <div class="swiper mySwiper">
+                <div class="swiper-wrapper">
+                    <div style="background-image: url(./uploads/sliders/a/839cdf7f-ef36-45cd-8000-3b66e974582bshelly.jpg);"
+                        class="swiper-slide d-flex flex-column justify-content-center align-items-center">
+                        <div class="big-title">
+                            Lorem Ipsum
+                        </div>
+                        <div class="text">Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                            Delectus, inventore! Lorem ipsum dolor sit amet consectetur.
+                        </div>
+                        <div class="btn-box">
+                            <a class="btn-one" href="#">About Company<span class="flaticon-next"></span></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide">Slide 2</div>
+                <div class="swiper-slide">Slide 3</div>
+                <div class="swiper-slide">Slide 4</div>
+                <div class="swiper-slide">Slide 5</div>
+                <div class="swiper-slide">Slide 6</div>
+                <div class="swiper-slide">Slide 7</div>
+                <div class="swiper-slide">Slide 8</div>
+                <div class="swiper-slide">Slide 9</div>
+            </div>
+        </section> -->
         <!--Main Slider-->
         <section class="main-slider">
             <div class="rev_slider_wrapper fullwidthbanner-container" id="rev_slider_one_wrapper" data-source="gallery">
@@ -212,10 +259,8 @@
                                 style="z-index: 7; white-space: nowrap;">
                                 <div class="slide-content left-slide">
                                     <div class="btn-box">
-                                        <a class="btn-one" href="#">About Company<span class="flaticon-next"></span></a>
-                                        <!-- <a class="project-view-button" href="#">Project 360<span style="font-size: 20px;">&deg</span>View</a> -->
+                                        <a class="btn-one" href="#">About Company<span class="flaticon-next"></span></a>                                    </div>
                                     </div>
-                                </div>
                             </div>
 
                         </li>
@@ -277,7 +322,6 @@
                                 <div class="slide-content left-slide">
                                     <div class="btn-box">
                                         <a class="btn-one" href="#">Our Services<span class="flaticon-next"></span></a>
-                                        <!-- <a class="project-view-button" href="#">Project 360<span style="font-size: 20px;">&deg</span>View</a> -->
                                     </div>
                                 </div>
                             </div>
@@ -337,8 +381,7 @@
                                 style="z-index: 7; white-space: nowrap;">
                                 <div class="slide-content left-slide">
                                     <div class="btn-box">
-                                        <a class="btn-one" href="#">About Company<span class="flaticon-next"></span></a>
-                                        <!-- <a class="project-view-button" href="#">Project 360<span style="font-size: 20px;">&deg</span>View</a> -->
+                                        <a class="btn-one" href="#">About Company<span class="flaticon-next"></span></a> 
                                     </div>
                                 </div>
                             </div>
@@ -358,9 +401,9 @@
                     <div class="title">Tərəfdaşlarımız</div>
                 </div>
                 <div class="row">
-                    <div id="brands-slider" class="col-xl-12">
-                        <ul class="brand-items-carousel owl-carousel owl-theme">
-                            <li class="single-brand-item wow fadeInUp" data-wow-delay="0ms" data-wow-duration="1500ms">
+                    <div class="col-xl-12">
+                        <ul id="brands-slider" class="brand-items-carousel owl-carousel owl-theme">
+                            <!-- <li class="single-brand-item wow fadeInUp" data-wow-delay="0ms" data-wow-duration="1500ms">
                                 <a href="#"><img src="images/brand/1.png" alt="Awesome Brand Image"></a>
                                 <div class="overlay-content">
                                     <p>Baku Electronics</p>
@@ -393,7 +436,7 @@
                                 <div class="overlay-content">
                                     <p>Rabitə Bank</p>
                                 </div>
-                            </li>
+                            </li> -->
                         </ul>
                     </div>
                 </div>
@@ -418,18 +461,20 @@
                                 <ul>
                                     <li>
                                         <h6>Address</h6>
-                                        <p id="city">Bakı, Azərbaycan<br><span id="address">Sh.Mehdiyev 93, Azeragrartikinti</span></p>
+                                        <p id="footerCity">Bakı, Azərbaycan</p><br><span id="footerAddress">Sh.Mehdiyev
+                                            93, Azeragrartikinti</span>
                                     </li>
                                     <li>
                                         <h6>Telefon</h6>
-                                        <p><a id="phoneNumber" href="tel:+9940518979898" style="color: #7c7e84;">+994
+                                        <p><a id="footerPhoneNumber" href="tel:+9940518979898"
+                                                style="color: #7c7e84;">+994
                                                 051 897 98
                                                 98</a></p>
                                     </li>
                                     <li>
                                         <h6>Email</h6>
-                                        <p> <a id="email" href="mailto:@shell.az"
-                                                style="color: #7c7e84;">@mrsolutions.az</a></p>
+                                        <p> <a id="footerEmail" href="mailto:support@mrsolutions.az"
+                                                style="color: #7c7e84;">support@mrsolutions.az</a></p>
                                     </li>
                                 </ul>
                             </div>
@@ -453,138 +498,10 @@
                         </div>
                     </div>
                     <!--End single footer widget-->
-                    <!--Start single footer widget-->
-                    <!-- <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12">
-                        <div class="single-footer-widget pdbtm50">
-                            <div class="title">
-                                <h3>Recent News</h3>
-                            </div>
-                            <ul class="recent-news">
-                                <li>
-                                    <div class="img-holder">
-                                        <img src="images/footer/recent-news-1.jpg" alt="Awesome Image">
-                                        <div class="overlay-style-one">
-                                            <div class="box">
-                                                <div class="content">
-                                                    <a href="project-single.html"><span class="icon-next"></span></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="title-holder">
-                                        <p>March 10, 2019</p>
-                                        <h5><a href="#">Creating drama and<br> feeling with...</a></h5>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="img-holder">
-                                        <img src="images/footer/recent-news-2.jpg" alt="Awesome Image">
-                                        <div class="overlay-style-one">
-                                            <div class="box">
-                                                <div class="content">
-                                                    <a href="project-single.html"><span class="icon-next"></span></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="title-holder">
-                                        <p>March 02, 2019</p>
-                                        <h5><a href="#">Wondering if interior<br> design is dying...</a></h5>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="img-holder">
-                                        <img src="images/footer/recent-news-3.jpg" alt="Awesome Image">
-                                        <div class="overlay-style-one">
-                                            <div class="box">
-                                                <div class="content">
-                                                    <a href="project-single.html"><span class="icon-next"></span></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="title-holder">
-                                        <p>February 27, 2019</p>
-                                        <h5><a href="#">Enjoy monsoon in<br> comfort of your...</a></h5>
-                                    </div>
-                                </li>
-
-                            </ul>
-                        </div>
-                    </div> -->
-                    <!--End single footer widget-->
-                    <!--Start single footer widget-->
-                    <!-- <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12">
-                        <div class="single-footer-widget">
-                            <div class="brochures-carousel-box owl-carousel owl-theme">
-                                <div class="single-item">
-                                    <div class="img-holder">
-                                        <img src="images/footer/brochures-1.jpg" alt="Awesome Image">
-                                    </div>
-                                    <div class="title-holder">
-                                        <h3>Our Interior Design<br> Brochure</h3>
-                                        <a class="btn-two" href="#">Download Now<span class="flaticon-next"></span></a>
-                                    </div>
-                                </div>
-                                <div class="single-item">
-                                    <div class="img-holder">
-                                        <img src="images/footer/brochures-1.jpg" alt="Awesome Image">
-                                    </div>
-                                    <div class="title-holder">
-                                        <h3>Our Interior Design<br> Brochure</h3>
-                                        <a class="btn-two" href="#">Download Now<span class="flaticon-next"></span></a>
-                                    </div>
-                                </div>
-                                <div class="single-item">
-                                    <div class="img-holder">
-                                        <img src="images/footer/brochures-1.jpg" alt="Awesome Image">
-                                    </div>
-                                    <div class="title-holder">
-                                        <h3>Our Interior Design<br> Brochure</h3>
-                                        <a class="btn-two" href="#">Download Now<span class="flaticon-next"></span></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div> -->
-                    <!--End single footer widget-->
                 </div>
             </div>
         </footer>
         <!--End footer area-->
-
-        <!--Start footer bottom area-->
-        <!-- <section class="footer-bottom-area">
-            <div class="container">
-                <div class="row">
-                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
-                        <div class="footer-bottom-content flex-box-two">
-                            <div class="copyright-text">
-                                <p><a href="https://www.templateshub.net" target="_blank">Templates Hub</a></p>
-                            </div>
-                            <div class="footer-social-links float-right">
-                                <span>We are On:</span>
-                                <ul class="sociallinks-style-one">
-                                    <li class="wow slideInUp" data-wow-delay="0ms" data-wow-duration="1200ms">
-                                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                                    </li>
-                                    <li class="wow slideInUp" data-wow-delay="100ms" data-wow-duration="1500ms">
-                                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                                    </li>
-                                    <li class="wow slideInUp" data-wow-delay="300ms" data-wow-duration="1500ms">
-                                        <a href="#"><i class="fa fa-skype" aria-hidden="true"></i></a>
-                                    </li>
-                                    <li class="wow slideInUp" data-wow-delay="400ms" data-wow-duration="1500ms">
-                                        <a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section> -->
-        <!--End footer bottom area-->
 
     </div>
 
@@ -593,7 +510,13 @@
         <span class="fa fa-angle-up"></span>
     </div>
 
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
 
+    <!-- Initialize Swiper -->
+    <script>
+        var swiper = new Swiper(".mySwiper", {});
+    </script>
 
     <script src="js/jquery.js"></script>
     <script src="js/appear.js"></script>

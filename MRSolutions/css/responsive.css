@@ -1476,7 +1476,7 @@ li .single-footer-contact-info .inner {
     position: relative;
     display: block;
     padding: 0 10px;
-    margin-top: -45px;
+    /* margin-top: -45px; */
 }    
 .logo-box-style1 {
     position: absolute;
