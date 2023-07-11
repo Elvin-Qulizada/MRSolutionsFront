@@ -178,7 +178,7 @@ async function putData(url = "", data = {}) {
               let keys = Object.keys(data);
               let values = Object.values(data);
               for (let i = 0; i < keys.length; i++) {
-                if(document.getElementById("dashboard-index"))document.getElementById("dashboard-index").innerHTML +=
+                if (document.getElementById("dashboard-index")) document.getElementById("dashboard-index").innerHTML +=
                   `
             <tr class="text-center">
               <td>${i + 1}</td>
@@ -263,12 +263,14 @@ async function putData(url = "", data = {}) {
 
   document.getElementById("resetPasswordForm")?.addEventListener("submit", function (e) {
     e.preventDefault();
-    console.log(params.get('token'), params.get('email'))
+    const decodedToken = params.get('token').replaceAll(' ', '+');;
+    console.log(decodedToken, params.get('email'))
+    console.log(params.get('token'))
     const resetPasswordDto = {
       password: document.getElementById("password").value,
-      cofirmPassword: document.getElementById("confirmPassword").value,
+      confirmPassword: document.getElementById("confirmPassword").value,
       email: params.get('email'),
-      token: params.get('token')
+      token: decodedToken
     }
     fetch("https://localhost:7255/api/Auth/ResetPassword/", {
       method: "POST",
@@ -601,19 +603,19 @@ if (document.getElementById("product-index")) {
       if (data.productCount > 8) {
         let pagination = document.getElementById("pagination");
         for (let i = 1; i <= Math.ceil(data.productCount / 8); i++) {
-            if (page == i) {
-                pagination.innerHTML += 
-                `<li class="page-item active">
+          if (page == i) {
+            pagination.innerHTML +=
+              `<li class="page-item active">
                   <a class="page-link" href="./product-index.html?page=${i}">${i}</a>
                 </li>`
-            } else {
-                pagination.innerHTML += 
-                `<li class="page-item">
+          } else {
+            pagination.innerHTML +=
+              `<li class="page-item">
                   <a class="page-link" href="./product-index.html?page=${i}">${i}</a>
                 </li>`
-            }
+          }
         }
-    }
+      }
     })
 }
 if (document.getElementById("productDetail")) {
