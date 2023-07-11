@@ -66,7 +66,7 @@
                                 </li>
                                 <li class="dropdown"><a href="shop.html">Mağaza</a>
                                 </li>
-                                <li><a href="#footer-contact">Əlaqə</a></li>
+                                <li><a href="#footerarea">Əlaqə</a></li>
                             </ul>
                         </div>
                     </nav>
@@ -83,7 +83,7 @@
                 <div class="row">
                     <div class="col-xl-5">
                         <div class="project-description-image-box">
-                            <img style="width:100%" src="images/projects/project-single/DTX_Nesimi.jpg" alt="Awesome Image">
+                            <img id="posterImage" style="width:100%" src="./uploads/projects/" alt="Awesome Image">
                         </div>
                     </div>
                     <div class="col-xl-7">
@@ -155,7 +155,7 @@
                     </div>
                     <div class="col-xl-6">
                         <div class="project-info-image-box">
-                            <img style="width:100%" src="./images/projects/project-single/dtx.jpg" alt="Awesome Image">
+                            <img id="image" style="width:100%" src="./uploads/projects/" alt="Awesome Image">
                         </div>
                     </div>
                 </div>
@@ -167,27 +167,23 @@
         <section class="video-image-holder-area">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-xl-6 col-lg-6 col-md-6">
+                    <div class="col-xl-12 col-lg-12 col-md-12">
                         <div class="video-holder-box">
                             <div class="img-holder">
-                                <img src="images/projects/project-single/mtn_bina_yeni_main_180215_2.jpg" alt="Awesome Image">
+                                <img id="videoImage" src="./uploads/projects/" alt="Awesome Image">
                                 <div class="icon-holder">
                                     <div class="icon">
                                         <div class="inner text-center">
-                                            <a class="html5lightbox wow zoomIn" data-wow-delay="300ms"
+                                            <a  id="video" 
+                                                class="html5lightbox wow zoomIn" data-wow-delay="300ms"
                                                 data-wow-duration="1500ms" title="MRSolutions Video Gallery"
-                                                href="#">
+                                                href="./uploads/projects/">
                                                 <span class="flaticon-play-button"></span>
                                             </a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-6 col-lg-6 col-md-6">
-                        <div class="single-project-image-gallery">
-                            <img src="images/projects/project-single/dtx_bina_190521.jpg" alt="Awesome Image">
                         </div>
                     </div>
                 </div>
@@ -201,9 +197,8 @@
                 <div class="similar-project-title text-center">
                     <h2>Digər Proyektlərimiz</h2>
                 </div>
-                <div class="row">
-                    <!--Start Single Similar Project-->
-                    <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12">
+                <div id="related_projects" class="row">
+                    <!-- <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12">
                         <div class="single-similar-project">
                             <div class="img-holder">
                                 <img src="images/projects/project-single/rabite.jpg" alt="Awesome Image">
@@ -213,8 +208,6 @@
                             </div>
                         </div>
                     </div>
-                    <!--End Single Similar Project-->
-                    <!--Start Single Similar Project-->
                     <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12">
                         <div class="single-similar-project">
                             <div class="img-holder">
@@ -225,8 +218,6 @@
                             </div>
                         </div>
                     </div>
-                    <!--End Single Similar Project-->
-                    <!--Start Single Similar Project-->
                     <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12">
                         <div class="single-similar-project">
                             <div class="img-holder">
@@ -237,8 +228,6 @@
                             </div>
                         </div>
                     </div>
-                    <!--End Single Similar Project-->
-                    <!--Start Single Similar Project-->
                     <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12">
                         <div class="single-similar-project">
                             <div class="img-holder">
@@ -248,15 +237,14 @@
                                 <h3><a href="#">Sumqayıt Məhkəmələr Kompleksi</a></h3>
                             </div>
                         </div>
-                    </div>
-                    <!--End Single Similar Project-->
+                    </div> -->
                 </div>
             </div>
         </section>
         <!--End Similar projects Area-->
 
         <!--Start footer area-->
-        <footer style="overflow:hidden" id="footer" class="footer-area">
+        <footer style="overflow:hidden" id="footerarea" class="footer-area">
             <div class="footer-shape-bg wow slideInRight" data-wow-delay="300ms" data-wow-duration="2500ms"></div>
             <div class="container">
                 <div class="row">

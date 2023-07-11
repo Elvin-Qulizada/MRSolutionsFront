@@ -645,20 +645,20 @@ if (document.getElementById("productDetail")) {
 }
 
 //Project
-document.getElementById("createProjectForm")?.addEventListener('submit', function (event) {
-  event.preventDefault(); // Prevent form submission
-  const formData = new FormData();
-  formData.append('posterimage', document.getElementById("posterImage").files[0])
-  formData.append('image', document.getElementById("image").files[0])
-  formData.append('videothumbnail', document.getElementById("videoThumbnail").files[0])
-  formData.append('video', document.getElementById("video").files[0])
-  formData.append('name', document.getElementById("name").value)
-  formData.append('date', document.getElementById("date").value)
-  formData.append('location', document.getElementById("location").value)
-  formData.append('area', document.getElementById("area").value)
-  formData.append('description', document.getElementById("description").value)
-  postData("https://localhost:7255/api/Project", formData)
-})
+// document.getElementById("createProjectForm")?.addEventListener('submit', function (event) {
+//   event.preventDefault(); // Prevent form submission
+//   const formData = new FormData();
+//   formData.append('posterimage', document.getElementById("posterImage").files[0])
+//   formData.append('image', document.getElementById("image").files[0])
+//   formData.append('videothumbnail', document.getElementById("videoThumbnail").files[0])
+//   formData.append('video', document.getElementById("video").files[0])
+//   formData.append('name', document.getElementById("name").value)
+//   formData.append('date', document.getElementById("date").value)
+//   formData.append('location', document.getElementById("location").value)
+//   formData.append('area', document.getElementById("area").value)
+//   formData.append('description', document.getElementById("description").value)
+//   postData("https://localhost:7255/api/Project", formData)
+// })
 document.getElementById("updateProjectForm")?.addEventListener('submit', function (event) {
   event.preventDefault(); // Prevent form submission
   const formData = new FormData();
@@ -819,7 +819,7 @@ if (document.getElementById("updateSliderForm")) {
       document.getElementById("title").value = data.title;
       document.getElementById("description").value = data.description;
       document.getElementById("buttontext").value = data.buttonText;
-      document.getElementById("imageShow").src += data.title + "/" + data.imageUrl;
+      document.getElementById("imageShow").src += data.title.split(' ')[0] + "/" + data.imageUrl;
       document.getElementById("redirecturl").value = data.redirectUrl;
     });
 }
@@ -831,7 +831,7 @@ if (document.getElementById("slider-index")) {
         `
                         <tr>
                           <td>
-                            <i class="fab fa-angular fa-lg text-danger me-3"></i> <img style="width:200px" src="./../../MRSolutions/uploads/sliders/${element.title}/${element.imageUrl}">
+                            <i class="fab fa-angular fa-lg text-danger me-3"></i> <img style="width:200px" src="./../../MRSolutions/uploads/sliders/${element.title.split(' ')[0]}/${element.imageUrl}">
                           </td>  
                           <td>
                             <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>${element.title}</strong>
@@ -855,7 +855,7 @@ if (document.getElementById("sliderDetail")) {
       document.getElementById("title").innerText = data.title;
       document.getElementById("description").innerText = data.description;
       document.getElementById("buttonText").innerText = data.buttonText;
-      document.getElementById("image").src += data.title + "/" + data.imageUrl;
+      document.getElementById("image").src += data.title.split(' ')[0] + "/" + data.imageUrl;
       document.getElementById("redirectUrl").innerText = data.redirectUrl;
     });
 }

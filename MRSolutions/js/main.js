@@ -50,9 +50,10 @@ if (document.querySelector(".main-slider")) {
         .then(res => res.json())
         .then(data => {
             data.forEach(element => {
+                console.log(`./uploads/sliders/${element.title.trim().substring(0,10)}/${element.imageUrl}`)
                 document.querySelector(".main-slider").innerHTML +=
                     `
-                <div style="cursor:grab;;height: 90vh; background-image: url(./uploads/sliders/${element.title}/${element.imageUrl});background-position: center;background-attachment: fixed;background-repeat: no-repeat;"
+                <div style="cursor:grab;;height: 90vh; background-image: url(./uploads/sliders/${element.title.split(' ')[0]}/${element.imageUrl});background-position: center;background-attachment: fixed;background-repeat: no-repeat;"
                     class="swiper-slide slide-content d-flex flex-column justify-content-center align-items-center gap-5">
                     <div class="big-title">${element.title}</div>
                     <div class="text">${element.description}</div>
@@ -286,7 +287,7 @@ if (document.getElementById("services")) {
                         <div class="single-service-style2 wow fadeInUp" data-wow-delay="200ms"
                             data-wow-duration="1200ms">
                             <div class="img-holder">
-                                <img src="./uploads/services/${element.name}/${element.imageUrl}" alt="Awesome Image">
+                                <img src="./uploads/services/${element.name}/${element.posterImageUrl}" alt="Awesome Image">
                                 <div class="overlay-style-two"></div>
                             </div>
                             <div class="text-holder">
@@ -320,7 +321,7 @@ if (document.querySelector(".single-service-area")) {
                     document.querySelector(".service-pages").innerHTML +=
                         `
                     <li class="active">
-                        <a href="#">
+                        <a href="./services-single.html?id=${element.id}">
                             <div class="title">
                                 <h3 class="static">${element.name}</h3>
                                 <div class="overlay-title">
@@ -334,7 +335,7 @@ if (document.querySelector(".single-service-area")) {
                     document.querySelector(".service-pages").innerHTML +=
                         `
                     <li>
-                        <a href="#">
+                        <a href="./services-single.html?id=${element.id}">
                             <div class="title">
                                 <h3 class="static">${element.name}</h3>
                                 <div class="overlay-title">
@@ -519,10 +520,35 @@ if (document.getElementById("single-project")) {
     fetch(`https://localhost:7255/api/Project/${id}`)
         .then(res => res.json())
         .then(data => {
+            data.projectImages.forEach(element => {
+                if (element.isPoster) document.getElementById("posterImage").src += data.name + "/" + element.imageUrl
+                else if (element.isPoster == false) document.getElementById("image").src += data.name + "/" + element.imageUrl
+                else document.getElementById("videoImage").src += data.name + "/" + element.imageUrl
+            });
             document.getElementById("title").innerHTML = data.name
             document.getElementById("description").innerHTML = data.description
             document.getElementById("location").innerHTML = data.location
             document.getElementById("area").innerHTML = `${data.area}m<sup>2</sup>`
-            document.getElementById("date").innerHTML = data.date.substring(0,4)
+            document.getElementById("date").innerHTML = data.date.substring(0, 4)
+            document.getElementById("video").href += data.name + "/" + data.videoUrl
+        })
+    fetch(`https://localhost:7255/api/Project/${id}`)
+        .then(res => res.json())
+        .then(data => {
+            data.forEach(element => {
+                document.getElementById("related_projects").innerHTML+=
+                `
+                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12">
+                    <div class="single-similar-project">
+                        <div class="img-holder">
+                            <img src="./uploads/projects/${element.name}/${element.projectImages[0].imageUrl}" alt="Awesome Image">
+                        </div>
+                        <div class="title-holder">
+                            <h3><a href="#">${element.name}</a></h3>
+                        </div>
+                    </div>
+                </div>
+                `
+            });
         })
 }

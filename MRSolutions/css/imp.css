@@ -351,13 +351,22 @@ input:-webkit-autofill:focus {
 
 
 /*__Html 5 lightbox css__*/
+#html5box-html5-lightbox{
+    z-index: 100000000 !important;
+}
+#html5-elem-data-box{
+    display: none !important;
+}
+.html5boxVideoControls{
+    display: none !important;
+}
 #html5-watermark {
     background: #ff2b58;
     display: none !important;
     z-index: 9999999999;
 }
 #html5box-html5-lightbox #html5-image {
-    border: 10px solid #e9212e;
+    /* border: 10px solid #e9212e; */
     padding: 0 !important;
 }
 #html5box-html5-lightbox #html5-text{
