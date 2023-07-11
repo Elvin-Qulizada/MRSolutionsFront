@@ -645,20 +645,20 @@ if (document.getElementById("productDetail")) {
 }
 
 //Project
-// document.getElementById("createProjectForm")?.addEventListener('submit', function (event) {
-//   event.preventDefault(); // Prevent form submission
-//   const formData = new FormData();
-//   formData.append('posterimage', document.getElementById("posterImage").files[0])
-//   formData.append('image', document.getElementById("image").files[0])
-//   formData.append('videothumbnail', document.getElementById("videoThumbnail").files[0])
-//   formData.append('video', document.getElementById("video").files[0])
-//   formData.append('name', document.getElementById("name").value)
-//   formData.append('date', document.getElementById("date").value)
-//   formData.append('location', document.getElementById("location").value)
-//   formData.append('area', document.getElementById("area").value)
-//   formData.append('description', document.getElementById("description").value)
-//   postData("https://localhost:7255/api/Project", formData)
-// })
+document.getElementById("createProjectForm")?.addEventListener('submit', function (event) {
+  event.preventDefault(); // Prevent form submission
+  const formData = new FormData();
+  formData.append('posterimage', document.getElementById("posterImage").files[0])
+  formData.append('image', document.getElementById("image").files[0])
+  formData.append('videothumbnail', document.getElementById("videoThumbnail").files[0])
+  formData.append('video', document.getElementById("video").files[0])
+  formData.append('name', document.getElementById("name").value)
+  formData.append('date', document.getElementById("date").value)
+  formData.append('location', document.getElementById("location").value)
+  formData.append('area', document.getElementById("area").value)
+  formData.append('description', document.getElementById("description").value)
+  postData("https://localhost:7255/api/Project", formData)
+})
 document.getElementById("updateProjectForm")?.addEventListener('submit', function (event) {
   event.preventDefault(); // Prevent form submission
   const formData = new FormData();

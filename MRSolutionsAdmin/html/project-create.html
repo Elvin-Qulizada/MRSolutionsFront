@@ -327,60 +327,60 @@
     <!-- / Layout wrapper -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.5/dist/sweetalert2.all.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
-  <script>
-      async function postData(url = "", data = {}) {
-        try {
-          const response = await fetch(url, {
-            method: "POST",
-            body: data
+  <!-- <script>
+    async function postData(url = "", data = {}) {
+      try {
+        const response = await fetch(url, {
+          method: "POST",
+          body: data
+        });
+
+        if (!response.ok) {
+          $("#modalCenter").modal('show');
+        } else {
+          Swal.fire(
+            'Yaradıldı!',
+            'Layihə yaradıldı.',
+            'info'
+          ).then(function () {
+            window.location.href = "./project-index.html";
           });
 
-          if (!response.ok) {
-            $("#modalCenter").modal('show');
-          } else {
-            Swal.fire(
-              'Yaradıldı!',
-              'Layihə yaradıldı.',
-              'info'
-            ).then(function () {
-              window.location.href = "./project-index.html";
-            });
-
-            setTimeout(() => {
-              window.location.href = "./project-index.html";
-            }, 10000);
-          }
-
-          return response.json(); // Return the parsed JSON data
-        } catch (error) {
-          $("#modalCenter").modal('show');
-          throw error;
+          setTimeout(() => {
+            window.location.href = "./project-index.html";
+          }, 10000);
         }
+
+        return response.json(); // Return the parsed JSON data
+      } catch (error) {
+        $("#modalCenter").modal('show');
+        throw error;
       }
-      document.getElementById("createProjectForm").addEventListener('submit', async function (event) {
-        event.preventDefault(); // Prevent form submission
-        const formData = new FormData();
-        formData.append('posterimage', document.getElementById("posterImage").files[0])
-        formData.append('image', document.getElementById("image").files[0])
-        formData.append('videothumbnail', document.getElementById("videoThumbnail").files[0])
-        formData.append('video', document.getElementById("video").files[0])
-        formData.append('name', document.getElementById("name").value)
-        formData.append('date', document.getElementById("date").value)
-        formData.append('location', document.getElementById("location").value)
-        formData.append('area', document.getElementById("area").value)
-        formData.append('description', document.getElementById("description").value)
-        // Example POST method implementation:
+    }
+    document.getElementById("createProjectForm").addEventListener('submit', async function (event) {
+      event.preventDefault(); // Prevent form submission
+      const formData = new FormData();
+      formData.append('posterimage', document.getElementById("posterImage").files[0])
+      formData.append('image', document.getElementById("image").files[0])
+      formData.append('videothumbnail', document.getElementById("videoThumbnail").files[0])
+      formData.append('video', document.getElementById("video").files[0])
+      formData.append('name', document.getElementById("name").value)
+      formData.append('date', document.getElementById("date").value)
+      formData.append('location', document.getElementById("location").value)
+      formData.append('area', document.getElementById("area").value)
+      formData.append('description', document.getElementById("description").value)
+      // Example POST method implementation:
 
 
-        postData("https://localhost:7255/api/Project", formData).then((data) => {
-          console.log(data); // JSON data parsed by `response.json()` call
-        }).catch((error) => {
-          // Handle any errors that occurred during the fetch request
-          console.error(error);
-        });
+      postData("https://localhost:7255/api/Project", formData).then((data) => {
+        console.log(data); // JSON data parsed by `response.json()` call
+      }).catch((error) => {
+        // Handle any errors that occurred during the fetch request
+        console.error(error);
       });
+    });
 
-    </script>
+  </script> -->
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
     <script src="../assets/vendor/libs/jquery/jquery.js"></script>
