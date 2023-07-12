@@ -289,7 +289,15 @@
 
     <!-- Initialize Swiper -->
     <script>
-        var swiper = new Swiper(".mySwiper", {});
+        var swiper = new Swiper(".mySwiper",
+            {
+                spaceBetween: 30,
+                centeredSlides: true,
+                autoplay: {
+                    delay: 2500,
+                    disableOnInteraction: false,
+                }
+            });
     </script>
 
     <script src="js/jquery.js"></script>
