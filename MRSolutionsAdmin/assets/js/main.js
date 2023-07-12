@@ -293,6 +293,9 @@ async function putData(url = "", data = {}) {
     })
 
   })
+  document.getElementById("logoutButton")?.addEventListener("click", function () {
+    Cookies.remove('jwtToken')
+  })
 }
 //Service
 document.getElementById("createServiceForm")?.addEventListener('submit', async function (event) {
