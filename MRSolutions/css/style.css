@@ -8119,7 +8119,7 @@ li .single-footer-contact-info .text p span{
     width: 50%;
     height: 100%;
     content: '';
-    background: linear-gradient(to right, rgba(233,33,48, 0) 0%, rgba(233,33,48, .3) 100%);
+    background: linear-gradient(to right, rgba(233,33,48, 0) 0%, rgb(0 0 0 / 30%) 100%);
     transform: skewX(-25deg);
     z-index: 2;
 }

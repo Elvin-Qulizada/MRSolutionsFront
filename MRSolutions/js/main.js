@@ -2,6 +2,7 @@ const queryStr = window.location.search;
 const params = new URLSearchParams(queryStr);
 const id = params.get('id');
 const page = params.get('page') != null ? params.get('page') : 1;
+const category = params.get('category') != null ? params.get('category') : null;
 fetch("https://localhost:7255/api/Setting")
     .then(res => res.json())
     .then(data => {
@@ -153,11 +154,11 @@ if (document.getElementById("shop-section")) {
             data.forEach(element => {
                 document.getElementById("category-filter").innerHTML +=
                     `
-                <option value="${element.id}">${element.name}</option>
+                <option value="${element.name}">${element.name}</option>
                 `
             })
         })
-    fetch(`https://localhost:7255/api/Product/${page}`)
+    fetch(`https://localhost:7255/api/Product/${category}/${page}`)
         .then(res => res.json())
         .then(data => {
             data.products.forEach(element => {
@@ -184,53 +185,16 @@ if (document.getElementById("shop-section")) {
                 let pagination = document.getElementById("pagination");
                 for (let i = 1; i <= Math.ceil(data.productCount / 8); i++) {
                     if (page == i) {
-                        pagination.innerHTML += `<li class="active"><a href="./shop.html?page=${i}">${i}</a></li>`
+                        pagination.innerHTML += `<li class="active"><a href="./shop.html?category=${category}&page=${i}">${i}</a></li>`
                     } else {
-                        pagination.innerHTML += `<li><a href="./shop.html?page=${i}">${i}</a></li>`
+                        pagination.innerHTML += `<li><a href="./shop.html?category=${category}&page=${i}">${i}</a></li>`
                     }
                 }
             }
         })
 }
 function filterByCategory(par) {
-    fetch(`https://localhost:7255/api/Product/${page}`)
-        .then(res => res.json())
-        .then(data => {
-            let arr = par == "" ? data.products : data.products.filter(p => p.categoryId == par)
-            document.getElementById("shop-section").innerHTML = ``;
-            arr.forEach(element => {
-                document.getElementById("shop-section").innerHTML +=
-                    `
-            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12">
-                <a class="d-block" href="shop-single.html?id=${element.id}">
-                    <div class="single-product-item text-center">
-                        <div class="img-holder">
-                            <img src="./uploads/products/${element.name}/${element.imageUrl}"
-                                alt="Awesome Product Image">
-                        </div>
-                        <div class="title-holder text-center">
-                            <div class="static-content">
-                                        <h3 class="title text-center"><a href="shop-single.html?id=${element.id}">${element.name}</a></h3>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            `
-            });
-            if (arr.length > 8) {
-                let pagination = document.getElementById("pagination");
-                for (let i = 1; i <= Math.ceil(data.productCount / 8); i++) {
-                    if (page == i) {
-                        pagination.innerHTML += `<li class="active"><a href="./shop.html?page=${i}">${i}</a></li>`
-                    } else {
-                        pagination.innerHTML += `<li><a href="./shop.html?page=${i}">${i}</a></li>`
-                    }
-                }
-            } else {
-                document.getElementById("pagination").innerHTML = ``
-            }
-        })
+    window.location.href = `./shop.html?category=${par}`
 }
 if (document.querySelector(".single-shop-area")) {
 
@@ -316,7 +280,7 @@ if (document.getElementById("single-project")) {
             document.getElementById("date").innerHTML = data.date.substring(0, 4)
             document.getElementById("video").href += data.name + "/" + data.videoUrl
         })
-    fetch(`https://localhost:7255/api/Project/${id}`)
+    fetch(`https://localhost:7255/api/Project/${id}/related`)
         .then(res => res.json())
         .then(data => {
             data.forEach(element => {
@@ -328,7 +292,7 @@ if (document.getElementById("single-project")) {
                             <img src="./uploads/projects/${element.name}/${element.projectImages[0].imageUrl}" alt="Awesome Image">
                         </div>
                         <div class="title-holder">
-                            <h3><a href="#">${element.name}</a></h3>
+                            <h3><a href="./project-single.html?id=${element.id}">${element.name}</a></h3>
                         </div>
                     </div>
                 </div>
