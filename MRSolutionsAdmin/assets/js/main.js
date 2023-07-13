@@ -655,8 +655,6 @@ document.getElementById("createProjectForm")?.addEventListener('submit', functio
   const formData = new FormData();
   formData.append('posterimage', document.getElementById("posterImage").files[0])
   formData.append('image', document.getElementById("image").files[0])
-  formData.append('videothumbnail', document.getElementById("videoThumbnail").files[0])
-  formData.append('video', document.getElementById("video").files[0])
   formData.append('name', document.getElementById("name").value)
   formData.append('date', document.getElementById("date").value)
   formData.append('location', document.getElementById("location").value)
@@ -670,8 +668,6 @@ document.getElementById("updateProjectForm")?.addEventListener('submit', functio
   formData.append('id', projectId)
   formData.append('posterimage', document.getElementById("posterImage").files[0])
   formData.append('image', document.getElementById("image").files[0])
-  formData.append('videothumbnail', document.getElementById("videoThumbnail").files[0])
-  formData.append('video', document.getElementById("video").files[0])
   formData.append('name', document.getElementById("name").value)
   formData.append('date', document.getElementById("date").value)
   formData.append('location', document.getElementById("location").value)
@@ -688,23 +684,8 @@ if (document.getElementById("updateProjectForm")) {
       document.getElementById("location").value = data.location;
       document.getElementById("area").value = data.area;
       document.getElementById("date").value = data.date.substring(0, 10);
-      data.projectImages.forEach(pi => {
-        if (pi.isPoster) {
-          document.getElementById("posterImageShow").src += data.name + "/" + pi.imageUrl
-        }
-        else if (pi.isPoster == false) {
-          document.getElementById("imageShow").src += data.name + "/" + pi.imageUrl
-        }
-        else {
-          document.getElementById("videoImageShow").src += data.name + "/" + pi.imageUrl
-        }
-      });
-      document.getElementById("videoShow").innerHTML +=
-        `
-                        <video autoplay controls class="w-100" style="height:150px;object-fit:fill">
-                            <source  src="./../../MRSolutions/uploads/projects/${data.name}/${data.videoUrl}" type="video/mp4">
-                        </video>
-                    `
+      document.getElementById("posterImageShow").src += data.name + "/" + data.posterImageUrl
+      document.getElementById("imageShow").src += data.name + "/" + data.imageUrl
     });
 }
 if (document.getElementById("project-index")) {
@@ -715,7 +696,7 @@ if (document.getElementById("project-index")) {
         `
                         <tr>
                           <td>
-                            <i class="fab fa-angular fa-lg text-danger me-3"></i> <img style="width:200px" src="./../../MRSolutions/uploads/projects/${element.name}/${element.projectImages[0].imageUrl}">
+                            <i class="fab fa-angular fa-lg text-danger me-3"></i> <img style="width:200px" src="./../../MRSolutions/uploads/projects/${element.name}/${element.posterImageUrl}">
                           </td>  
                           <td>
                             <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>${element.name}</strong>
@@ -738,23 +719,8 @@ if (document.getElementById("projectDetail")) {
       document.getElementById("location").innerText = data.location;
       document.getElementById("area").innerText = data.area;
       document.getElementById("date").innerText = data.date.substring(0, 10);
-      data.projectImages.forEach(pi => {
-        if (pi.isPoster) {
-          document.getElementById("posterImageShow").src += data.name + "/" + pi.imageUrl
-        }
-        else if (pi.isPoster == false) {
-          document.getElementById("imageShow").src += data.name + "/" + pi.imageUrl
-        }
-        else {
-          document.getElementById("videoImage").src += data.name + "/" + pi.imageUrl
-        }
-      });
-      document.getElementById("video").innerHTML +=
-        `
-                        <video autoplay controls class="w-100" style="height:250px;object-fit:fill">
-                            <source  src="./../../MRSolutions/uploads/projects/${data.name}/${data.videoUrl}" type="video/mp4">
-                        </video>
-                    `
+      document.getElementById("posterImageShow").src += data.name + "/" + data.posterImageUrl
+      document.getElementById("imageShow").src += data.name + "/" + data.imageUrl
     });
 }
 

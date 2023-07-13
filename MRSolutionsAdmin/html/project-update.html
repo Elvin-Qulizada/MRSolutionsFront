@@ -197,72 +197,64 @@
                     <div class="card-body">
                       <form id="updateProjectForm">
                         <div class="row mb-3">
-                            <div class="col-md-7">
-                                <label class="col-form-label" for="name">Layihə Adı</label>
-                                <div class="">
-                                  <input type="text" class="form-control" name="name" id="name" placeholder="Layihə Adı" />
-                                </div>
-                            </div>
-                            <div class="col-md-5">
-                                <label class="col-form-label" for="headertext">Tarix</label>
-                                <div class="">
-                                  <input type="date" class="form-control" name="date" id="date" placeholder="Tarix" />
-                                </div>
-                            </div>
-                            <div class="col-md-7">
-                                <label class="col-form-label" for="headertext">Məkan</label>
-                                <div class="">
-                                  <input type="text" class="form-control" name="location" id="location" placeholder="Məkan" />
-                                </div>
-                            </div>
-                            <div class="col-md-5">
-                                <label class="col-form-label" for="area">Sahə</label>
-                                <div class="">
-                                  <input type="number" min="0" class="form-control" name="area" id="area" placeholder="Sahə" />
-                                </div>
-                            </div>
-                            <div class="col-md-3 mt-3">
-                                <div class="col-md-12" style="height: 150px;">
-                                    <img id="posterImageShow" src="./../../MRSolutions/uploads/projects/" class="w-100" style="object-fit: contain; height: 100%;" alt="">
-                                </div>
-                                <label class="col-form-label" for="posterImage">Poster Şəkli</label>
-                                <div class="">
-                                  <input type="file" accept="image/png, image/jpeg" class="form-control" name="posterImage" id="posterImage" placeholder="Şəkil" />
-                                </div>
-                            </div>
-                            <div class="col-md-3 mt-3">
-                                <div class="col-md-12" style="height: 150px;">
-                                    <img id="imageShow" src="./../../MRSolutions/uploads/projects/" class="w-100" style="object-fit: contain; height: 100%;" alt="">
-                                </div>
-                                <label class="col-form-label" for="image">Məlumat Şəkli</label>
-                                <div class="">
-                                  <input type="file" accept="image/png, image/jpeg" class="form-control" name="image" id="image" placeholder="Şəkil" />
-                                </div>
-                            </div>
-                            <div class="col-md-3 mt-3">
-                                <div class="col-md-12" style="height: 150px;">
-                                    <img id="videoImageShow" src="./../../MRSolutions/uploads/projects/" class="w-100" style="object-fit: contain; height: 100%;" alt="">
-                                </div>
-                                <label class="col-form-label" for="videoThumbnail">Video Şəkli</label>
-                                <div class="">
-                                  <input type="file" accept="image/png, image/jpeg" class="form-control" name="videoThumbnail" id="videoThumbnail" placeholder="Şəkil" />
-                                </div>
-                            </div>
-                            <div class="col-md-3 mt-3">
-                                <div id="videoShow" class="col-md-12" style="height: 150px;">
+                          <div class="col-md-9">
+                            <div class="row">
+                              <div class="col-md-12">
+                                  <label class="col-form-label" for="name">Layihə Adı</label>
+                                  <div class="">
+                                    <input type="text" class="form-control" name="name" id="name" placeholder="Layihə Adı" />
+                                  </div>
+                              </div>
+                              <div class="col-md-12">
+                                  <label class="col-form-label" for="headertext">Tarix</label>
+                                  <div class="">
+                                    <input type="date" class="form-control" name="date" id="date" placeholder="Tarix" />
+                                  </div>
+                              </div>
+                              <div class="col-md-12">
+                                  <label class="col-form-label" for="headertext">Məkan</label>
+                                  <div class="">
+                                    <input type="text" class="form-control" name="location" id="location" placeholder="Məkan" />
+                                  </div>
+                              </div>
+                              <div class="col-md-12">
+                                  <label class="col-form-label" for="area">Sahə</label>
+                                  <div class="">
+                                    <input type="number" min="0" class="form-control" name="area" id="area" placeholder="Sahə" />
+                                  </div>
+                              </div>
+                              <div class="col-md-12">
+                                  <label class="col-form-label" for="description">Məlumat</label>
+                                  <div class="">
+                                      <textarea class="form-control" id="description" name="description" placeholder="Məlumat" rows="3"></textarea>
+                                  </div>
+                              </div>
 
-                                </div>
-                                <label class="col-form-label" for="video">Video <span style="color:red">40 mb</span></label>
-                                <div class="">
-                                  <input type="file" accept="video/*" class="form-control" name="video" id="video" placeholder="Video" />
-                                </div>
                             </div>
-                            <div class="col-md-12">
-                                <label class="col-form-label" for="description">Məlumat</label>
-                                <div class="">
-                                    <textarea class="form-control" id="description" name="description" placeholder="Məlumat" rows="3"></textarea>
-                                </div>
+                          </div>
+                          <div class="col-md-3">
+                            <div class="row">
+                              <div class="col-md-12 mt-3">
+                                  <div class="col-md-12" style="height: 150px;">
+                                      <img id="posterImageShow" src="./../../MRSolutions/uploads/projects/" class="w-100" style="object-fit: contain; height: 100%;" alt="">
+                                  </div>
+                                  <label class="col-form-label" for="posterImage">Poster Şəkli</label>
+                                  <div class="">
+                                    <input type="file" accept="image/png, image/jpeg" class="form-control" name="posterImage" id="posterImage" placeholder="Şəkil" />
+                                  </div>
+                              </div>
+                              <div class="col-md-12 mt-3">
+                                  <div class="col-md-12" style="height: 150px;">
+                                      <img id="imageShow" src="./../../MRSolutions/uploads/projects/" class="w-100" style="object-fit: contain; height: 100%;" alt="">
+                                  </div>
+                                  <label class="col-form-label" for="image">Məlumat Şəkli</label>
+                                  <div class="">
+                                    <input type="file" accept="image/png, image/jpeg" class="form-control" name="image" id="image" placeholder="Şəkil" />
+                                  </div>
+                              </div>
+
                             </div>
+                          </div>
                         </div>
                         <div class="row justify-content-center">
                           <div class="col-2 d-flex justify-content-center gap-2">

@@ -249,7 +249,7 @@ if (document.getElementById("projects")) {
                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 pd0 filter-item contem ret">
                     <div class="single-project-style8">
                         <div class="img-holder">
-                            <img src="./uploads/projects/${element.name}/${element.projectImages[0].imageUrl}" alt="Awesome Image">
+                            <img src="./uploads/projects/${element.name}/${element.posterImageUrl}" alt="Awesome Image">
                             <div class="overlay-content">
                                 <div class="inner-content">
                                     <div class="title-box">
@@ -268,17 +268,13 @@ if (document.getElementById("single-project")) {
     fetch(`https://localhost:7255/api/Project/${id}`)
         .then(res => res.json())
         .then(data => {
-            data.projectImages.forEach(element => {
-                if (element.isPoster) document.getElementById("posterImage").src += data.name + "/" + element.imageUrl
-                else if (element.isPoster == false) document.getElementById("image").src += data.name + "/" + element.imageUrl
-                else document.getElementById("videoImage").src += data.name + "/" + element.imageUrl
-            });
+            document.getElementById("posterImage").src += data.name + "/" + data.posterImageUrl
+            document.getElementById("image").src += data.name + "/" + data.imageUrl
             document.getElementById("title").innerHTML = data.name
             document.getElementById("description").innerHTML = data.description
             document.getElementById("location").innerHTML = data.location
             document.getElementById("area").innerHTML = `${data.area}m<sup>2</sup>`
             document.getElementById("date").innerHTML = data.date.substring(0, 4)
-            document.getElementById("video").href += data.name + "/" + data.videoUrl
         })
     fetch(`https://localhost:7255/api/Project/${id}/related`)
         .then(res => res.json())
@@ -289,7 +285,7 @@ if (document.getElementById("single-project")) {
                 <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12">
                     <div class="single-similar-project">
                         <div class="img-holder">
-                            <img src="./uploads/projects/${element.name}/${element.projectImages[0].imageUrl}" alt="Awesome Image">
+                            <img src="./uploads/projects/${element.name}/${element.posterImageUrl}" alt="Awesome Image">
                         </div>
                         <div class="title-holder">
                             <h3><a href="./project-single.html?id=${element.id}">${element.name}</a></h3>
