@@ -291,7 +291,7 @@ li{
     font-size: 36px;
     line-height: 44px;
     font-weight: 700;
-    text-transform: uppercase;
+    /* text-transform: uppercase; */
     font-family: 'Poppins', sans-serif;
 }
 .sec-title .title.clr-white{

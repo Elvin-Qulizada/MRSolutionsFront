@@ -11,7 +11,8 @@ let entityNames = {
   project: "Layihə",
   service: "Xidmət",
   setting: "Tənzimləmə",
-  slider: "Slayder"
+  slider: "Slayder",
+  about: "Məlumat"
 }
 //JWT
 // const token = document.cookie // Retrieve the token from the cookie
@@ -338,10 +339,13 @@ if (document.getElementById("updateServiceForm")) {
 if (document.getElementById("service-index")) {
   fetch("https://localhost:7255/api/Service")
     .then(res => res.json())
-    .then(data => data.forEach(element => {
-      document.getElementById("service-index").innerHTML +=
-        `
+    .then(data => {
+      let count = 1
+      data.forEach(element => {
+        document.getElementById("service-index").innerHTML +=
+          `
                         <tr>
+                          <td>${count}</td>
                           <td>
                             <i class="fab fa-angular fa-lg text-danger me-3"></i> <img style="width:200px" src="./../../MRSolutions/uploads/services/${element.name}/${element.posterImageUrl}">
                           </td>  
@@ -358,7 +362,9 @@ if (document.getElementById("service-index")) {
                           </td>
                         </tr>
           `
-    }))
+        count++
+      })
+    })
 }
 if (document.getElementById("serviceDetail")) {
   fetch(`https://localhost:7255/api/Service/${id}`)
@@ -399,10 +405,13 @@ if (document.getElementById("updateBrandForm")) {
 if (document.getElementById("brand-index")) {
   fetch("https://localhost:7255/api/Brand")
     .then(res => res.json())
-    .then(data => data.forEach(element => {
-      document.getElementById("brand-index").innerHTML +=
-        `
+    .then(data => {
+      let count = 1;
+      data.forEach(element => {
+        document.getElementById("brand-index").innerHTML +=
+          `
                         <tr>
+                        <td>${count}</td>
                           <td>
                             <strong>${element.name}</strong>
                           </td>
@@ -415,7 +424,9 @@ if (document.getElementById("brand-index")) {
                           </td>
                         </tr>
           `
-    }))
+        count++
+      })
+    })
 }
 
 //Category
@@ -500,10 +511,13 @@ if (document.getElementById("updateCategoryForm")) {
 if (document.getElementById("category-index")) {
   fetch("https://localhost:7255/api/Category")
     .then(res => res.json())
-    .then(data => data.forEach(element => {
-      document.getElementById("category-index").innerHTML +=
-        `
+    .then(data => {
+      let count = 1
+      data.forEach(element => {
+        document.getElementById("category-index").innerHTML +=
+          `
                         <tr>
+                          <td>${count}</td>
                           <td>
                             <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>${element.name}</strong>
                           </td>
@@ -513,7 +527,9 @@ if (document.getElementById("category-index")) {
                           </td>
                         </tr>
           `
-    }))
+        count++
+      })
+    })
 }
 
 //Product
@@ -579,13 +595,15 @@ if (document.getElementById("updateProductForm")) {
     });
 }
 if (document.getElementById("product-index")) {
-  fetch(`https://localhost:7255/api/Product/${page}`)
+  fetch(`https://localhost:7255/api/Product/${null}/${page}`)
     .then(res => res.json())
     .then(data => {
+      let count = (page - 1) * 8 + 1;
       data.products.forEach(element => {
         document.getElementById("product-index").innerHTML +=
           `
-                        <tr>
+                        <tr class="text-center">
+                          <td>${count}</td>
                           <td>
                             <i class="fab fa-angular fa-lg text-danger me-3"></i> <img style="width:200px" src="./../../MRSolutions/uploads/products/${element.name}/${element.imageUrl}">
                           </td>  
@@ -602,6 +620,7 @@ if (document.getElementById("product-index")) {
                           </td>
                         </tr>
           `
+        count++
       })
       if (data.productCount > 8) {
         let pagination = document.getElementById("pagination");
@@ -691,10 +710,13 @@ if (document.getElementById("updateProjectForm")) {
 if (document.getElementById("project-index")) {
   fetch("https://localhost:7255/api/Project")
     .then(res => res.json())
-    .then(data => data.forEach(element => {
-      document.getElementById("project-index").innerHTML +=
-        `
+    .then(data => {
+      let count = 1
+      data.forEach(element => {
+        document.getElementById("project-index").innerHTML +=
+          `
                         <tr>
+                          <td>${count}</td>
                           <td>
                             <i class="fab fa-angular fa-lg text-danger me-3"></i> <img style="width:200px" src="./../../MRSolutions/uploads/projects/${element.name}/${element.posterImageUrl}">
                           </td>  
@@ -708,7 +730,9 @@ if (document.getElementById("project-index")) {
                           </td>
                         </tr>
           `
-    }))
+        count++
+      })
+    })
 }
 if (document.getElementById("projectDetail")) {
   fetch(`https://localhost:7255/api/Project/${id}`)
@@ -765,22 +789,16 @@ if (document.getElementById("setting-index")) {
 document.getElementById("createSliderForm")?.addEventListener('submit', async function (event) {
   event.preventDefault(); // Prevent form submission
   const formData = new FormData();
-  formData.append('image', document.getElementById("image").files[0])
+  formData.append('video', document.getElementById("video").files[0])
   formData.append('title', document.getElementById("title").value)
-  formData.append('description', document.getElementById("description").value)
-  formData.append('buttontext', document.getElementById("buttontext").value)
-  formData.append('redirecturl', document.getElementById("redirecturl").value)
   postData("https://localhost:7255/api/Slider", formData)
 });
 document.getElementById("updateSliderForm")?.addEventListener('submit', function (event) {
   event.preventDefault(); // Prevent form submission
   const formData = new FormData();
   formData.append('id', id)
-  formData.append('image', document.getElementById("image").files[0])
+  formData.append('video', document.getElementById("video").files[0])
   formData.append('title', document.getElementById("title").value)
-  formData.append('description', document.getElementById("description").value)
-  formData.append('buttontext', document.getElementById("buttontext").value)
-  formData.append('redirecturl', document.getElementById("redirecturl").value)
   putData(`https://localhost:7255/api/Slider/${id}`, formData)
 });
 if (document.getElementById("updateSliderForm")) {
@@ -788,10 +806,12 @@ if (document.getElementById("updateSliderForm")) {
     .then(res => res.json())
     .then(data => {
       document.getElementById("title").value = data.title;
-      document.getElementById("description").value = data.description;
-      document.getElementById("buttontext").value = data.buttonText;
-      document.getElementById("imageShow").src += data.title.split(' ')[0] + "/" + data.imageUrl;
-      document.getElementById("redirecturl").value = data.redirectUrl;
+      document.getElementById("videoShow").innerHTML +=
+        `
+      <video controls class="w-100 p-3">
+        <source  src="./../../MRSolutions/uploads/sliders/${data.title.split(' ')[0]}/${data.videoUrl}" type="video/mp4">
+      </video>
+      `
     });
 }
 if (document.getElementById("slider-index")) {
@@ -800,15 +820,14 @@ if (document.getElementById("slider-index")) {
     .then(data => data.forEach(element => {
       document.getElementById("slider-index").innerHTML +=
         `
-                        <tr>
+                        <tr class="text-center">
                           <td>
-                            <i class="fab fa-angular fa-lg text-danger me-3"></i> <img style="width:200px" src="./../../MRSolutions/uploads/sliders/${element.title.split(' ')[0]}/${element.imageUrl}">
+                            <video controls class="w-100 p-3">
+                              <source  src="./../../MRSolutions/uploads/sliders/${element.title.split(' ')[0]}/${element.videoUrl}" type="video/mp4">
+                            </video>
                           </td>  
                           <td>
                             <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>${element.title}</strong>
-                          </td>
-                          <td>
-                            <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>${element.description.length > 60 ? element.description.substring(0, 60) + "..." : element.description}</strong>
                           </td>
                           <td class="text-center">
                             <a href="./slider-detail.html?id=${element.id}" class="text-white btn btn-info">Detallı</a>
@@ -824,13 +843,82 @@ if (document.getElementById("sliderDetail")) {
     .then(res => res.json())
     .then(data => {
       document.getElementById("title").innerText = data.title;
-      document.getElementById("description").innerText = data.description;
-      document.getElementById("buttonText").innerText = data.buttonText;
-      document.getElementById("image").src += data.title.split(' ')[0] + "/" + data.imageUrl;
-      document.getElementById("redirectUrl").innerText = data.redirectUrl;
+      document.getElementById("video").innerHTML +=
+        ` <video controls class="w-100 p-3">
+          <source  src="./../../MRSolutions/uploads/sliders/${data.title.split(' ')[0]}/${data.videoUrl}" type="video/mp4">
+        </video>`
     });
 }
+//About
+document.getElementById("createAboutForm")?.addEventListener('submit', async function (event) {
+  event.preventDefault(); // Prevent form submission
+  const formData = new FormData();
+  formData.append('image', document.getElementById("image").files[0])
+  formData.append('name', document.getElementById("name").value)
+  formData.append('headertext', document.getElementById("headertext").value)
+  formData.append('description', document.getElementById("description").value)
+  // Example POST method implementation:
 
+
+  postData("https://localhost:7255/api/About", formData)
+});
+document.getElementById("updateAboutForm")?.addEventListener('submit', function (event) {
+  event.preventDefault(); // Prevent form submission
+  const formData = new FormData();
+  formData.append('id', id)
+  formData.append('image', document.getElementById("image").files[0])
+  formData.append('name', document.getElementById("name").value)
+  formData.append('headertext', document.getElementById("headertext").value)
+  formData.append('description', document.getElementById("description").value)
+  putData(`https://localhost:7255/api/About/${id}`, formData)
+});
+if (document.getElementById("updateAboutForm")) {
+  fetch(`https://localhost:7255/api/About/${id}`)
+    .then(res => res.json())
+    .then(data => {
+      document.getElementById("name").value = data.name;
+      document.getElementById("headertext").value = data.headerText;
+      document.getElementById("description").value = data.description;
+      document.getElementById("imageShow").src += data.name + "/" + data.imageUrl;
+    });
+}
+if (document.getElementById("about-index")) {
+  fetch("https://localhost:7255/api/About")
+    .then(res => res.json())
+    .then(data => {
+      let count = 1
+      data.forEach(element => {
+        document.getElementById("about-index").innerHTML +=
+          `
+                        <tr>
+                          <td>${count}</td>
+                          <td>
+                             <img style="width:200px" src="./../../MRSolutions/uploads/abouts/${element.name}/${element.imageUrl}">
+                          </td>  
+                          <td>
+                            <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>${element.name}</strong>
+                          </td>
+                          <td class="text-center">
+                            <a href="./about-detail.html?id=${element.id}" class="text-white btn btn-info">Detallı</a>
+                            <a href="./about-update.html?id=${element.id}" class="text-white btn btn-warning">Dəyişmək</a>
+                            <a onClick="entityDelete(this)" data-entity="about" data-id="${element.id}"class="text-white btn btn-danger">Silmək</a>
+                          </td>
+                        </tr>
+          `
+        count++
+      })
+    })
+}
+if (document.getElementById("aboutDetail")) {
+  fetch(`https://localhost:7255/api/About/${id}`)
+    .then(res => res.json())
+    .then(data => {
+      document.getElementById("name").innerText = data.name;
+      document.getElementById("headerText").innerText = data.headerText;
+      document.getElementById("description").innerText = data.description;
+      document.getElementById("imageShow").src += data.name + "/" + data.imageUrl;
+    });
+}
 let menu, animate;
 
 (function () {

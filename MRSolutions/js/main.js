@@ -32,18 +32,35 @@ if (document.querySelector(".main-slider")) {
         .then(data => {
             data.forEach(element => {
                 document.querySelector(".main-slider").innerHTML +=
-                    `
-                <div style="cursor:grab;;height: 90vh; background-image: url(./uploads/sliders/${element.title.split(' ')[0]}/${element.imageUrl});background-position: center;background-attachment: fixed;background-repeat: no-repeat;"
-                    class="swiper-slide slide-content d-flex flex-column justify-content-center align-items-center gap-5">
-                    <div class="big-title">${element.title}</div>
-                    <div class="text">${element.description}</div>
-                    <div class="btn-box">
-                        <a class="btn-one" href="${element.redirectUrl}">${element.buttonText}<span class="flaticon-next"></span></a>
-                    </div>
+                `
+                <div style="cursor:grab" class="swiper-slide">
+                        <video src="./uploads/sliders/${element.title.split(' ')[0]}/${element.videoUrl}" preload="none"
+                            muted loop></video>
                 </div>
-              `
+                `
             });
+            document.querySelector(".main-slider .swiper-slide video").setAttribute("autoplay","")
         })
+}
+if(document.getElementById("license")){
+    fetch("https://localhost:7255/api/About")
+    .then(res=>res.json())
+    .then(data => {
+        let about = data.find(a => a.name=="Lisenziya");
+        document.getElementById("headerText").innerHTML = about.headerText;
+        document.getElementById("description").innerHTML = about.description;
+        document.getElementById("license_image").src += about.name + "/" + about.imageUrl;
+    })
+}
+if(document.getElementById("about")){
+    fetch("https://localhost:7255/api/About")
+    .then(res=>res.json())
+    .then(data => {
+        let about = data.find(a => a.name=="Haqqında");
+        document.getElementById("headerText").innerHTML = about.headerText;
+        document.getElementById("description").innerHTML = about.description;
+        document.getElementById("about_image").src += about.name + "/" + about.imageUrl;
+    })
 }
 if (document.getElementById("brands-slider")) {
     fetch("https://localhost:7255/api/Brand")

@@ -132,6 +132,11 @@
                     <div data-i18n="Error">Slayderlər</div>
                   </a>
                 </li>
+                <li class="menu-item">
+                  <a href="about-index.html" class="menu-link">
+                    <div data-i18n="Error">Məlumatlar</div>
+                  </a>
+                </li>
               </ul>
             </li>
   
@@ -168,7 +173,7 @@
                   <li id="logoutButton">
                     <a class="dropdown-item" href="auth-login-basic.html">
                       <i class="bx bx-power-off me-2"></i>
-                      <span class="align-middle">Log Out</span>
+                      <span class="align-middle">Çıxış Et</span>
                     </a>
                   </li>
                 </ul>
@@ -197,6 +202,7 @@
                     <table class="table table-bordered w-100">
                       <thead>
                         <tr class="text-center">
+                          <th>#</th>
                           <th style="width:20%">Şəkil</th>
                           <th style="width:20%">Başlıq</th>
                           <th>Fəaliyyətlər</th>
@@ -244,70 +250,6 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.5/dist/sweetalert2.all.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
   <!-- / Layout wrapper -->
-    <!-- <script>
-        let table = document.querySelector("#project-index");
-        fetch("https://localhost:7255/api/Project")
-            .then(res => res.json())
-            .then(data => data.forEach(element => {
-                table.innerHTML +=
-                    `
-                        <tr>
-                          <td>
-                            <i class="fab fa-angular fa-lg text-danger me-3"></i> <img style="width:200px" src="./../../MRSolutions/uploads/projects/${element.name}/${element.projectImages[0].imageUrl}">
-                          </td>  
-                          <td>
-                            <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>${element.name}</strong>
-                          </td>
-                          <td class="text-center">
-                            <a href="./project-detail.html?id=${element.id}" class="text-white btn btn-info">Detallı</a>
-                            <a href="./project-update.html?id=${element.id}" class="text-white btn btn-warning">Dəyişmək</a>
-                            <a onClick="entityDelete(this)" data-entity="project" data-id="${element.id}"class="text-white btn btn-danger">Silmək</a>
-                          </td>
-                        </tr>
-          `
-            }))
-        // function projectDelete(e) {
-        //     console.log("test")
-        //     let url = `https://localhost:7255/api/Project/${e.dataset.id}`;
-        //     let id = e.dataset.id;
-        //     Swal.fire({
-        //         title: 'Əminsinizmi?',
-        //         text: "Bu fəaliyyəti geri qaytarmaq mümkün olmayacaq!",
-        //         icon: 'warning',
-        //         showCancelButton: true,
-        //         confirmButtonColor: '#3085d6',
-        //         cancelButtonColor: '#d33',
-        //         confirmButtonText: 'Bəli'
-        //     }).then((result) => {
-        //         if (result.isConfirmed) {
-        //             fetch(url, {
-        //                 method: "DELETE"
-        //             })
-        //                 .then(response => {
-        //                     if (response.status == 200) {
-        //                         Swal.fire(
-        //                             'Silindi!',
-        //                             'Layihə silindi.',
-        //                             'info'
-        //                         ).then(function () {
-        //                             window.location.reload();
-        //                         })
-        //                         setTimeout(() => {
-        //                             window.location.reload();
-        //                         }, 10000);
-        //                     } else {
-        //                         Swal.fire({
-        //                             icon: 'error',
-        //                             title: 'Xəta',
-        //                             text: `Bu id-li layihə tapılmadı:${id}`
-        //                         })
-        //                     }
-
-        //                 })
-        //         }
-        //     })
-        // }
-    </script> -->
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
     <script src="../assets/vendor/libs/jquery/jquery.js"></script>

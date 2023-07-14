@@ -132,6 +132,11 @@
                     <div data-i18n="Error">Slayderlər</div>
                   </a>
                 </li>
+                <li class="menu-item">
+                  <a href="about-index.html" class="menu-link">
+                    <div data-i18n="Error">Məlumatlar</div>
+                  </a>
+                </li>
               </ul>
             </li>
   
@@ -168,7 +173,7 @@
                   <li id="logoutButton">
                     <a class="dropdown-item" href="auth-login-basic.html">
                       <i class="bx bx-power-off me-2"></i>
-                      <span class="align-middle">Log Out</span>
+                      <span class="align-middle">Çıxış Et</span>
                     </a>
                   </li>
                 </ul>
@@ -331,90 +336,6 @@
     <!-- / Layout wrapper -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.5/dist/sweetalert2.all.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
-  <!-- <script>
-        const queryString = window.location.search;
-        const urlParams = new URLSearchParams(queryString);
-        const projectId = urlParams.get('id');
-        fetch(`https://localhost:7255/api/Project/${projectId}`)
-            .then(res => res.json())
-            .then(data => {
-                document.getElementById("name").value = data.name;
-                document.getElementById("description").value = data.description;
-                document.getElementById("location").value = data.location;
-                document.getElementById("area").value = data.area;
-                document.getElementById("date").value = data.date.substring(0,10);
-                data.projectImages.forEach(pi => {
-                    if (pi.isPoster) {
-                        document.getElementById("posterImageShow").src += data.name + "/" + pi.imageUrl
-                    }
-                    else if (pi.isPoster == false) {
-                        document.getElementById("imageShow").src += data.name + "/" + pi.imageUrl
-                    }
-                    else {
-                        document.getElementById("videoImageShow").src += data.name + "/" + pi.imageUrl
-                    }
-                });
-                document.getElementById("videoShow").innerHTML +=
-                    `
-                        <video autoplay controls class="w-100" style="height:150px;object-fit:fill">
-                            <source  src="./../../MRSolutions/uploads/projects/${data.name}/${data.videoUrl}" type="video/mp4">
-                        </video>
-                    `
-            });
-        async function putData(url = "", data = {}) {
-            try {
-                const response = await fetch(url, {
-                    method: "PUT",
-                    body: data
-                });
-
-                if (!response.ok) {
-                    $("#modalCenter").modal('show');
-                } else {
-                    Swal.fire(
-                        'Dəyişdirildi!',
-                        'Layihə dəyişdirildi.',
-                        'info'
-                    ).then(function () {
-                        window.location.href = "./project-index.html";
-                    });
-
-                    setTimeout(() => {
-                        window.location.href = "./project-index.html";
-                    }, 10000);
-                }
-
-                return response.json(); // Return the parsed JSON data
-            } catch (error) {
-                $("#modalCenter").modal('show');
-                throw error;
-            }
-        }
-        document.getElementById("updateProjectForm").addEventListener('submit', async function (event) {
-            event.preventDefault(); // Prevent form submission
-            const formData = new FormData();
-            formData.append('id', projectId)
-            formData.append('posterimage', document.getElementById("posterImage").files[0])
-            formData.append('image', document.getElementById("image").files[0])
-            formData.append('videothumbnail', document.getElementById("videoThumbnail").files[0])
-            formData.append('video', document.getElementById("video").files[0])
-            formData.append('name', document.getElementById("name").value)
-            formData.append('date', document.getElementById("date").value)
-            formData.append('location', document.getElementById("location").value)
-            formData.append('area', document.getElementById("area").value)
-            formData.append('description', document.getElementById("description").value)
-            // Example POST method implementation:
-
-
-            putData(`https://localhost:7255/api/Project/${projectId}`, formData).then((data) => {
-                console.log(data); // JSON data parsed by `response.json()` call
-            }).catch((error) => {
-                // Handle any errors that occurred during the fetch request
-                console.error(error);
-            });
-        });
-
-    </script> -->
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
     <script src="../assets/vendor/libs/jquery/jquery.js"></script>

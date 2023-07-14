@@ -132,6 +132,11 @@
                     <div data-i18n="Error">Slayderlər</div>
                   </a>
                 </li>
+                <li class="menu-item">
+                  <a href="about-index.html" class="menu-link">
+                    <div data-i18n="Error">Məlumatlar</div>
+                  </a>
+                </li>
               </ul>
             </li>
   
@@ -168,7 +173,7 @@
                   <li id="logoutButton">
                     <a class="dropdown-item" href="auth-login-basic.html">
                       <i class="bx bx-power-off me-2"></i>
-                      <span class="align-middle">Log Out</span>
+                      <span class="align-middle">Çıxış Et</span>
                     </a>
                   </li>
                 </ul>
@@ -305,56 +310,6 @@
     <!-- / Layout wrapper -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.5/dist/sweetalert2.all.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
-  <!-- <script>
-      const queryString = window.location.search;
-      const urlParams = new URLSearchParams(queryString);
-      const serviceId = urlParams.get('id');
-      document.querySelector("form").action += serviceId;
-      fetch(`https://localhost:7255/api/Service/${serviceId}`)
-        .then(res => res.json())
-        .then(data => {
-          document.getElementById("name").value = data.name;
-          document.getElementById("headertext").value = data.headerText;
-          document.getElementById("description").value = data.description;
-          document.getElementById("posterImageShow").src += data.name + "/" + data.posterImageUrl;
-          document.getElementById("imageShow").src += data.name + "/" + data.imageUrl;
-        });
-      document.getElementById("updateServiceForm").addEventListener('submit', function (event) {
-        event.preventDefault(); // Prevent form submission
-        const formData = new FormData();
-        const posterImage = document.getElementById("posterimage").files[0];
-        const image = document.getElementById("image").files[0];
-        console.log(document.getElementById("image").files[0]);
-        formData.append('id', serviceId)
-        formData.append('posterimage', posterImage)
-        formData.append('image', image)
-        formData.append('name', document.getElementById("name").value)
-        formData.append('headertext', document.getElementById("headertext").value)
-        formData.append('description', document.getElementById("description").value)
-        console.log(formData);
-        fetch(`https://localhost:7255/api/Service/${serviceId}`, {
-          method: "PUT",
-          body: formData
-        }).then(response => {
-          if (!response.ok) {
-            $("#modalCenter").modal('show');
-          } else {
-            Swal.fire(
-              'Dəyişdirildi!',
-              'Xidmət dəyişdirildi.',
-              'info'
-            ).then(function () {
-              window.location.href = "./service-index.html";
-            })
-            setTimeout(() => {
-              window.location.href = "./service-index.html";
-            }, 10000);
-          }
-        }).catch(e => {
-          $("#modalCenter").modal('show');
-        })
-      });
-    </script> -->
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
     <script src="../assets/vendor/libs/jquery/jquery.js"></script>

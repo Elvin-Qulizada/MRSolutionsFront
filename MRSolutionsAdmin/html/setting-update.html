@@ -133,6 +133,11 @@
                     <div data-i18n="Error">Slayderlər</div>
                   </a>
                 </li>
+                <li class="menu-item">
+                  <a href="about-index.html" class="menu-link">
+                    <div data-i18n="Error">Məlumatlar</div>
+                  </a>
+                </li>
               </ul>
             </li>
   
@@ -169,7 +174,7 @@
                   <li id="logoutButton">
                     <a class="dropdown-item" href="auth-login-basic.html">
                       <i class="bx bx-power-off me-2"></i>
-                      <span class="align-middle">Log Out</span>
+                      <span class="align-middle">Çıxış Et</span>
                     </a>
                   </li>
                 </ul>
@@ -278,76 +283,6 @@
     <!-- / Layout wrapper -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.5/dist/sweetalert2.all.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
-  <!-- <script>
-      const queryString = window.location.search;
-      const urlParams = new URLSearchParams(queryString);
-      const settingId = urlParams.get('id');
-      document.querySelector("form").action += settingId;
-      fetch(`https://localhost:7255/api/Setting/${settingId}`)
-        .then(res => res.json())
-        .then(data => {
-          document.getElementById("value").value = data.value;
-          document.getElementById("key").innerHTML = data.key;
-        });
-      document.getElementById("updateSettingForm").addEventListener('submit', function (event) {
-        event.preventDefault(); // Prevent form submission
-
-        // Get the updated setting data from the form
-        const id = settingId;
-        const value = document.getElementById('value').value;
-        console.log(value);
-        const updatedSetting = { id, value };
-
-        // Send the update request to the API
-        fetch(`https://localhost:7255/api/Setting/${settingId}`, {
-          method: 'PUT',
-          mode: "cors", // no-cors, *cors, same-origin
-          cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-          credentials: "same-origin", // include, *same-origin, omit
-          headers: {
-            "Content-Type": "application/json",
-            // 'Content-Type': 'application/x-www-form-urlencoded',
-          },
-          redirect: "follow", // manual, *follow, error
-          referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-          body: JSON.stringify(updatedSetting)
-        })
-          .then(response => {
-            if (!response.ok) {
-              $("#modalCenter").modal('show');
-            }
-            else {
-              Swal.fire(
-                'Dəyişdirildi!',
-                'Tənzimləmə dəyişdirildi.',
-                'info'
-              ).then(function () {
-                window.location.href = "./setting-index.html";
-              })
-            }
-            response.json()
-          })
-          // .then(data => {
-          //   Swal.fire(
-          //     'Dəyişdirildi!',
-          //     'Tənzimləmə dəyişdirildi.',
-          //     'info'
-          //   ).then(function () {
-          //     window.location.href = "./setting-index.html";
-          //   })
-          //   // setTimeout(() => {
-          //   //   window.location.href = "./setting-index.html";
-          //   // }, 10000);
-          //   // Handle the response data
-          //   // Perform any necessary UI updates or other actions
-          // })
-          .catch(error => {
-            $("#modalCenter").modal('show');
-            // console.error('Error:', error);
-            // Handle any errors that occurred during the update request
-          });
-      });
-    </script> -->
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
     <script src="../assets/vendor/libs/jquery/jquery.js"></script>

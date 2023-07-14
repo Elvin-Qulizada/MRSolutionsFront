@@ -31,7 +31,7 @@
     <![endif]-->
     <style>
         .swiper {
-            width: 100%;
+            width: 80%;
             height: 100%;
         }
 
@@ -42,13 +42,14 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            width: 60rem;
+            height: 35rem;
         }
 
-        .swiper-slide img {
+        .swiper-slide video {
             display: block;
             width: 100%;
-            height: 100%;
-            object-fit: cover;
+            object-fit: contain;
         }
     </style>
 </head>
@@ -176,31 +177,38 @@
         <section>
             <div class="swiper mySwiper">
                 <div class="swiper-wrapper main-slider">
-                    <!-- <div style="cursor:grab;;height: 90vh; background-image: url(./uploads/sliders/a/839cdf7f-ef36-45cd-8000-3b66e974582bshelly.jpg);background-position: center;background-attachment: fixed;background-repeat: no-repeat;"
-                        class="swiper-slide slide-content d-flex flex-column justify-content-center align-items-center gap-5">
-                        <div class="big-title">
-                            Lorem Ipsum
-                        </div>
-                        <div class="text">Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                            Delectus, inventore! Lorem ipsum dolor sit amet consectetur.
-                        </div>
-                        <div class="btn-box">
-                            <a class="btn-one" href="#">About Company<span class="flaticon-next"></span></a>
-                        </div>
-                    </div> -->
-                    <!-- <div class="swiper-slide">Slide 2</div>
-                    <div class="swiper-slide">Slide 3</div>
-                    <div class="swiper-slide">Slide 4</div>
-                    <div class="swiper-slide">Slide 5</div>
-                    <div class="swiper-slide">Slide 6</div>
-                    <div class="swiper-slide">Slide 7</div>
-                    <div class="swiper-slide">Slide 8</div>
-                    <div class="swiper-slide">Slide 9</div> -->
                 </div>
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
             </div>
         </section>
         <!--End Main Slider-->
+        <section class="container my-5">
+            <div class="row" id="license">
+                <div class="col-xl-7 col-lg-7 d-flex align-items-center">
+                    <div class="about-text">
+                        <div class="sec-title">
+                            <div class="title" id="headerText"></div>
+                        </div>
+                        <div class="inner-content">
+                            <div class="text">
+                                <p id="description"></p>
+                            </div>
 
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-5 col-lg-5">
+                    <div class="about-image-box">
+                        <div class="inner-box">
+                            <img id="license_image" src="./uploads/abouts/" alt="Awesome Image">
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
         <!--Start Brand area-->
         <section class="brand-area">
             <div class="container">
@@ -293,9 +301,34 @@
             {
                 spaceBetween: 30,
                 centeredSlides: true,
-                autoplay: {
-                    delay: 2500,
-                    disableOnInteraction: false,
+                // Optional parameters
+                direction: 'horizontal',
+                loop: false,
+
+                // Navigation arrows
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+
+                on: {
+                    transitionStart: function () {
+
+                        var videos = document.querySelectorAll('video');
+
+                        Array.prototype.forEach.call(videos, function (video) {
+                            video.pause();
+                            video.currentTime = 0;
+                        });
+                    },
+
+                    transitionEnd: function () {
+
+                        var activeIndex = this.activeIndex;
+                        var activeSlide = document.getElementsByClassName('swiper-slide')[activeIndex];
+                        var activeSlideVideo = activeSlide.getElementsByTagName('video')[0];
+                        activeSlideVideo.play();
+                    }
                 }
             });
     </script>
