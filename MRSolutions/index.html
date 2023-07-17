@@ -48,8 +48,8 @@
 
         .swiper-slide video {
             display: block;
-            width: 100%;
             object-fit: contain;
+            max-width: 100%
         }
     </style>
 </head>
@@ -304,7 +304,7 @@
                 // Optional parameters
                 direction: 'horizontal',
                 loop: false,
-
+                grabCursor: true,
                 // Navigation arrows
                 navigation: {
                     nextEl: '.swiper-button-next',

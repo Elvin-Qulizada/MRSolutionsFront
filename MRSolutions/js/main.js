@@ -169,10 +169,15 @@ if (document.getElementById("shop-section")) {
         .then(res => res.json())
         .then(data => {
             data.forEach(element => {
+                category==element.name?
                 document.getElementById("category-filter").innerHTML +=
                     `
-                <option value="${element.name}">${element.name}</option>
-                `
+                        <option selected value="${element.name}">${element.name}</option>
+                    `:
+                document.getElementById("category-filter").innerHTML +=
+                    `
+                        <option value="${element.name}">${element.name}</option>
+                    `
             })
         })
     fetch(`https://localhost:7255/api/Product/${category}/${page}`)
