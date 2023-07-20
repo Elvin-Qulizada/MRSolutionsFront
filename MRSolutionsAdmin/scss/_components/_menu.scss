@@ -186,7 +186,6 @@
 
     > .menu-item {
       margin: $menu-item-spacer 0;
-      // Sneat menu-link spacing
       .menu-link {
         margin: $menu-vertical-link-margin-y $menu-vertical-link-margin-x;
       }
@@ -197,7 +196,6 @@
   .menu-block {
     padding: $menu-vertical-link-padding-y $menu-vertical-link-padding-x;
   }
-  // Sneat menu-header spacing
   .menu-header {
     margin: $menu-vertical-header-margin-y 0 $menu-vertical-header-margin-y / 2 0;
     padding: $menu-vertical-link-padding-y $menu-vertical-link-padding-x * 2 $menu-vertical-link-padding-y

@@ -1,135 +1,173 @@
 <!DOCTYPE html>
 
+<html
+  lang="en"
+  class="light-style customizer-hide"
+  dir="ltr"
+  data-theme="theme-default"
+  data-assets-path="./assets/"
+  data-template="vertical-menu-template-free"
+>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
+    />
 
-<html lang="en" class="light-style  customizer-hide" dir="ltr" data-theme="theme-default" data-assets-path="assets/"
-  data-template="vertical-menu-template-no-customizer">
+    <title>MRSolutions Admin Panel Login</title>
 
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport"
-    content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+    <meta name="description" content="" />
 
-  <title>MRSolutions Admin Panel</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="./assets/img/favicon/favicon.ico" />
 
-  <meta name="description" content="" />
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+      rel="stylesheet"
+    />
 
-  <!-- Favicon -->
-  <link rel="icon" type="image/x-icon" href="assets/img/favicon/favicon.ico" />
+    <!-- Icons. Uncomment required icon fonts -->
+    <link rel="stylesheet" href="./assets/vendor/fonts/boxicons.css" />
 
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
-    rel="stylesheet">
+    <!-- Core CSS -->
+    <link rel="stylesheet" href="./assets/vendor/css/core.css" class="template-customizer-core-css" />
+    <link rel="stylesheet" href="./assets/vendor/css/theme-default.css" class="template-customizer-theme-css" />
+    <link rel="stylesheet" href="./assets/css/demo.css" />
 
-  <!-- Core CSS -->
-  <link rel="stylesheet" href="assets/vendor/css/core.css" />
-  <link rel="stylesheet" href="assets/vendor/css/theme-default.css" />
-  <link rel="stylesheet" href="assets/css/demo.css" />
-</head>
+    <!-- Vendors CSS -->
+    <link rel="stylesheet" href="./assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
 
-<body>
+    <!-- Page CSS -->
+    <!-- Page -->
+    <link rel="stylesheet" href="./assets/vendor/css/pages/page-auth.css" />
+    <!-- Helpers -->
+    <script src="./assets/vendor/js/helpers.js"></script>
 
-  <!-- Content -->
-  <div class="container flex-grow-1 container-p-y my-2">
-    <h3>Thank you for using Sneat - Free Bootstrap 5 HTML Admin Template! 😇</h3>
-    <p>If you’re a developer looking for most Powerful & comprehensive Bootstrap 5 HTML Admin Dashboard Template built
-      for developers, rich with features, and highly customizable look no further than Sneat. We’ve followed the highest
-      industry standards to bring you the very best admin template that is not only fast and easy to use but highly
-      scalable. Offering ultimate convenience and flexibility, you’ll be able to build whatever application you want
-      with very little hassle.</p>
+    <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
+    <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
+    <script src="./assets/js/config.js"></script>
+  </head>
 
-    <!-- Examples -->
-    <div class="row mt-sm-4 mt-3">
-      <div class="col-12 mb-3">
-        <div class="card">
-          <h5 class="card-header">Template Links</h5>
-          <!-- Template Demo Links -->
-          <table class="table">
-            <tbody>
-              <tr>
-                <th>Free Version</th>
-                <td><a href="html/index.html" target="_blank">Vertical Menu Template</a></td>
-              </tr>
-            </tbody>
-          </table>
-          <!--/ Template Demo Links -->
-        </div>
-      </div>
+  <body>
+    <!-- Content -->
 
-      <div class="col-12 mb-3">
-        <div class="card">
+    <div class="container-xxl">
+      <div class="authentication-wrapper authentication-basic container-p-y">
+        <div class="authentication-inner">
+          <!-- Register -->
+          <div class="card">
+            <div class="card-body">
+              <!-- Logo -->
+              <div class="app-brand justify-content-center">
+                <a href="#" class="app-brand-link gap-2">
+                  <img src="../../MRSolutions/images/logo-mr.jpeg" style="width: 100%;" alt="">
+                </a>
+              </div>
+              <!-- /Logo -->
+              <h4 class="mb-2">MRSolutions Admin Panelinə xoş gəlmisiniz! 👋</h4>
 
-          <h5 class="card-header">Other Important Links</h5>
-          <!-- Other Links -->
-          <table class="table">
-            <thead>
-              <tr>
-                <th scope="col">Name</th>
-                <th scope="col">URL</th>
-              </tr>
-            </thead>
-            <tbody>
+              <form id="formAuthentication" class="mb-3">
+                <div class="mb-3">
+                  <label for="email" class="form-label">Emailinizi daxil edin</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="email"
+                    name="email"
+                    placeholder="Emailinizi daxil edin"
+                    autofocus
+                  />
+                </div>
+                <div class="mb-3 form-password-toggle">
+                  <div class="d-flex justify-content-between">
+                    <label class="form-label" for="password">Şifrə</label>
+                    <a href="./auth-forgot-password-basic.html">
+                      <small>Şifrəni unutmusunuz?</small>
+                    </a>
+                  </div>
+                  <div class="input-group input-group-merge">
+                    <input
+                      type="password"
+                      id="password"
+                      class="form-control"
+                      name="password"
+                      placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
+                      aria-describedby="password"
+                    />
+                    <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
+                  </div>
+                </div>
+                <div class="mb-3">
+                  <button class="btn btn-primary d-grid w-100" type="submit">Daxil Olun</button>
+                </div>
+              </form>
 
-              <tr>
-                <td>License </td>
-                <td>
-                  <a href="https://themeselection.com/license/" target="_blank">https://themeselection.com/license/</a>
-                </td>
-              </tr>
-
-              <tr>
-                <td>Documentation</td>
-                <td>
-                  <a href="https://themeselection.com/demo/sneat-bootstrap-html-admin-template/documentation/"
-                    target="_blank">https://themeselection.com/demo/sneat-bootstrap-html-admin-template/documentation/</a>
-                </td>
-              </tr>
-
-              <tr>
-                <td>Changelog</td>
-                <td>
-                  <a href="https://themeselection.com/demo/sneat-bootstrap-html-admin-template-free/changelog.html"
-                    target="_blank">https://themeselection.com/demo/sneat-bootstrap-html-admin-template-free/changelog.html</a>
-                </td>
-              </tr>
-
-
-              <tr>
-                <td>GitHub Repository</td>
-                <td>
-                  <a href="https://github.com/themeselection/sneat-html-admin-template-free"
-                    target="_blank">https://github.com/themeselection/sneat-html-admin-template-free</a>
-                </td>
-              </tr>
-
-
-              <tr>
-                <td>Support</td>
-                <td>
-                  <a href="https://github.com/themeselection/sneat-html-admin-template-free/issues"
-                    target="_blank">https://github.com/themeselection/sneat-html-admin-template-free/issues</a>
-                </td>
-              </tr>
-
-            </tbody>
-          </table>
-          <!--/ Other Links -->
-        </div>
-      </div>
-
-      <div class="col-12 mb-3">
-        <p>Looking for <strong>PRO</strong> version with <strong>Premium support</strong>?</p>
-        <div class="upgrade-to-pro">
-          <a href="https://themeselection.com/products/sneat-bootstrap-html-admin-template/" target="_blank"
-            class="btn btn-danger">Upgrade to <strong>Sneat Pro</strong></a>
+            </div>
+          </div>
+          <!-- /Register -->
         </div>
       </div>
     </div>
-  </div>
-  <!-- / Content -->
+    <div class="col-lg-4 col-md-6">
+      <div class="mt-3">
+        <!-- Modal -->
+        <div class="modal fade" id="modalCenter" tabindex="-1" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div class="modal-body">
+                <div class="row g-2">
+                  <div class="col mb-0">
+                    <h3 class="text-danger text-center">E-poçt və ya şifrə yanlışdır.</h3>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer justify-content-center">
+                <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">
+                  Bağla
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- / Content -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.5/dist/sweetalert2.all.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
+    <script>
+      console.warn = () => { };
 
-</body>
+    </script>
+    <!-- Core JS -->
+    <!-- build:js assets/vendor/js/core.js -->
+    <script src="./assets/vendor/libs/jquery/jquery.js"></script>
+    <script src="./assets/vendor/libs/popper/popper.js"></script>
+    <script src="./assets/vendor/js/bootstrap.js"></script>
+    <script src="./assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
 
+    <script src="./assets/vendor/js/menu.js"></script>
+    <!-- endbuild -->
+
+    <!-- Vendors JS -->
+
+    <!-- Main JS -->
+    <script src="./assets/js/main.js"></script>
+
+    <!-- Page JS -->
+
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+  </body>
 </html>
